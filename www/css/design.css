@@ -1,0 +1,530 @@
+.bar.bar-light .title
+{
+	color: #F10707;
+}
+
+.ion-checkmark-round
+{
+	color: white;
+}
+
+.button.button-balanced
+{
+	background-color: #F10707;
+	color: white;
+}
+
+.button.button-balanced.activated
+{
+	background-color: #F10707;
+	color: white;
+}
+
+.button.button-calm.profile
+{
+	color: white;
+	border-color: transparent;
+	font-size: 14px;
+    line-height: 30px;
+    min-height: 30px;
+    border-radius: 20px;
+}
+
+.list .photos .row 
+{
+	padding: 0;
+	margin: 0;
+}
+
+.list .photos .row .col
+{
+	padding: 5px;
+}
+
+.item-image.profile
+{
+	padding: 5px;
+	text-align: center;
+	border: 0;
+}
+
+.list .photos .row .col .item .cont-photo
+{
+	position: relative;
+	height: 160px;
+	width: 100%;
+}
+
+.overlay.dance
+{
+	color: white;
+	text-align: center;
+	font-size: 28px;
+	height: 115px;
+	position: relative;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+}
+.card.title.dance
+{
+	background-image: url(../img/dance.png);
+}
+
+.list .photos .row .col .item .photo-actions
+{
+	bottom: 10px;
+	color: white;
+	font-size: 14px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
+.profile .header.edit:before
+{
+	color: white;
+}
+
+.balanced, a.balanced
+
+{
+	color: green;
+}
+
+#menu .list .c1
+{
+	background: white;
+}
+
+#menu .list .c2
+{
+	background: white;
+	margin-top: 80px;
+}
+
+#menu .list .c3
+{
+	background: white;
+}
+
+#menu .list .c4
+{
+	background: white;
+}
+
+#menu .list .item-avatar
+{
+	padding-left: 100px;
+}
+
+
+.menu .list .item:nth-last-child(2)
+{
+	margin-bottom: 80px;
+}
+
+.menu .list > .item:first-child
+{
+	margin-top: 80px;
+}
+
+#menu .list .item
+{
+	background-color: inherit;
+	border: 0;
+	color: white;
+	margin: 9px 0;
+	padding: 5px 30px;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.menu .bg-color
+{
+	background: -webkit-linear-gradient(#f8f8f8,#b2b2b2);
+	height: 100%;
+	width: 100%;
+}
+.bg-image
+{
+	background-position: 50% 50%;
+	background-size: cover;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+
+.badge-important
+{
+	background-color: #F10707 !important;
+}
+
+.cal-day-weekend span[data-cal-date]
+{
+	color: #F10707 !important;
+}
+
+#calendar .month .cal-day-today
+{
+	background-color: gray;
+}
+
+#calendar .week .cal-day-today span[data-cal-date]
+{
+	background-color: gray;
+}
+
+.modal-backdrop-bg
+{
+	background-color: gray !important;
+}
+
+.bg-lightgrey.request
+{
+	background: none;
+}
+.edit .item
+{
+	border-top: none;
+}
+.bb
+{
+	border-bottom: 2px solid #F10707;
+}
+
+.menu .list .item-avatar
+{
+	padding-left: 100px;
+}
+
+.menu .list > .item i
+{
+	font-size: 14px;
+	padding-right: 8px;
+}
+
+.menu .list > .item.active
+{
+	border-left: 5px solid #F10707;
+}
+
+
+.menu .list > .item
+{
+	background-color: inherit;
+	border: 0;
+	color: black;
+	margin: 9px 0;
+	padding: 5px 30px;
+	font-size: 14px;
+	text-decoration: none;
+	border-left:5px solid transparent;
+}
+
+#menu .list .item:first-child
+{
+	margin-top: 80px;
+}
+
+
+#menu .list .icon
+{
+	font-size: 20px;
+	padding-right: 8px;
+	color: black;
+}
+#menu .list .c5
+{
+	background: white;
+}
+
+.menu-open .menu-content.menu-animated
+{
+	transform: translate3d(275px, 0px, 0px) !important;
+}
+
+#menu .list .c6
+{
+	background: white;
+}
+
+#menu
+{
+	background-color: white;
+}
+
+
+.modal-backdrop-bg
+{
+	background-color: none;
+}
+
+.balanced, a.balanced.profile
+{
+	color: green;
+}
+
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before
+{
+	background: #4CAF50;
+	border-color: #4CAF50;
+}
+
+.popup-buttons .button:last-child
+{
+	background: #4CAF50;
+}
+
+.light-bg
+{
+	background-color: gainsboro;
+}
+.teal.lighten-4
+{
+	background-color: transparent !important; 
+}
+
+.cal-event-list .event.pull-left
+{
+	display: none;
+}
+#calendar .cal-slide-content li
+{
+	border-top: none;
+	border-bottom: none;
+}
+.card.post-detail .item.comments .interact
+{
+	background: none;
+}
+
+#calendar .cal-slide-content
+{
+	display: none;
+}
+
+.card.post-detail .date
+{
+	top: -12px !important;
+    left: 15px !important;
+}
+
+.balanced, a.balanced.comments
+
+{
+	color: #F10707;
+}
+
+.medium.popover
+{
+	height: 125px !important;
+}
+
+.balanced, a.balanced.likes
+
+{
+	color: #F10707;
+}
+
+.balanced, a.balanced.commits
+
+{
+	color: #F10707;
+}
+
+.bg-color.profile
+{
+	background: rgba(66, 86, 85, 0.46);
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.cont-photo.activities.dance
+{
+	background-image: url(img/dance.png);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 30vh;
+	position: relative;
+}
+
+.popup-container.active .popup
+{
+	border-color: white;
+}
+
+.bg-color.dance
+{
+	background-image: url(.../img/dance_thing.png);
+    background-repeat: no-repeat;
+    right: -10vh;
+	height: 130%;
+    position: absolute;
+    top: 2vh;
+    width: 100%;
+
+}
+.bg-color.yoga
+{
+	background-repeat: no-repeat;
+    right: -5vh;
+    height: 130%;
+    position: absolute;
+    top: 2vh;
+    width: 100%
+}
+
+.bg-color.swimming
+{
+    background-repeat: no-repeat;
+    right: -7vh;
+	height: 130%;
+    position: absolute;
+    top: 5vh;
+    width: 100%;
+
+}
+
+.bt-grey.profile
+{
+	border-top: none;
+}
+
+h2.lead
+{
+	color: gray !important;
+}
+
+.platform-android .checkbox-platform input:before, .platform-android .checkbox-platform .checkbox-icon:before, .checkbox-square input:before, .checkbox-square .checkbox-icon:before
+{
+	border-radius: 15px;
+}
+.bar.footer-buttons
+{
+	background: -webkit-linear-gradient(rgba(0,0,0,0),rgba(240,240,240,0)) !important;
+	bottom: 8vh;
+}
+
+.checkbox input, .checkbox-icon
+
+{
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    border-radius: 50px;
+}
+
+.bar.footer-buttons.next
+{
+	background: -webkit-linear-gradient(rgba(0,0,0,0),rgba(240,240,240,0)) !important;
+}
+
+.row.row-login
+{
+	color:#F10707;
+	font-size: 18px;
+	text-align: center;
+}
+
+.c2.menu:first-child
+{
+	margin-top: 80px;
+}
+
+.c2.menu
+{
+	background-color: inherit;
+	border: 0;
+	border-left: 5px solid transparent;
+	color: white;
+	margin: 9px 0;
+	padding: 5px 30px;
+	font-size: 14px;
+}
+
+.c2.menu i
+{
+	font-size: 20px;
+}
+
+.menu.styling:last-child
+{
+	margin-bottom: 0px;
+}
+
+.menu.styling
+{
+	position: relative;
+	padding-top: 1px;
+	padding-left: 0;
+}
+.card.post-detail.date
+{
+	position: absolute;
+    top: -12px;
+    left: 15px;
+    padding: 5px 10px;
+    background: aliceblue;
+    opacity: .8;
+    border: 1px solid #ccc;
+}
+
+.bg-color.football
+{
+    background-repeat: no-repeat;
+    right: -5vh;
+	height: 130%;
+    position: absolute;
+    top: 2vh;
+    width: 100%;
+
+}
+
+.list .photos .row .col .item .cont-photo .img
+
+{
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+
+.text-medium.balanced.bb
+{
+	border-bottom: 2px solid #F10707
+	color: #F10707;
+}
+
+.text-medium.balanced
+{ 
+
+	color: #F10707; 
+
+}
+
+.button.button-balanced.button-outline
+{
+	border-color: #F10707;
+    background: transparent;
+    color: #F10707;
+}
+
+
+.button.button-balanced.button-outline.activated
+{
+	border-color: #F10707;
+    background: transparent;
+    color: #F10707;
+
+}

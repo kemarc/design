@@ -1,0 +1,232 @@
+<ion-view title="Trainers">
+
+    <ion-nav-buttons side = "left">
+         <button class="button button-icon button-clear button-dark">
+            <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
+         </button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header bt-grey profile" scroll="false">
+        <div class="row text-center" style="background:white;">
+            <div class="col font-thin" ng-click="gotoBrowse()">Browse</div>
+            <div class="col font-thin" ng-click="gotoMatch()">Match</div>
+            <div class="col font-thin" ng-click="gotoAccount()">Profile</div>
+        </div>
+
+        <div class="list" style="height:95%; overflow:scroll">
+            <!-- * photos / photos user -->
+            <div class="photos">
+                <div class="row">
+                    <div class="col" ng-click="gotoTrainers()">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/danceClass.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/dance_thing.png"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Dance
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/weightLoss.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/scale.png); right: -8vh;"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Weight Loss
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/tennisCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color football" style="background-image: url(img/raquet.png); right: -10vh;"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Tennis
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/zenMaster.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/pose.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Yoga
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                     <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/golfCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/tee.png)"></div>
+                            </div>
+                            <div class="photo-actions"> Golf
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/yogi.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color swimming" style="background-image: url(img/swing.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Baseball
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                     <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/gridiron.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/goalpost.png)"></div>
+                            </div>
+                            <div class="photo-actions"> Football
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/basketballCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/sneaks.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Basketball
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/track.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/sprint.png)"></div>
+                            </div>
+                            <div class="photo-actions"> Running
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/soccerCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/kick.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Soccer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/boxing.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/champ.png)"></div>
+                            </div>
+                            <div class="photo-actions"> Fight Sports
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/swimmingCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/phelps.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Swimming
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/weightCoach.png)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/strength.png)"></div>
+                            </div>
+                            <div class="photo-actions"> Lifting
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item item-image profile">
+                            <!-- * cont-photo / container photo -->
+                            <div class="cont-photo">
+                                <!-- * img / photo -->
+                                <div class = "img" style="background-image:url(img/doctor.jpg)"></div>
+                                <!-- * bg-color / background color -->
+                                <div class="bg-color dance" style="background-image: url(img/grapes.png)"></div>
+                            </div>
+                            <!-- * photos-actions / photos actions -->
+                            <div class="photo-actions"> Nutrition
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </ion-content>
+</ion-view>

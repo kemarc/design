@@ -1,0 +1,32 @@
+<ion-view cache-view="false" hide-nav-bar="true">
+<ion-header-bar>
+    <div class="row text-center">
+        <div class="col font-thin text-large dark" ng-click="goTo('tabs.rather')">Cancel</div>
+        <div class="col font-thin text-large balanced bl-grey profile" style="color: green;" ng-click="saveReminder();" ui-sref="tabs.explore">Save</div>
+    </div>
+    </ion-header-bar>
+
+    <form name="reminderForm" novalidate>
+        <ion-content class="has-header">
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Enter your cost per hour</span>
+                <input type="tel" placeholder="Enter your hourly rate"/>
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Enter your cost for a dietary plan</span>
+                <input type="tel" placeholder="Enter your cost for a workout plan"/>
+            </label>
+
+
+             <label class="item item-input item-floating-label">
+                <span class="input-label">Enter your cost for a workout plan</span>
+                <input type="tel" placeholder="Enter your cost for a workout plan"/>
+            </label>
+
+
+        </ion-content>
+    </form>
+
+</ion-view>

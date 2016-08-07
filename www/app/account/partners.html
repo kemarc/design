@@ -1,0 +1,19 @@
+<ion-view title="Partners">
+
+    <ion-nav-buttons side = "left">
+         <button class="button button-icon button-clear button-dark">
+            <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
+         </button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header">
+            <div class="item item-avatar item-button-right followers" ng-repeat="contact in contacts  | filter: searchFilter">
+                <img ng-src="{{contact.photo}}">
+                <h2 class="font-thin">{{contact.name}}</h2>
+                <p>{{contact.city}}</p>
+                <button class="button button-small button-balanced icon ion-ios-checkmark-empty" ng-if="$index % 3 == 1"> Partnered</button>
+                <button class="button button-small button-balanced button-outline icon ion-ios-personadd-outline" ng-if="$index % 3 !== 1"> Partner</button>
+            </div>
+
+    </ion-content>
+</ion-view>

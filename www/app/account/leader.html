@@ -1,0 +1,218 @@
+<ion-view title="Profile">
+
+    <ion-nav-buttons side = "left">
+         <button class="button button-icon button-clear button-dark">
+            <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
+         </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-dark button-clear icon ion-archive" ui-sref="tabs.chat"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header bt-grey profile" scroll="false">
+        <div class="row text-center">
+            <div class="col font-thin" ng-click="gotoBrowse()">Browse</div>
+            <div class="col font-thin" ng-click="gotoMatch()">Match</div>
+            <div class="col font-thin" ng-click="gotoCoaches()">Trainers</div>
+        </div>
+        
+    <div style="height:100%; overflow:scroll" class="bg-lightgrey">
+
+        <div class="header" style="margin-top: 2vh; margin-bottom: 2vh;">
+            <img ng-src="{{user.photo}}">
+            <h2 class="lead text-medium">{{user.name}}</h2>
+            <p style="text-align: center;margin-left: 5px;margin-right: 5px;">This is some words to see what it would look like if a description was in this section.</p>
+            <button class="button button-small icon " ng-class="{'button-balanced button-outline ion-ios-personadd-outline': !follow, 'button-balanced ion-ios-undo-outline':follow }" ng-click="follow = !follow"> 
+                <span ng-if="!follow"> Partner</span>
+                <span ng-if="follow"> Partnered</span>
+            </button> 
+        </div>
+
+        <div class="row no-padding bb-grey text-center" style="text-transform: capitalize;">
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 1}" ng-click="profile.type = 1">27<br/>Posts</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 2}" ng-click="profile.type = 2">20<br/>Commits</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 3}" ng-click="profile.type = 3">1500<br/>Partners</div>
+        </div>
+
+        <div class="row" style="margin-top:2vh; margin-bottom:2vh;">
+         <a class="button button-calm profile" style="border-color: #F10707; color:#F10707; font-size: 11px;background-color: transparent;margin-left: 8vh;margin-right: 14vh;" ui-sref="tabs.calendar">Book Session</a>
+           <a class="button button-calm profile" style="border-color: #F10707; color:#F10707;font-size: 11px; background-color: transparent;margin-right: 1vh;" ui-sref="tabs.plans">Request Plan</a>
+         </div>
+        <div class="list" style="height:100%;">
+         <div ng-if="profile.type === 1">
+            <div class="item item-divider">
+                PHOTOS
+                <span class="item-note" ng-click="profile.type = 4">
+                    <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
+                </span>
+            </div>
+            <div class="photos">
+                <div class="row">
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/4.jpg)"></div>
+                                <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-checkmark-round"></i>6
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/5.jpg)"></div>
+                                
+                                   <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/6.jpg)"></div>
+                                <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/7.jpg)"></div>
+                            
+                               <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div ng-if="profile.type === 4" style="height:100%;">
+        <div style="height: 700px">
+            <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-if="profile.type === 2" style="height:100%;">
+
+           <div class="item item-divider">
+                COMMITS
+                <span class="item-note" ng-click="profile.type = 5">
+                    <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
+                </span>
+            </div>
+            <div class="photos">
+                <div class="row">
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/4.jpg)"></div>
+                                <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-checkmark-round"></i>6
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/5.jpg)"></div>
+                                
+                                   <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/6.jpg)"></div>
+                                <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" ui-sref="tabs.post-detail">
+                        <div class="item item-image profile">
+                            <div class="cont-photo">
+                                <div class = "img" style="background-image:url(img/images/7.jpg)"></div>
+                            
+                               <div class="bg-color profile"></div>
+                            </div>
+                            <div class="photo-actions">
+                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-chatbubble"></i> 10
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div ng-if="profile.type === 5" style="height:100%;"> 
+        <div style="height: 700px">
+            <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
+                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+            </div>
+        </div>
+    </div>
+
+        <div ng-if="profile.type === 3" style="height:100%;">
+
+            <div class="item item-divider">
+                PARTNERS
+                <span class="item-note" ui-sref="tabs.partners">
+                    <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
+                </span>
+            </div>
+
+            <div class="item item-avatar item-button-right followers" ng-repeat="contact in contacts  | filter: searchFilter">
+                        <img ng-src="{{contact.photo}}">
+                        <h2 class="font-thin">{{contact.name}}</h2>
+                        <p>{{contact.city}}</p>
+                        <button class="button button-small button-balanced icon ion-ios-checkmark-empty" ng-if="$index % 3 == 1"> Partnered</button>
+                        <button class="button button-small button-balanced button-outline icon ion-ios-personadd-outline" ng-if="$index % 3 !== 1"> Partner</button>
+            </div>
+  
+            </div>
+        </div>
+
+        </div>
+    </ion-content>
+</ion-view>
