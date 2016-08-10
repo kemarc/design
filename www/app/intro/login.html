@@ -13,13 +13,12 @@
                     <input type="password" placeholder="Password" ng-model="user.password" required>
                 </label>
             </ion-list>
-            <button class="button button-balanced button-block waves-effect waves-light" ng-click="gotoHome();">Log in</button>
+            <button class="button button-balanced button-block waves-effect waves-light" style="background-color:gray" ng-click="gotoHome();">Log in</button>
            
             <p class="">or login in with</p>
             
             <div class="button-bar">
-            <button class="button button-facebook icon ion-social-facebook button-block waves-effect waves-light" ng-click="facebookSignIn()"></button>
-            <button class="button button-google icon ion-social-google button-block waves-effect waves-light" ng-click="googleSignIn()"></button>
+            <button class="button button-google icon ion-social-google-outline button-block waves-effect waves-light" ng-click="googleSignIn()" style="background-color: #F10707">  Sign in with Google</button>
             </div>
         </div>
         

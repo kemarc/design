@@ -2,7 +2,7 @@
 
     <ion-header-bar>
         <div class="row text-center">
-            <div class="col font-thin text-large dark" ng-click="goTo('tabs.account')" style="color:gray;">Cancel</div>
+            <div class="col font-thin text-large dark" ui-sref="tabs.account" style="color:gray;">Cancel</div>
             <div class="col font-thin text-large balanced bl-grey profile" style="color:green;" ng-click="save()">Save</div>
         </div>
     </ion-header-bar>
@@ -10,7 +10,7 @@
     <ion-content class="profile has-header bt-grey">
 
         <div class="header edit">
-            <img ng-src="{{user.photo}}">
+            <img ng-src="{{user.photo}}" ng-click="sendPhoto()">
         </div>
 
         <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">info</p>

@@ -17,7 +17,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/news.html',
-            controller: 'appCtrl'
+            controller: 'newsCtrl'
           }
         }
       })
@@ -27,7 +27,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/explore.html',
-            controller: 'appCtrl'
+            controller: 'exploreCtrl'
           }
         }
       })
@@ -38,7 +38,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/account/account.html',
-            controller: 'appCtrl'
+            controller: 'profileCtrl'
           }
         }
       })
@@ -48,7 +48,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/account/friend.html',
-            controller: 'appCtrl'
+            controller: 'friendCtrl'
           }
         }
       })
@@ -58,7 +58,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/account/leader.html',
-            controller: 'appCtrl'
+            controller: 'leaderCtrl'
           }
         }
       })
@@ -69,7 +69,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/post.html',
-            controller: 'appCtrl'
+            controller: 'postCtrl'
           }
         }
       })
@@ -80,7 +80,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/comments.html',
-            controller: 'appCtrl'
+            controller: 'commentsCtrl'
           }
         }
       })
@@ -90,7 +90,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/likes.html',
-            controller: 'appCtrl'
+            controller: 'likesCtrl'
           }
         }
       })
@@ -101,7 +101,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/commits.html',
-            controller: 'appCtrl'
+            controller: 'commitsCtrl'
           }
         }
       })
@@ -112,7 +112,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/dashboard/plans.html',
-            controller: 'appCtrl'
+            controller: 'plansCtrl'
           }
         }
       })
@@ -122,7 +122,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/dashboard/reminders.html',
-            controller: 'appCtrl'
+            controller: 'remindersCtrl'
           }
         }
       })
@@ -131,7 +131,7 @@ angular.module('full_starter.routes', [])
         url: '/create-edit-reminder',
         params: { reminder: null, type: null },
         templateUrl: 'app/dashboard/create-edit-reminder.html',
-        controller: 'appCtrl'
+        controller: 'editReminderCtrl'
       })
 
       .state('tabs.contacts', {
@@ -139,7 +139,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/dashboard/contacts.html',
-            controller: 'appCtrl'
+            controller: 'contactsCtrl'
           }
         }
       })
@@ -149,7 +149,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/dashboard/cost.html',
-            controller: 'appCtrl'
+            controller: 'costCtrl'
           }
         }
       })
@@ -159,7 +159,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/commentList.html',
-            controller: 'appCtrl'
+            controller: 'commentListCtrl'
           }
         }
       })
@@ -169,7 +169,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/commitList.html',
-            controller: 'appCtrl'
+            controller: 'commitListCtrl'
           }
         }
       })
@@ -179,7 +179,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/news/likeList.html',
-            controller: 'appCtrl'
+            controller: 'likeListCtrl'
           }
         }
       })
@@ -190,7 +190,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/shop/match.html',
-            controller: 'appCtrl'
+            controller: 'matchCtrl'
           }
         }
       })
@@ -200,7 +200,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/shop/coach.html',
-            controller: 'appCtrl'
+            controller: 'coachCtrl'
           }
         }
       })
@@ -210,26 +210,17 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/dashboard/trainers.html',
-            controller: 'appCtrl'
+            controller: 'trainersCtrl'
           }
         }
       })
 
-      .state('tabs.checkout', {
-        url: '/checkout',
-        views: {
-          'menuContent': {
-            templateUrl: 'app/shop/checkout.html',
-            controller: 'appCtrl'
-          }
-        }
-      })
       .state('tabs.thanks', {
         url: '/thanks',
         views: {
           'menuContent': {
             templateUrl: 'app/shop/thanks.html',
-            controller: 'appCtrl'
+            controller: 'thanksCtrl'
           }
         }
       })
@@ -240,7 +231,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/settings/calendar.html',
-            controller: 'appCtrl'
+            controller: 'calendarCtrl'
           }
         }
       })
@@ -250,7 +241,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/settings/schedule.html',
-            controller: 'appCtrl'
+            controller: 'scheduleCtrl'
           }
         }
       })
@@ -260,7 +251,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/shop/rather.html',
-            controller: 'appCtrl'
+            controller: 'ratherCtrl'
           }
         }
       })
@@ -270,7 +261,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/settings/notifications.html',
-            controller: 'appCtrl'
+            controller: 'notificationsCtrl'
           }
         }
       })
@@ -280,7 +271,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/settings/status.html',
-            controller: 'appCtrl'
+            controller: 'statusCtrl'
           }
         }
       })
@@ -290,7 +281,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/account/partners.html',
-            controller: 'appCtrl'
+            controller: 'partnersCtrl'
           }
         }
       })
@@ -300,7 +291,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/shop/interest.html',
-            controller: 'appCtrl'
+            controller: 'interestCtrl'
           }
         }
       })
@@ -310,7 +301,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/account/edit-profile.html',
-            controller: 'appCtrl'
+            controller: 'editProfileCtrl'
           }
         }
       })
@@ -321,7 +312,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/chat/chat.html',
-            controller: 'appCtrl'
+            controller: 'chatCtrl'
           }
         }
       })
@@ -331,7 +322,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/chat/conversations.html',
-            controller: 'appCtrl'
+            controller: 'conversationsCtrl'
           }
         }
       })
@@ -341,7 +332,7 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/chat/sentPlans.html',
-            controller: 'appCtrl'
+            controller: 'sentPlansCtrl'
           }
         }
       })
@@ -351,50 +342,24 @@ angular.module('full_starter.routes', [])
         views: {
           'menuContent': {
             templateUrl: 'app/settings/settings.html',
-            controller: 'appCtrl'
+            controller: 'settingsCtrl'
           }
         }
       })
-      .state('tabs.cards', {
-        url: '/cards',
-        views: {
-          'menuContent': {
-            templateUrl: 'app/settings/cards.html',
-            controller: 'appCtrl'
-          }
-        }
-      })
-      .state('tabs.animate', {
-        url: '/animate',
-        views: {
-          'menuContent': {
-            templateUrl: 'app/settings/animate.html',
-            controller: 'appCtrl'
-          }
-        }
-      })
-      .state('tabs.components', {
-        url: '/forms',
-        views: {
-          'menuContent': {
-            templateUrl: 'app/settings/components.html',
-            controller: 'appCtrl'
-          }
-        }
-      })
+ 
       .state('tabs.signup', {
         url: '/signup',
         views: {
           'menuContent': {
             templateUrl: 'app/settings/signup.html',
-            controller: 'appCtrl'
+            controller: 'signupCtrl'
           }
         }
       })
       .state('authentication', {
         url: '/authentication',
         templateUrl: 'app/intro/authentication.html',
-        controller: 'appCtrl',
+        controller: 'loginCtrl',
       })
 
     $urlRouterProvider.otherwise('/authentication')
@@ -403,32 +368,16 @@ angular.module('full_starter.routes', [])
 
   })
 
-  .config(function ($ionicConfigProvider, calendarConfig, ChartJsProvider) {
+  .config(function ($ionicConfigProvider, calendarConfig) {
 
-    // $ionicConfigProvider.tabs.style('standard').position('top');
-    // $ionicConfigProvider.navBar.alignTitle('center');
-
-    ChartJsProvider.setOptions({ colours: ['#26a69a', '#29b6f6', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
 
     calendarConfig.titleFormats.week = 'MMMM';
     calendarConfig.dateFormatter = 'moment';
-    calendarConfig.allDateFormats.moment.date.hour = 'HH:mm';
-    calendarConfig.allDateFormats.moment.title.day = 'ddd D MMM';
+    calendarConfig.allDateFormats.moment.date.hour = 'h:mm a';
+    calendarConfig.allDateFormats.moment.title.day = 'MMM D ddd';
     calendarConfig.i18nStrings.weekNumber = 'Week {week}';
     calendarConfig.dateFormats.weekDay = 'ddd';
     calendarConfig.dateFormats.day = 'D';
     calendarConfig.displayAllMonthEvents = true;
     calendarConfig.displayEventEndTimes = true;
   })
-
-//Uncomment to add styling to sliding box page buttons
-  // .config(function ($provide) {
-  //           $provide.decorator('ionPagerDirective', function ($delegate) {
-  //               var directive = $delegate[0];
-  //               var template = directive.template;
-  //               directive.template = '<div class="slider-pager"><span class="slider-pager-page" ng-repeat="slide in numSlides() track by $index" ng-class="{active: $index == currentSlide}" ng-click="pagerClick($index)"><i class="icon ion-record" ng-show="$index !== currentSlide"></i><img class="slider-pager-img" src="img/dot_active.png" ng-show="$index == currentSlide"/></span></div>';
-
-
-  //               return $delegate;
-  //           });
-  //       })

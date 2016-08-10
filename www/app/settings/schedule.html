@@ -21,7 +21,7 @@
         </div>
 
         <div class="item item-divider dark-bg" ng-show="calendarView === 'month'">
-            <div class="row">
+            <div class="row" style="height:100%;">
                 <div class="col"><i class="icon light ion-ios-arrow-back" mwl-date-modifier date="viewDate" decrement="'month'" style="padding: 0 20px 0 0;"></i></div>
                 <div class="col light text-center">{{viewDate | date:'MMMM'}}</div>
                 <div class="col light text-right"><i class="icon ion-ios-arrow-forward" mwl-date-modifier date="viewDate" increment="'month'" style="padding: 0 0 0 20px;"></i></div>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="item item-divider dark-bg" ng-show="calendarView === 'week'">
-            <div class="row">
+            <div class="row" style="height:100%;">
                 <div class="col"><i class="icon light ion-ios-arrow-back" mwl-date-modifier date="viewDate" decrement="'week'" style="padding: 0 20px 0 0;"></i></div>
                 <div class="col light text-center">{{viewDate | date:'MMMM'}} {{viewDate | date:'ww'}} week of year</div>
                 <div class="col light text-right"><i class="icon ion-ios-arrow-forward" mwl-date-modifier date="viewDate" increment="'week'" style="padding: 0 0 0 20px;"></i></div>

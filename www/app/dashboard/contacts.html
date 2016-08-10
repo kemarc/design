@@ -15,7 +15,7 @@
                     <div class="col">
                         <div class="card contact animated bounceIn item-remove-animate" on-hold="deletecontact(contacts[$index]);" ng-if="contacts[$index] !== undefined">
                             <div class="item item-image item-text-wrap" ng-click="gotoFriend()">
-                                <div><img ng-src="{{contacts[$index].photo}}"></div>
+                                <div><img src = "img/users/2.jpg"></div>
                                 <h2 class="lead text-small mt">{{contacts[$index].name}}</h2>
                                 <p class="">{{contacts[$index].desc}}</p>
                             </div>
@@ -30,7 +30,7 @@
 
                     <div class="col">
                         <div class="card contact animated bounceIn item-remove-animate" on-hold="deleteContact(contacts[$index]);" ng-if="contacts[$index + 1] !== undefined">
-                            <div class="item item-image item-text-wrap" ui-sref="tabs.contact-profile({contact: contacts[$index + 1]})" ng-click="gotoFriend()">
+                            <div class="item item-image item-text-wrap" ui-sref="tabs.friend({contact: contacts[$index + 1]})">
                                 <div><img ng-src="{{contacts[$index + 1].photo}}"></div>
                                 <h2 class="lead text-small mt">{{contacts[$index + 1].name}}</h2>
                                 <p class="">{{contacts[$index + 1].desc}}</p>
