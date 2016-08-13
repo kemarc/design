@@ -1,5 +1,5 @@
 angular.module('module.view.commitList', [])
-	.controller('commitListCtrl', function($scope,$rootScope,$state,$stateParams,appService,$ionicHistory) {
+	.controller('commitListCtrl', function($scope,$rootScope,$state,$stateParams,postService,$ionicHistory) {
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -20,11 +20,11 @@ angular.module('module.view.commitList', [])
 
 		$scope.news = {
                     type: 'image',
-                    items: appService.getNews()
+                    items: postService.getNews()
                 }
 
         if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-            $stateParams.post === null ? $scope.post = appService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
+            $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
 
         }
 

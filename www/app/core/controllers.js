@@ -11,7 +11,6 @@
         'ngLodash',
         'ion-datetime-picker',
         'ion-google-place',
-        'service.auth',
         'module.view.login',
         'module.view.signup',
         'module.view.rather',

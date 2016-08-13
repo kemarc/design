@@ -1,5 +1,5 @@
 angular.module('module.view.partners', [])
-	.controller('partnersCtrl', function($scope,$rootScope,$state) {
+	.controller('partnersCtrl', function($scope,$rootScope,$state,$ionicHistory) {
 
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();

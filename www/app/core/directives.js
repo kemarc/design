@@ -1,4 +1,4 @@
-angular.module('full_starter.directives', [])
+angular.module('full_starter.directives', ['directive.selectBox'])
 
     .directive('sideMenu', [function () {
         return {

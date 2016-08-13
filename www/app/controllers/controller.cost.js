@@ -1,5 +1,5 @@
 angular.module('module.view.cost', [])
-	.controller('costCtrl', function($scope,$rootScope,$state,appService,$stateParams) {
+	.controller('costCtrl', function($scope,$rootScope,$state,engagementsService,$stateParams) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -26,7 +26,7 @@ angular.module('module.view.cost', [])
                             $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
                         }
                     } else {
-                        appService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
+                        engagementsService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
                     }
 
             };

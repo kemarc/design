@@ -1,5 +1,9 @@
 angular.module('module.view.explore', [])
-	.controller('exploreCtrl', function($scope,$rootScope,$state,appService,$ionicSideMenuDelegate,$ionicPopover) {
+	.controller('exploreCtrl', function($scope,$rootScope,$state,postService,$ionicSideMenuDelegate,$ionicPopover) {
+        $scope.newsPopover = $ionicPopover.fromTemplate(newsTemplate, {
+                    scope: $scope
+        });
+
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -16,8 +20,9 @@ angular.module('module.view.explore', [])
                     } else {
                         $state.go(ui_sref);
                     }
-                }
-                
+        };
+
+
 		$scope.gotoBrowse = function () {
                     $state.go('tabs.news');
                    
@@ -46,9 +51,10 @@ angular.module('module.view.explore', [])
 
         $scope.news = {
             type: 'image',
-            items: appService.getNews()
+            items: postService.getNews()
         }
 
+});
 
 var newsTemplate =
     '<ion-popover-view class="medium right">' +
@@ -64,5 +70,16 @@ var newsTemplate =
     '</ion-content>' +
     '</ion-popover-view>';
 
+var searchTemplate =
+    '<ion-popover-view class="search">' +
+    '<ion-content scroll="false">' +
+    '<div class="list item-input-inset">' +
+    '<label class="item-input-wrapper">' +
+    '<i class="icon ion-ios-search placeholder-icon"></i>' +
+    '<input type="search" placeholder="Search" ng-model="schoolSearch" ng-model-options="{ debounce: 550 }" ng-change="getSearch(schoolSearch)"></label>' +
+    ' <i class="icon ion-close" ng-show="schoolSearch" ng-click="getSearch(\'\');popover.hide($event);schoolSearch=\'\'"></i>' +
+    '</div>' +
+    '</ion-content>' +
+    '</ion-popover-view>';
 
-});
+

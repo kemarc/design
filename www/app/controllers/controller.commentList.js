@@ -1,8 +1,8 @@
 angular.module('module.view.commentList', [])
-	.controller('commentListCtrl', function($scope,$rootScope,$state,appService,$stateParams,$timeout,$ionicHistory) {
+	.controller('commentListCtrl', function($scope,$rootScope,$state,postService,$stateParams,$timeout,$ionicHistory) {
         $scope.news = {
                     type: 'image',
-                    items: appService.getNews()
+                    items: postService.getNews()
                 }
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
@@ -23,7 +23,7 @@ angular.module('module.view.commentList', [])
          };
 
         if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-            $stateParams.post === null ? $scope.post = appService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
+            $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
 
         }
 

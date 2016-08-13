@@ -79,15 +79,45 @@
     <script src="app/controllers/controller.editReminder.js"></script>
     <script src="app/controllers/controller.remindAt.js"></script>
 
+    <script src="app/directives/selectBox.directive.js"></script>
+
+    <script src="app/services/service.activities.js"></script>
+    <script src="app/services/service.appointments.js"></script>
+    <script src="app/services/service.conversation.js"></script>
+    <script src="app/services/service.engagements.js"></script>
+    <script src="app/services/service.interest.js"></script>
+    <script src="app/services/service.partners.js"></script>
+    <script src="app/services/service.post.js"></script>
+    <script src="app/services/service.reportPost.js"></script>
+    <script src="app/services/service.userInterest.js"></script>
+    <script src="app/services/service.users.js"></script>
 
 
     <script src="app/app.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAi3MSQwVNEamaHBt9FoIluT9KVXpI6HV8",
+        authDomain: "trained-to-glory.firebaseapp.com",
+        databaseURL: "https://trained-to-glory.firebaseio.com",
+        storageBucket: "trained-to-glory.appspot.com",
+      };
+      firebase.initializeApp(config);
+
+      window.firebase1 = firebase.database().ref();
+    </script>
+
     <script src="app/core/controllers.js"></script>
     <script src="app/core/routes.js"></script>
+    <script src="app/core/utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script src="app/core/ng-cordova-oauth.min.js"></script>
+
     <script src="app/core/services.js"></script>
     <script src="app/core/directives.js"></script>
     
-    <script src="app/services/service.auth.js"></script>
 
    
 

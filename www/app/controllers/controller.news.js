@@ -1,5 +1,5 @@
 angular.module('module.view.news', [])
-	.controller('newsCtrl', function($scope,$rootScope,$state,appService,$ionicSideMenuDelegate,$ionicPopover) {
+	.controller('newsCtrl', function($scope,$rootScope,$state,postService,conversationService,$ionicSideMenuDelegate,$ionicPopover) {
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -17,6 +17,53 @@ angular.module('module.view.news', [])
                         $state.go(ui_sref);
                     }
         }
+
+        $scope.sendPhoto = function () {
+                    var message = {
+                        sentAt: new Date(),
+                        name: $rootScope.user.name,
+                        photo: $rootScope.user.photo,
+                        senderid: $rootScope.user.id
+                    };
+                    $ionicActionSheet.show({
+                        buttons: [{
+                            text: 'Take Picture'
+                        }, {
+                                text: 'Select From Gallery'
+                            }],
+                        buttonClicked: function (index) {
+                            switch (index) {
+                                case 0: // Take Picture
+                                    document.addEventListener("deviceready", function () {
+                                        $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
+                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
+                                            $timeout(function () {
+                                                $scope.chat.messages.push(message);
+                                                viewScroll.scrollBottom(true);
+                                            }, 0);
+                                        }, function (err) {
+                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                        });
+                                    }, false);
+                                    break;
+                                case 1: // Select From Gallery
+                                    document.addEventListener("deviceready", function () {
+                                        $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
+                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
+                                            $timeout(function () {
+                                                $scope.chat.messages.push(message);
+                                                viewScroll.scrollBottom(true);
+                                            }, 0);
+                                        }, function (err) {
+                                            conversationService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                        });
+                                    }, false);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                };
 
 		$scope.gotoExplore = function () {
                     $state.go('tabs.explore');
@@ -46,9 +93,10 @@ angular.module('module.view.news', [])
 
         $scope.news = {
             type: 'image',
-            items: appService.getNews()
+            items: postService.getNews()
         }
 
+});
 
 var newsTemplate =
     '<ion-popover-view class="medium right">' +
@@ -64,5 +112,14 @@ var newsTemplate =
     '</ion-content>' +
     '</ion-popover-view>';
 
-
-});
+var searchTemplate =
+    '<ion-popover-view class="search">' +
+    '<ion-content scroll="false">' +
+    '<div class="list item-input-inset">' +
+    '<label class="item-input-wrapper">' +
+    '<i class="icon ion-ios-search placeholder-icon"></i>' +
+    '<input type="search" placeholder="Search" ng-model="schoolSearch" ng-model-options="{ debounce: 550 }" ng-change="getSearch(schoolSearch)"></label>' +
+    ' <i class="icon ion-close" ng-show="schoolSearch" ng-click="getSearch(\'\');popover.hide($event);schoolSearch=\'\'"></i>' +
+    '</div>' +
+    '</ion-content>' +
+    '</ion-popover-view>';

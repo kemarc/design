@@ -1,5 +1,5 @@
 angular.module('module.view.plans', [])
-	.controller('plansCtrl', function($scope,$rootScope,$state) {
+	.controller('plansCtrl', function($scope,$rootScope,$state,$ionicHistory) {
 
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();

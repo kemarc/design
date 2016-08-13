@@ -1,5 +1,5 @@
 angular.module('module.view.friend', [])
-	.controller('friendCtrl', function($scope,$rootScope,$state) {
+	.controller('friendCtrl', function($scope,$rootScope,$state,partnersService) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -17,6 +17,9 @@ angular.module('module.view.friend', [])
                         $state.go(ui_sref);
                     }
                 }
+
+        $scope.contacts = partnersService.getContacts();
+
                 
 		$scope.profile = { type: 1 };
 

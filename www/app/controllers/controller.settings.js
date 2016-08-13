@@ -1,5 +1,5 @@
 angular.module('module.view.settings', [])
-	.controller('settingsCtrl', function($scope,$rootScope,$state,$ionicLoading,$timeout) {
+	.controller('settingsCtrl', function($scope,$rootScope,$state,$ionicLoading,$timeout,Popup,$localStorage) {
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -18,14 +18,27 @@ angular.module('module.view.settings', [])
                     }
                 };
                 
-		$scope.signOut = function () {
-                    $ionicLoading.show({
-                        template: 'Signing out...'
-                    });
-                    $timeout(function () {
-                        $ionicLoading.hide();
-                        $scope.goTo('authentication');
-                    }, 2000);
+		// $scope.signOut = function () {
+  //                   $ionicLoading.show({
+  //                       template: 'Signing out...'
+  //                   });
+  //                   $timeout(function () {
+  //                       $ionicLoading.hide();
+  //                       $scope.goTo('authentication');
+  //                   }, 2000);
 
-                }
+  //               }
+        $scope.logout = function() {
+        if (firebase.auth()) {
+          firebase.auth().signOut().then(function() {
+            //Clear the saved credentials.
+            $localStorage.$reset();
+            //Proceed to login screen.
+            $state.go('authentication');
+          }, function(error) {
+            //Show error message.
+            Utils.message(Popup.errorIcon, Popup.errorLogout);
+          });
+        }
+      };
 });

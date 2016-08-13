@@ -1,5 +1,6 @@
 angular.module('module.view.post', [])
-	.controller('postCtrl', function($scope,$rootScope,$state,appService,$stateParams) {
+	.controller('postCtrl', function($scope,$rootScope,$state,postService,$ionicHistory,$ionicPopup,engagementsService,$stateParams) {
+		
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -20,11 +21,11 @@ angular.module('module.view.post', [])
 
 		$scope.news = {
                     type: 'image',
-                    items: appService.getNews()
+                    items: postService.getNews()
         }
 
 		if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-                    $stateParams.post === null ? $scope.post = appService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
+                    $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
 
         }
 
@@ -71,9 +72,9 @@ angular.module('module.view.post', [])
                     document.addEventListener("deviceready", function () {
                         $cordovaSocialSharing.share(post.summary, post.title, post.image)
                             .then(function (result) {
-                                appService.showAlert('Post Shared', result, 'Ok', 'button-balanced', null);
+                                engagementsService.showAlert('Post Shared', result, 'Ok', 'button-balanced', null);
                             }, function (err) {
-                                appService.showAlert('Error Occured', err, 'Ok', 'button-assertive', null);
+                                engagementsService.showAlert('Error Occured', err, 'Ok', 'button-assertive', null);
                             });
                     }, false);
         };

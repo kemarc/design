@@ -1,29 +1,14 @@
-angular.module('module.view.signup', [])
-	.controller('signupCtrl', function($scope,$rootScope,$state) {
-  $scope.goBack = function (ui_sref) {
-                    var currentView = $ionicHistory.currentView();
-                    var backView = $ionicHistory.backView();
+angular.module('module.view.signup', ['full_starter.factory'])
+	.controller('signupCtrl', function($scope,$rootScope,$state,conversationService,Utils,Popup,$localStorage,interestService,userInterestService) {
+   $scope.$on('$ionicView.enter', function() {
+    //Clear the Registration Form.
+    $scope.user = {
+      email: '',
+      password: ''
+    };
+  })
 
-                    if (backView) {
-                        //there is a back view, go to it
-                        if (currentView.stateName == backView.stateName) {
-                            //if not works try to go doubleBack
-                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
-                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
-                        } else {
-                            backView.go();
-                        }
-                    } else {
-                        $state.go(ui_sref);
-                    }
-  };
-  
-	$scope.user = {
-                  email: '',
-                  password: ''
-                };
-
-    $scope.register = function(user) {
+  $scope.register = function(user) {
     //Check if form is filled up.
     if (angular.isDefined(user)) {
       Utils.show();
@@ -37,6 +22,9 @@ angular.module('module.view.signup', [])
               //Add Firebase account reference to Database. Firebase v3 Implementation.
               firebase.database().ref().child('accounts').push({
                 email: user.email,
+                userName: user.userName,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 userId: firebase.auth().currentUser.uid,
                 dateCreated: Date(),
                 provider: 'Firebase'
@@ -53,6 +41,10 @@ angular.module('module.view.signup', [])
                 $localStorage.loginProvider = "Firebase";
                 $localStorage.email = user.email;
                 $localStorage.password = user.password;
+                $localStorage.userName = user.userName;
+                $localStorage.firstName = user.firstName;
+                $localStorage.lastName = user.lastName;
+
               });
             })
             .catch(function(error) {
@@ -83,5 +75,105 @@ angular.module('module.view.signup', [])
     }
   };
 
+  //Function to retrieve the account object from the Firebase database and store it on $localStorage.account.
+  getAccountAndLogin = function(key) {
+    firebase.database().ref('accounts/' + key).on('value', function(response) {
+      var account = response.val();
+      $localStorage.account = account;
+    });
+    $state.go('tabs.rather');
+  };
 
+  $scope.goBack = function (ui_sref) {
+                    var currentView = $ionicHistory.currentView();
+                    var backView = $ionicHistory.backView();
+
+                    if (backView) {
+                        //there is a back view, go to it
+                        if (currentView.stateName == backView.stateName) {
+                            //if not works try to go doubleBack
+                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
+                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
+                        } else {
+                            backView.go();
+                        }
+                    } else {
+                        $state.go(ui_sref);
+                    }
+  };
+
+  $scope.createInterestList = function(){
+    return interestService.createInterestList();
+  };
+
+      window.listABC = $scope.createInterestList;
+
+  
+  $scope.getInterest = function(id){
+    return interestService.getInterest(id);
+  };
+
+  $scope.checkUserInterestExists = function(interestId,userId){
+      return userInterestService.checkUserInterestExists(interestId,userId);
+  };
+
+    $scope.starterScreen = function() {
+                $rootScope.user = {
+                    id: 1,
+                    name: 'Adam Ionic',
+                    email: 'adamionic@email.com',
+                    photo: 'img/users/1.jpg',
+                    city: 'Cambridge, United Kingdom'
+                }
+                $scope.contacts = conversationsService.getContacts();
+                $scope.searchPopover = $ionicPopover.fromTemplate(searchTemplate, {
+                    scope: $scope
+                });
+                $scope.getSearch = function (search) {
+                    $scope.searchFilter = search;
+                }
+
+                $cordovaGeolocation.getCurrentPosition({ timeout: 10000, enableHighAccuracy: true }).then(
+                    function (position) {
+                        $rootScope.currentLocation = [position.coords.latitude, position.coords.longitude];
+                    });
+
+                $scope.goTo = function (page) {
+                    $scope.closeAll();//Close all Modals
+                    $state.go(page);
+                    $ionicHistory.nextViewOptions({
+                        disableAnimate: true,
+                        disableBack: true
+                    });
+                }
+
+                $scope.goBack = function (ui_sref) {
+                    var currentView = $ionicHistory.currentView();
+                    var backView = $ionicHistory.backView();
+
+                    if (backView) {
+                        //there is a back view, go to it
+                        if (currentView.stateName == backView.stateName) {
+                            //if not works try to go doubleBack
+                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
+                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
+                        } else {
+                            backView.go();
+                        }
+                    } else {
+                        $state.go(ui_sref);
+                    }
+                }
+
+                $scope.signOut = function () {
+                    $ionicLoading.show({
+                        template: 'Signing out...'
+                    });
+                    $timeout(function () {
+                        $ionicLoading.hide();
+                        $scope.goTo('authentication');
+                    }, 2000);
+
+               }
+          }
 });

@@ -1,5 +1,5 @@
 angular.module('module.view.schedule', [])
-	.controller('scheduleCtrl', function($scope,$rootScope,$state,appService,$ionicPopover,$ionicModal) {
+	.controller('scheduleCtrl', function($scope,$rootScope,$state,engagementsService,$ionicPopover,$ionicModal) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -19,7 +19,7 @@ angular.module('module.view.schedule', [])
                 }
         $scope.viewDate = new Date();
                 $scope.notifyTimes = ['at set time', '15 mins before', '30 mins before', '45 mins before', 'an hour before'];
-                $scope.notifications = appService.getNotifications();
+                $scope.notifications = engagementsService.getNotifications();
                 getDateEvents(moment($scope.viewDate._d).startOf('day')._d);
 
                 $scope.decrementDate = function (item) {
@@ -82,7 +82,7 @@ angular.module('module.view.schedule', [])
                             $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
                         }
                     } else {
-                        appService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
+                        engagementsService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
                     }
 
                 }
@@ -149,3 +149,15 @@ moment.locale('en', {
         sameElse: 'L'
     }
 })
+
+var reminderTemplate =
+    '<ion-popover-view class="small center">' +
+    '<ion-content>' +
+    '<div class="list">' +
+    '<div class="item item-text-wrap padding item-icon-left" ng-click="reminderPopover.hide($event);" ui-sref="create-edit-reminder({reminder: null, type: \'Add Call\'})"><i class="icon ion-ios-telephone-outline"></i>Add Call</div>' +
+    '<div class="item item-text-wrap padding item-icon-left" ng-click="reminderPopover.hide($event);" ui-sref="create-edit-reminder({reminder: null, type: \'Add Email\'})"><i class="icon ion-ios-at"></i>Add Email</div>' +
+    '<div class="item item-text-wrap padding item-icon-left" ng-click="reminderPopover.hide($event);" ui-sref="create-edit-reminder({reminder: null, type: \'Add Task\'})"><i class="icon ion-ios-checkmark-outline"></i>Add Task</div>' +
+    '<div class="item item-text-wrap padding item-icon-left" ng-click="reminderPopover.hide($event);" ui-sref="create-edit-reminder({reminder: null, type: \'Add Event\'})"><i class="icon ion-ios-calendar-outline"></i>Add Event</div>' +
+    '</div>' +
+    '</ion-content>' +
+    '</ion-popover-view>';

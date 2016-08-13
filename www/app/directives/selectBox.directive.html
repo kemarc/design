@@ -1,0 +1,15 @@
+ <ion-list>
+  
+  <ion-item ng-repeat="(key, item) in items" class="item item-checkbox" style="color: #F10707; font-family: limbus;">
+     <label class="checkbox">
+       <input type="checkbox" ng-click="manage($event, '{{key}}','50000')" ng-checked = "checked" interestId="{{key}}" userId="50000" class="check-box"/>
+     </label>
+     {{item.displayName}}
+  </ion-item> 
+  
+ </ion-list>
+
+<!-- <ion-list>
+  
+      <ion-checkbox type="checkbox" ng-click="manage($event, '{{key}}','50000')" ng-checked = "checked" interestId="{{key}}" userId="50000" class="check-box" style="color: #F10707;background: transparent;border-color: transparent">{{item.displayName}}</ion-checkbox>
+</ion-list> -->

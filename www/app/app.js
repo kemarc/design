@@ -1,6 +1,7 @@
 
-angular.module('full_starter', ['ionic', 'full_starter.controllers', 'full_starter.routes', 'full_starter.services', 'full_starter.directives'])
+angular.module('full_starter', ['ionic','ngStorage', 'ngCordovaOauth', 'full_starter.controllers', 'full_starter.routes', 'full_starter.services', 'full_starter.directives','full_starter.factory'])
 
+  
   .run(function ($ionicPlatform, appService) {
 
     // $rootScope.$on('$stateChangeStart', function(event, toState, toParams){

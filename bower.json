@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "lodash": "^4.13.1",
-    "Chart.js": "^2.1.4"
+    "Chart.js": "^2.1.4",
+    "angularfire": "^2.0.1"
   }
 }

@@ -1,5 +1,5 @@
 angular.module('module.view.notifications', [])
-	.controller('notificationsCtrl', function($scope,$rootScope,$state) {
+	.controller('notificationsCtrl', function($scope,$rootScope,$state,$ionicHistory) {
      $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();

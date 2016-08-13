@@ -1,5 +1,5 @@
 angular.module('module.view.sentPlans', [])
-	.controller('sentPlansCtrl', function($scope,$rootScope,$state,$ionicPopover,appService,$ionicScrollDelegate) {
+	.controller('sentPlansCtrl', function($scope,$rootScope,$state,$ionicPopover,engagementsService,postService,conversationService,$ionicScrollDelegate) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -17,13 +17,13 @@ angular.module('module.view.sentPlans', [])
                         $state.go(ui_sref);
                     }
                 }
-                
+
         $scope.contactPopover = $ionicPopover.fromTemplate(contactTemplate, {
                     scope: $scope
                 });
 
-                var randomMessages = appService.getRandomMessages()
-                $scope.conversations = appService.getMessages();
+                var randomMessages = conversationService.getRandomMessages()
+                $scope.conversations = conversationService.getMessages();
                 var viewScroll = $ionicScrollDelegate.$getByHandle('chatScroll');
                 var footerBar, scroller, txtInput;
 
@@ -34,9 +34,9 @@ angular.module('module.view.sentPlans', [])
                 $scope.$on('$ionicView.enter', function () {
                     if ($state.is('tabs.chat')) {
                         $scope.chat = {};
-                        appService.Loading('show');
+                        conversationService.Loading('show');
                         if ($stateParams.chat == null) {
-                            $scope.chat = appService.getRandomObject($scope.conversations);
+                            $scope.chat = postService.getRandomObject($scope.conversations);
                         } else {
                             if ($stateParams.chat.conversation) {
                                 $scope.chat = _.find($scope.conversations, ['conversation', $stateParams.chat.conversation]);
@@ -52,7 +52,7 @@ angular.module('module.view.sentPlans', [])
 
                         }
                         $timeout(function () {
-                            appService.Loading();
+                            conversationService.Loading();
                         }, 250);
 
                         $timeout(function () {
@@ -64,7 +64,7 @@ angular.module('module.view.sentPlans', [])
                 });
 
                 $scope.sendChat = function (item) {
-                    appService.KeepKeyboardOpen('#textChat');
+                    conversationService.KeepKeyboardOpen('#textChat');
                     var message = {
                         sentAt: new Date(),
                         name: $rootScope.user.name,
@@ -75,7 +75,7 @@ angular.module('module.view.sentPlans', [])
 
                     $timeout(function () {
                         $scope.chat.messages.push(message);
-                        appService.KeepKeyboardOpen('#textChat');
+                        conversationService.KeepKeyboardOpen('#textChat');
                         viewScroll.scrollBottom(true);
                     }, 0);
 
@@ -90,7 +90,7 @@ angular.module('module.view.sentPlans', [])
                             senderid: $scope.chat.recepientid
                         });
 
-                        appService.KeepKeyboardOpen('#textChat');
+                        conversationService.KeepKeyboardOpen('#textChat');
                         viewScroll.scrollBottom(true);
                     }, 2000);
                 }
@@ -139,27 +139,27 @@ angular.module('module.view.sentPlans', [])
                             switch (index) {
                                 case 0: // Take Picture
                                     document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(appService.getCameraOptions()).then(function (imageData) {
+                                        $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
                                             message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
                                             $timeout(function () {
                                                 $scope.chat.messages.push(message);
                                                 viewScroll.scrollBottom(true);
                                             }, 0);
                                         }, function (err) {
-                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                            engagementsService.showAlert('Error', err, 'Close', 'button-assertive', null);
                                         });
                                     }, false);
                                     break;
                                 case 1: // Select From Gallery
                                     document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(appService.getLibraryOptions()).then(function (imageData) {
+                                        $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
                                             message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
                                             $timeout(function () {
                                                 $scope.chat.messages.push(message);
                                                 viewScroll.scrollBottom(true);
                                             }, 0);
                                         }, function (err) {
-                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                            engagementsService.showAlert('Error', err, 'Close', 'button-assertive', null);
                                         });
                                     }, false);
                                     break;

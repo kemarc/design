@@ -1,5 +1,5 @@
 angular.module('module.view.comments', [])
-	.controller('commentsCtrl', function($scope,$rootScope,$state,appService,$stateParams,$timeout,$ionicHistory) {
+	.controller('commentsCtrl', function($scope,$rootScope,$state,postService,conversationService,$stateParams,$timeout,$ionicHistory) {
             $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -17,14 +17,14 @@ angular.module('module.view.comments', [])
                         $state.go(ui_sref);
                     }
         };
-        
+
         $scope.news = {
                     type: 'image',
-                    items: appService.getNews()
+                    items: postService.getNews()
                 }
 
         if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-            $stateParams.post === null ? $scope.post = appService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
+            $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
 
         }
 
@@ -45,7 +45,7 @@ angular.module('module.view.comments', [])
         };
 
          $scope.sendChat = function (item) {
-                    appService.KeepKeyboardOpen('#textChat');
+                    conversationService.KeepKeyboardOpen('#textChat');
                     var message = {
                         sentAt: new Date(),
                         name: $rootScope.user.name,
@@ -56,7 +56,7 @@ angular.module('module.view.comments', [])
 
                     $timeout(function () {
                         $scope.chat.messages.push(message);
-                        appService.KeepKeyboardOpen('#textChat');
+                        conversationService.KeepKeyboardOpen('#textChat');
                         viewScroll.scrollBottom(true);
                     }, 0);
 
@@ -71,7 +71,7 @@ angular.module('module.view.comments', [])
                             senderid: $scope.chat.recepientid
                         });
 
-                        appService.KeepKeyboardOpen('#textChat');
+                        conversationService.KeepKeyboardOpen('#textChat');
                         viewScroll.scrollBottom(true);
                     }, 2000);
             }

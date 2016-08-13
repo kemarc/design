@@ -1,5 +1,5 @@
 angular.module('module.view.editReminder', [])
-	.controller('editReminderCtrl', function($scope,$rootScope,$state,appService) {
+	.controller('editReminderCtrl', function($scope,$rootScope,$state,engagementsService) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -25,7 +25,7 @@ angular.module('module.view.editReminder', [])
                             $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
                         }
                     } else {
-                        appService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
+                        engagementsService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
                     }
 
                 }
