@@ -18,6 +18,7 @@
     <link href="lib/angular-chart.js/dist/angular-chart.css" rel="stylesheet">
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-moment/angular-moment.js"></script>
@@ -36,17 +37,87 @@
     <script src="lib/Chart.js/Chart.js"></script>
     <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM-W2tYWSDinJsljgjk3gsYSv6ZXy62JM&amp;"></script>
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+    <!-- <script src="cordova.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+     <script src="app/app.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAi3MSQwVNEamaHBt9FoIluT9KVXpI6HV8",
+        authDomain: "trained-to-glory.firebaseapp.com",
+        databaseURL: "https://trained-to-glory.firebaseio.com",
+        storageBucket: "trained-to-glory.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
 
-    <script src="app/app.js"></script>
     <script src="app/core/controllers.js"></script>
     <script src="app/core/routes.js"></script>
+    <script src="app/core/utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+    <script src="app/core/ng-cordova-oauth.min.js"></script>
+
     <script src="app/core/services.js"></script>
     <script src="app/core/directives.js"></script>
 
+    <script src="app/controllers/controller.signup.js"></script>
+    <script src="app/controllers/controller.login.js"></script>
+    <script src="app/controllers/controller.rather.js"></script>
+    <script src="app/controllers/controller.news.js"></script>
+    <script src="app/controllers/controller.post.js"></script>
+    <script src="app/controllers/controller.commits.js"></script>
+    <script src="app/controllers/controller.likes.js"></script>
+    <script src="app/controllers/controller.comments.js"></script>
+    <script src="app/controllers/controller.match.js"></script>
+    <script src="app/controllers/controller.contacts.js"></script>
+    <script src="app/controllers/controller.friend.js"></script>
+    <script src="app/controllers/controller.coach.js"></script>
+    <script src="app/controllers/controller.trainers.js"></script>
+    <script src="app/controllers/controller.plans.js"></script>
+    <script src="app/controllers/controller.calendar.js"></script>
+    <script src="app/controllers/controller.conversations.js"></script>
+    <script src="app/controllers/controller.chat.js"></script>
+    <script src="app/controllers/controller.profile.js"></script>
+    <script src="app/controllers/controller.editProfile.js"></script>
+    <script src="app/controllers/controller.schedule.js"></script>
+    <script src="app/controllers/controller.commitList.js"></script>
+    <script src="app/controllers/controller.commentList.js"></script>
+    <script src="app/controllers/controller.likeList.js"></script>
+    <script src="app/controllers/controller.partners.js"></script>
+    <script src="app/controllers/controller.sentPlans.js"></script>
+    <script src="app/controllers/controller.reminders.js"></script>
+    <script src="app/controllers/controller.settings.js"></script>
+    <script src="app/controllers/controller.cost.js"></script>
+    <script src="app/controllers/controller.interest.js"></script>
+    <script src="app/controllers/controller.status.js"></script>
+    <script src="app/controllers/controller.notifications.js"></script>
+    <script src="app/controllers/controller.thanks.js"></script>
+    <script src="app/controllers/controller.explore.js"></script>
+    <script src="app/controllers/controller.leader.js"></script>
+    <script src="app/controllers/controller.editEvent.js"></script>
+    <script src="app/controllers/controller.forgot.js"></script>
+    <script src="app/controllers/controller.editReminder.js"></script>
+    <script src="app/controllers/controller.remindAt.js"></script>
+
+    <script src="app/services/service.activities.js"></script>
+    <script src="app/services/service.appointments.js"></script>
+    <script src="app/services/service.conversation.js"></script>
+    <script src="app/services/service.engagements.js"></script>
+    <script src="app/services/service.interest.js"></script>
+    <script src="app/services/service.partners.js"></script>
+    <script src="app/services/service.post.js"></script>
+    <script src="app/services/service.reportPost.js"></script>
+    <script src="app/services/service.userInterest.js"></script>
+    <script src="app/services/service.users.js"></script>
+
 </head>
 
-<body ng-app="full_starter" ng-controller="appCtrl">
+<body ng-app="full_starter">
     <ion-nav-view></ion-nav-view>
 </body>
 

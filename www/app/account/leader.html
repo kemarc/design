@@ -14,7 +14,7 @@
         <div class="row text-center">
             <div class="col font-thin" ng-click="gotoBrowse()">Browse</div>
             <div class="col font-thin" ng-click="gotoMatch()">Match</div>
-            <div class="col font-thin" ng-click="gotoCoaches()">Trainers</div>
+            <div class="col font-thin" ng-click="gotoAccount()">Profile</div>
         </div>
         
     <div style="height:100%; overflow:scroll" class="bg-lightgrey">
@@ -30,8 +30,8 @@
         </div>
 
         <div class="row no-padding bb-grey text-center" style="text-transform: capitalize;">
-            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 1}" ng-click="profile.type = 1">27<br/>Posts</div>
-            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 2}" ng-click="profile.type = 2">20<br/>Commits</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 1 || profile.type === 4}" ng-click="profile.type = 1">27<br/>Posts</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 2 || profile.type === 5}" ng-click="profile.type = 2">20<br/>Commits</div>
             <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 3}" ng-click="profile.type = 3">1500<br/>Partners</div>
         </div>
 
@@ -39,11 +39,12 @@
          <a class="button button-calm profile" style="border-color: #F10707; color:#F10707; font-size: 11px;background-color: transparent;margin-left: 8vh;margin-right: 14vh;" ui-sref="tabs.calendar">Book Session</a>
            <a class="button button-calm profile" style="border-color: #F10707; color:#F10707;font-size: 11px; background-color: transparent;margin-right: 1vh;" ui-sref="tabs.plans">Request Plan</a>
          </div>
+         
         <div class="list" style="height:100%;">
          <div ng-if="profile.type === 1">
             <div class="item item-divider">
                 PHOTOS
-                <span class="item-note" ng-click="profile.type = 4">
+                <span class="item-note" ng-click = "profile.type = 4">
                     <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
                 </span>
             </div>
@@ -106,21 +107,21 @@
             </div>
         </div>
 
-    <div ng-if="profile.type === 4" style="height:100%;">
-        <div style="height: 700px">
-            <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+        <div ng-if="profile.type === 4" style="height:100%;">
+                <div style="height: 700px">
+                    <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
     
     <div ng-if="profile.type === 2" style="height:100%;">
 
            <div class="item item-divider">
                 COMMITS
-                <span class="item-note" ng-click="profile.type = 5">
+                <span class="item-note" ng-click = "profile.type = 5">
                     <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
                 </span>
             </div>
@@ -183,31 +184,31 @@
             </div>
     </div>
 
-    <div ng-if="profile.type === 5" style="height:100%;"> 
-        <div style="height: 700px">
-            <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
-                <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+    <div ng-if="profile.type === 5" style="height:100%;">
+                <div style="height: 700px">
+                    <div class="row post" ng-repeat="post in news.items" ng-if="$index % 3 == 0">
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index].image}}" /></div>
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 1].image}}" /></div>
+                        <div class="col" ui-sref="tabs.post-detail"><img ng-src="{{news.items[$index + 2].image}}" /></div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
         <div ng-if="profile.type === 3" style="height:100%;">
 
             <div class="item item-divider">
                 PARTNERS
-                <span class="item-note" ui-sref="tabs.partners">
+                <span class="item-note" ui-sref = "tabs.partners">
                     <a class="button button-calm profile" style="border-color: #F10707; background-color: #F10707;">More</a>
                 </span>
             </div>
 
             <div class="item item-avatar item-button-right followers" ng-repeat="contact in contacts  | filter: searchFilter">
-                        <img ng-src="{{contact.photo}}">
-                        <h2 class="font-thin">{{contact.name}}</h2>
-                        <p>{{contact.city}}</p>
-                        <button class="button button-small button-balanced icon ion-ios-checkmark-empty" ng-if="$index % 3 == 1"> Partnered</button>
-                        <button class="button button-small button-balanced button-outline icon ion-ios-personadd-outline" ng-if="$index % 3 !== 1"> Partner</button>
+                <img ng-src="{{contact.photo}}">
+                <h2 class="font-thin">{{contact.name}}</h2>
+                <p>{{contact.city}}</p>
+                <button class="button button-small button-balanced icon ion-ios-checkmark-empty" ng-if="$index % 3 == 1"> Partnered</button>
+                <button class="button button-small button-balanced button-outline icon ion-ios-personadd-outline" ng-if="$index % 3 !== 1"> Partner</button>
             </div>
   
             </div>

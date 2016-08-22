@@ -21,7 +21,7 @@
         </div>
 
         <div class="item item-divider dark-bg" ng-show="calendarView === 'month'">
-            <div class="row">
+            <div class="row" style="height:100%;">
                 <div class="col"><i class="icon light ion-ios-arrow-back" mwl-date-modifier date="viewDate" decrement="'month'" style="padding: 0 20px 0 0;"></i></div>
                 <div class="col light text-center">{{viewDate | date:'MMMM'}}</div>
                 <div class="col light text-right"><i class="icon ion-ios-arrow-forward" mwl-date-modifier date="viewDate" increment="'month'" style="padding: 0 0 0 20px;"></i></div>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="item item-divider dark-bg" ng-show="calendarView === 'week'">
-            <div class="row">
+            <div class="row" style="height:100%;">
                 <div class="col"><i class="icon light ion-ios-arrow-back" mwl-date-modifier date="viewDate" decrement="'week'" style="padding: 0 20px 0 0;"></i></div>
                 <div class="col light text-center">{{viewDate | date:'MMMM'}} {{viewDate | date:'ww'}} week of year</div>
                 <div class="col light text-right"><i class="icon ion-ios-arrow-forward" mwl-date-modifier date="viewDate" increment="'week'" style="padding: 0 0 0 20px;"></i></div>
@@ -37,9 +37,9 @@
         </div>
 
         <ion-scroll direction="y" style="height:100%">
-            <div style="height:700px">
+            <div style="height:700px" ng-click="newsPopover.show($event);">
                 <mwl-calendar events="events" view="calendarView" view-title="calendarTitle" view-date="viewDate" on-event-click="eventClicked(calendarEvent)" on-view-change-click="viewChangeClicked(calendarNextView, calendarDate)" on-event-times-changed="eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-                    edit-event-html="'<i class=\'icon ion-plus-round positive\'></i>'">
+                    edit-event-html="'<i class=\'icon ion-plus-round positive\'></i>'" ng-click="newsPopover.show($event);">
                 </mwl-calendar>
                 <div ng-if="calendarView === 'month'">
                     <div class="item item-divider dark-bg font-thin">{{viewDate | date:'MMMM dd'}} {{viewDate | date:'yyyy'}}</div>
@@ -48,14 +48,14 @@
                         <div class="item item-icon-left item-text-wrap" ng-repeat="event in seletedDateEvents | orderBy: startsAt : true track by $index" ng-class="{'bl-teal':event.type == 'Add Event',
                     'bl-indigo':event.type == 'Add Task',
                     'bl-blue':event.type == 'Add Call',
-                    'bl-light-blue':event.type == 'Add Email'}">
+                    'bl-light-blue':event.type == 'Add Email'}" ng-click="newsPopover.show($event);">
 
                             <i class="icon" ng-class="{'ion-ios-calendar-outline':event.type == 'Add Event',
                     'ion-ios-checkmark-outline':event.type == 'Add Task',
                     'ion-ios-telephone-outline':event.type == 'Add Call',
                     'ion-ios-at-outline':event.type == 'Add Email'}"></i>
                             <p class="text-left">{{event.title}}</p>
-                            <span class="location" ng-if="event.location"><i class="icon ion-ios-location assertive"></i> {{event.location}}</span>
+                            <span class="location" ng-if="event.location" ng-click="newsPopover.show($event);"><i class="icon ion-ios-location assertive"></i> {{event.location}}</span>
                             <p class="text-small">{{event.startsAt | amDateFormat:' h:mm a'}} - {{event.endsAt | amDateFormat:'h:mm a'}}</p>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="list" ng-if="seletedDateEvents.length == 0">
                         <div class="item">
                             <h2 class="text-wrap">No Event Set for specified Date</h2>
-                            <button class="button button-icon ion-plus calm" ui-sref="reminder({fromView: 'tabs.calendar'})"> Add an Event</button>
+                            <button class="button button-icon ion-plus calm" ng-click="newsPopover.show($event);"> Add an Event</button>
                         </div>
                     </div>
                 </div>
@@ -74,12 +74,12 @@
                         <div class="item item-icon-left item-text-wrap" ng-repeat="event in seletedDateEvents | orderBy: startsAt : true track by $index" ng-class="{'bl-teal':event.type == 'Add Event',
                     'bl-indigo':event.type == 'Add Task',
                     'bl-blue':event.type == 'Add Call',
-                    'bl-light-blue':event.type == 'Add Email'}">
+                    'bl-light-blue':event.type == 'Add Email'}" ng-click="newsPopover.show($event);">
 
                             <i class="icon" ng-class="{'ion-ios-calendar-outline':event.type == 'Add Event',
                     'ion-ios-checkmark-outline':event.type == 'Add Task',
                     'ion-ios-telephone-outline':event.type == 'Add Call',
-                    'ion-ios-at-outline':event.type == 'Add Email'}"></i>
+                    'ion-ios-at-outline':event.type == 'Add Email'}" ng-click="newsPopover.show($event);"></i>
                             <p class="text-left">{{event.title}}</p>
                             <span class="location" ng-if="event.location"><i class="icon ion-ios-location assertive"></i> {{event.location}}</span>
                             <p class="text-small">{{event.startsAt | amDateFormat:' h:mm a'}} - {{event.endsAt | amDateFormat:'h:mm a'}}</p>
@@ -91,7 +91,7 @@
                     <div class="list" ng-if="seletedDateEvents.length == 0">
                         <div class="item">
                             <h2 class="text-wrap">No Event Set for specified Date</h2>
-                            <button class="button button-icon ion-plus calm" ui-sref="reminder({fromView: 'tabs.calendar'})"> Add an Event</button>
+                            <button class="button button-icon ion-plus calm" ng-click="newsPopover.show($event);"> Add an Event</button>
                         </div>
                     </div>
                 </div>
@@ -101,4 +101,5 @@
 
     </ion-content>
 
+     <a class="btn-floating btn-large waves-effect waves-light red lighten-1" style="position:fixed; bottom:3%;right:42%;z-index:999" ng-click="reminderPopover.show($event);"><i class="icons ion-plus" style="color: #F10707"></i></a>
 </ion-view>

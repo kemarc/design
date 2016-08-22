@@ -1,0 +1,12 @@
+{
+  "name": "Trained-to-Glory App",
+  "app_id": "e77285d3",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

@@ -11,13 +11,49 @@
         'ngLodash',
         'ion-datetime-picker',
         'ion-google-place',
-        'chart.js'
+        'module.view.login',
+        'module.view.signup',
+        'module.view.rather',
+        'module.view.news',
+        'module.view.post',
+        'module.view.commits',
+        'module.view.likes',
+        'module.view.comments',
+        'module.view.match',
+        'module.view.cost',
+        'module.view.contacts',
+        'module.view.friend',
+        'module.view.coach',
+        'module.view.trainers',
+        'module.view.plans',
+        'module.view.calendar',
+        'module.view.conversations',
+        'module.view.chat',
+        'module.view.profile',
+        'module.view.editProfile',
+        'module.view.schedule',
+        'module.view.commitList',
+        'module.view.commentList',
+        'module.view.likeList',
+        'module.view.partners',
+        'module.view.sentPlans',
+        'module.view.reminders',
+        'module.view.settings',
+        'module.view.interest',
+        'module.view.status',
+        'module.view.notifications',
+        'module.view.thanks',
+        'module.view.explore',
+        'module.view.leader',
+        'module.view.editReminder',
+        'module.view.remind',
+        'module.view.editEvent',
+        'module.view.forgot'
     ])
 
-        .controller('appCtrl', function ($rootScope, $state, $scope, $stateParams, appService, $ionicHistory, $ionicPopover, $ionicPopup, $ionicModal,
+        .controller('appCtrl', function ($rootScope, $state, $scope, $stateParams, appService, authService, $ionicHistory, $ionicPopover, $ionicPopup, $ionicModal,
             $ionicScrollDelegate, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaSocialSharing, $cordovaGeolocation, $timeout,$ionicSideMenuDelegate) {
 
-            initData();
             initIntro();
             initNews();
             initProfile();
@@ -49,7 +85,7 @@
                 });
             }
             // models
-            function initData() {
+            $scope.starterScreen = function() {
                 $rootScope.user = {
                     id: 1,
                     name: 'Adam Ionic',
@@ -61,7 +97,6 @@
                 $scope.searchPopover = $ionicPopover.fromTemplate(searchTemplate, {
                     scope: $scope
                 });
-                $scope.rating = 4;
                 $scope.getSearch = function (search) {
                     $scope.searchFilter = search;
                 }
@@ -71,10 +106,6 @@
                         $rootScope.currentLocation = [position.coords.latitude, position.coords.longitude];
                     });
 
-                $scope.mapCreated = function (map) {
-                    $scope.map = map;
-                };
-
                 $scope.goTo = function (page) {
                     $scope.closeAll();//Close all Modals
                     $state.go(page);
@@ -83,8 +114,6 @@
                         disableBack: true
                     });
                 }
-
-
 
                 $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
@@ -114,71 +143,11 @@
                     }, 2000);
 
                 }
-
-                if ($state.is('tabs.cards')) {
-                    $scope.post = appService.getRandomObject($scope.news.items);
-                }
-
             }
             // intro
             function initIntro() {
 
-                $scope.gotoHome = function () {
-                    $scope.closeAll();
-                    $ionicLoading.show({
-                        template: '<ion-spinner></ion-spinner>'
-                    });
-
-                    $timeout(function () {
-                        $ionicLoading.hide();
-                        $state.go('tabs.news');
-                    }, 2000);
-                }
-                // Login modal
-                $ionicModal.fromTemplateUrl('app/intro/login.html', {
-                    scope: $scope,
-                    animation: 'fade-in-scale',
-                    backdropClickToClose: false
-                }).then(function (modal) {
-                    $scope.modalLogin = modal;
-                });
-                $scope.openLogin = function () {
-                    $scope.modalLogin.show();
-                };
-                $scope.closeLogin = function () {
-                    $scope.modalLogin.hide();
-                };
-
-                // Sign up modal
-                $ionicModal.fromTemplateUrl('app/settings/signup.html', {
-                    scope: $scope,
-                    animation: 'fade-in-scale',
-                    backdropClickToClose: false
-                }).then(function (modal) {
-                    $scope.modalRegister = modal;
-                });
-                $scope.openRegister = function () {
-                    $scope.modalRegister.show();
-                };
-                $scope.closeRegister = function () {
-                    $scope.modalRegister.hide();
-                };
-
-                // Forgot Password modal
-                $ionicModal.fromTemplateUrl('app/intro/forgot.html', {
-                    scope: $scope,
-                    animation: 'fade-in-scale',
-                    backdropClickToClose: false
-                }).then(function (modal) {
-                    $scope.modalForgot = modal;
-                });
-                $scope.openForgot = function () {
-                    $scope.modalForgot.show();
-                };
-                $scope.closeForgot = function () {
-                    $scope.modalForgot.hide();
-                };
-
+                //Sign Up Modal
                 $scope.uploadUserPhoto = function () {
                     $ionicActionSheet.show({
                         buttons: [{
@@ -214,143 +183,11 @@
                     });
                 };
 
-                $scope.closeAll = function () {
-                    $scope.closeRegister();
-                    $scope.closeForgot();
-                    $scope.closeLogin();
-                }
             }
 
             // news
             function initNews() {
-                $scope.newsPopover = $ionicPopover.fromTemplate(newsTemplate, {
-                    scope: $scope
-                });
 
-                $ionicSideMenuDelegate.canDragContent(false);
-
-                $scope.news = {
-                    type: 'image',
-                    items: appService.getNews()
-                }
-
-                if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-                    $stateParams.post === null ? $scope.post = appService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
-
-                }
-                 $scope.gotoComments = function () {
-                    $state.go('tabs.comments');
-                    $ionicHistory.nextViewOptions({
-                        disableAnimate: true,
-                        disableBack: true
-                    });
-                }
-
-                 $scope.gotoCoaches = function () {
-                    $state.go('tabs.coach');
-                   
-                }
-
-                $scope.gotoComments = function () {
-                    $state.go('tabs.comments');
-                    $ionicHistory.nextViewOptions({
-                        disableAnimate: true,
-                        disableBack: true
-                    });
-                }
-
-                $scope.gotoAccount = function () {
-                    $state.go('tabs.account');
-                   
-                }
-
-                $scope.gotoExplore = function () {
-                    $state.go('tabs.explore');
-                   
-                }
-
-                 $scope.gotoMatch = function () {
-                    $state.go('tabs.match');
-                   
-                }
-
-                $scope.gotoBrowse = function () {
-                    $state.go('tabs.news');
-                   
-                }
-
-                $scope.gotoCoaches = function () {
-                    $state.go('tabs.coach');
-                   
-                }
-                $scope.gotoLikes = function () {
-                    $state.go('tabs.likes');
-                    $ionicHistory.nextViewOptions({
-                        disableAnimate: true,
-                        disableBack: true
-                    });
-                }
-
-                 $scope.gotoCommits = function () {
-                    $state.go('tabs.commits');
-                    $ionicHistory.nextViewOptions({
-                        disableAnimate: true,
-                        disableBack: true
-                    });
-                }
-
-                $scope.showConfirm = function() {
-   
-                var confirmPopup = $ionicPopup.confirm({
-                   title: 'Report Post',
-                   template: ' Are you sure you want to report this post?'
-                 });
-                 confirmPopup.then(function(res) {
-                   if(res) {
-                   } else {
-                   }
-                 });
-               };
-
-                $scope.like = function (post) {
-                    post.likes === undefined ? post.likes = [] : null;
-                    if ($scope.liked == true) {
-                        $scope.liked = false;
-                        post.likes.splice(_.findIndex(post.likes, ['name', $rootScope.user.name]));
-                    } else {
-                        $scope.liked = true;
-                        post.likes.push({ name: $rootScope.user.name, photo: $rootScope.user.photo, publishedDate: new Date() });
-                    }
-                }
-
-                $scope.commit = function (post) {
-                    post.commits === undefined ? post.commits = [] : null;
-                    if ($scope.commited == true) {
-                        $scope.commited = false;
-                        post.commits.splice(_.findIndex(post.commits, ['name', $rootScope.user.name]));
-                    } else {
-                        $scope.commited = true;
-                        post.commits.push({ name: $rootScope.user.name, photo: $rootScope.user.photo, publishedDate: new Date() });
-                    }
-                }
-
-                $scope.comment = function (input) {
-                    $scope.commentMessage = '';
-                    $scope.post.comments === undefined ? $scope.post.comments = [] : null;
-                    $scope.post.comments.push({ text: input, name: $rootScope.user.name, photo: $rootScope.user.photo, publishedDate: new Date() });
-
-                }
-
-                $scope.share = function (post) {
-                    document.addEventListener("deviceready", function () {
-                        $cordovaSocialSharing.share(post.summary, post.title, post.image)
-                            .then(function (result) {
-                                appService.showAlert('Post Shared', result, 'Ok', 'button-balanced', null);
-                            }, function (err) {
-                                appService.showAlert('Error Occured', err, 'Ok', 'button-assertive', null);
-                            });
-                    }, false);
-                }
             }
 
             // profile
@@ -362,7 +199,6 @@
 
             // dashboard
             function initDashboard() {
-                chartData();
 
                 $scope.viewDate = new Date();
                 $scope.notifyTimes = ['at set time', '15 mins before', '30 mins before', '45 mins before', 'an hour before'];
@@ -450,29 +286,10 @@
                    
                 }
 
-                function chartData() {
-                    $scope.line_labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
-                    $scope.line_data = [
-                        [65, 59, 80, 81, 56, 55, 40],
-                        [28, 48, 40, 19, 86, 27, 90]
-                    ];
-
-                    $scope.doughnut_labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-                    $scope.doughnut_data = [300, 500, 100];
-                }
             }
 
             // shop
             function initShop() {
-                $scope.list_type = 'grid';
-                $scope.sizes = [6, 7, 8, 9, 10, 11, 12];
-                $scope.products = appService.getProducts();
-
-                if ($state.is('tabs.cards')) {
-                    $scope.product === undefined ? $scope.product = appService.getRandomObject($scope.products) : null;
-                }
-
-                $scope.cart === undefined ? $scope.cart = [] : null;
 
                 $scope.gotoContacts = function () {
                     $state.go('tabs.contacts');
@@ -484,17 +301,6 @@
                    
                 }             
 
-                $scope.selectProductDetails = function (product) {
-                    $scope.product = product;
-                    $scope.openProductDetails();
-                }
-                $scope.addToCart = function (product) {
-                    $scope.products.splice(_.findIndex($scope.products, ['id', product.id]), 1, product);
-                    $scope.cart.push(product);
-                    $scope.closeProductDetails();
-                    Materialize.toast('<i class="icon ion-ios-cart-outline"></i> Item added to basket', 4000)
-                };
-
                 $scope.makePayment = function () {
                     appService.Loading('show');
                     $timeout(function () {
@@ -502,36 +308,6 @@
                         $scope.goTo('tabs.thanks');
                     }, 2580);
                     Materialize.toast('<i class="icon ion-ios-checkmark-outline"></i> Payment has been successful', 4000)
-                };
-
-                $ionicModal.fromTemplateUrl('app/shop/product-preview.html', {
-                    scope: $scope,
-                    animation: 'fade-in-scale'
-                }).then(function (modal) {
-                    $scope.modalProductPreview = modal;
-                });
-                $scope.openProductPreview = function (item) {
-                    $scope.product = item;
-                    $scope.modalProductPreview.show();
-                };
-                $scope.closeProductPreview = function () {
-                    $scope.product = undefined;
-                    $scope.modalProductPreview.hide();
-                };
-
-                $ionicModal.fromTemplateUrl('app/shop/product-details.html', {
-                    scope: $scope,
-                    animation: 'jelly'
-                }).then(function (modal) {
-                    $scope.modalProductDetails = modal;
-                });
-
-                $scope.openProductDetails = function (item) {
-                    $scope.modalProductDetails.show();
-                };
-
-                $scope.closeProductDetails = function () {
-                    $scope.modalProductDetails.hide();
                 };
 
             }
@@ -765,8 +541,6 @@
 
         })
 
-
-
 })();
 
 moment.locale('en', {
@@ -809,10 +583,10 @@ var newsTemplate =
     '<ion-content>' +
     '<div class="list">' +
     '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-camera-outline"></i>Share Photo' +
+    '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
     '</div>' +
     '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-bell-outline"></i>Share Event' +
+    '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
     '</div>' +
     '</div>' +
     '</ion-content>' +
@@ -829,24 +603,5 @@ var reminderTemplate =
     '</div>' +
     '</ion-content>' +
     '</ion-popover-view>';
-
-var customerTemplate =
-    '<ion-modal-view class="ion-modal">' +
-    '<ion-header-bar>' +
-    '<h1 class="title">{{product.name}}</h1>' +
-    '<button class="button button-icon icon ion-android-close" ng-click="closeModalCustomer();"></button>' +
-    '</ion-header-bar>' +
-    '<ion-content class="padding shop">' +
-    '<label class="item item-input item-select">' +
-    '<div class="input-label">Size:</div>' +
-    '<select ng-options="size for size in sizes" ng-model="product.size"><option value="">Select Size</option> </select>' +
-    '</label>' +
-    '<label class="item item-input">' +
-    '<span class="input-label">Amount:</span>' +
-    '<input type="number" ng-model="product.amount">' +
-    '</label>' +
-    '<button class="button waves-effect waves-teal button-balanced button-outline button-block" ng-click="addToCartComplete(product);">Save</button>' +
-    '</ion-content>' +
-    '</ion-modal-view>';
 
 

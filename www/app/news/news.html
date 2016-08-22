@@ -19,15 +19,15 @@
         <div style="height:95%; overflow:scroll" class="bg-lightgrey">
 
             <div ng-if="news.type === 'image'">
-                <div class="card image" ng-repeat="post in news.items | filter: searchFilter  | orderBy: 'publishedDate':true " ui-sref="tabs.post-detail({post:post})">
+                <div class="card image" ng-repeat="post in news.items | filter: searchFilter  | orderBy: 'publishedDate':true">
                     <div class="item item-image">
                         <img ng-src="{{post.image}}">
                         <span class="interact">
-                        <i class="icon ion-checkmark-round"></i>
+                        <i class="icon ion-checkmark-round" ng-class="{'calm light-bg': commit, 'light': !commit }" ng-click="commit = !commit"></i>
                         <i class="icon ion-ios-heart" ng-class="{'calm light-bg': liked, 'light': !liked }" ng-click="liked = !liked"> {{post.likes.length}}</i>
                         <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
                     </span>
-                        <div class="item item-avatar">
+                        <div class="item item-avatar" ui-sref="tabs.post-detail({post:post})">
                             <img ng-src="{{post.sourceLogo}}">
                             <h2>{{post.author}}</h2>
                             <p>Event Post</p>

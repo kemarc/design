@@ -13,8 +13,9 @@
     <ion-content class="has-header bt-grey profile" scroll="false">
         <div class="row text-center">
             <div class="col font-thin" ng-click="gotoBrowse()">Browse</div>
-            <div class="col font-thin" ng-click="gotoMatch()">Match</div>
+            <div class="col font-thin" ng-click="gotoAccounts()">Profile</div>
             <div class="col font-thin" ng-click="gotoCoaches()">Trainers</div>
+
         </div>
     <div style="height:100%; overflow:scroll" class="bg-lightgrey">
 
@@ -30,8 +31,8 @@
         </div>
 
         <div class="row no-padding bb-grey text-center" style="text-transform: capitalize;">
-            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 1}" ng-click="profile.type = 1">27<br/>Posts</div>
-            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 2}" ng-click="profile.type = 2">20<br/>Commits</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 1 || profile.type === 4}" ng-click="profile.type = 1">27<br/>Posts</div>
+            <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 2 || profile.type === 5}" ng-click="profile.type = 2">20<br/>Commits</div>
             <div class="col font-thin" ng-class="{'text-medium balanced bb' : profile.type === 3}" ng-click="profile.type = 3">1500<br/>Partners</div>
         </div>
 

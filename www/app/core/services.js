@@ -2,7 +2,8 @@
 
     'use strict'
 
-    angular.module('full_starter.services', [])
+    angular.module('full_starter.services', ['firebase','service.activities','service.appointments','service.conversation','service.engagements',
+        'service.interest','service.partners','service.post','service.reportPost','service.userInterest','service.users'])
 
         .service('appService', ['$state', '$ionicPopup', '$ionicActionSheet', '$ionicHistory', '$ionicLoading', '$timeout',
             function ($state, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicLoading, $timeout) {
@@ -16,9 +17,6 @@
                     },
                     getContacts: function () {
                         return _contacts;
-                    },
-                    getProducts: function () {
-                        return _products;
                     },
                     getNotifications: function () {
                         return _notifications;
@@ -661,90 +659,6 @@ var _notifications = [
         title: "Call Advant Ltd",
         type: "Add Call"
     },
-]
-
-// products json for shop-front tab
-var _products = [
-    {
-        id: 1,
-        category: "shoes",
-        price: 70.00,
-        name: "blue-green nike",
-        image: ["img/shop/1.jpg", "img/shop/1.jpg", "img/shop/1.jpg", "img/shop/1.jpg"],
-        stock: 100,
-    },
-    {
-        id: 2,
-        category: "shoes",
-        price: 60.00,
-        name: "black-pink nike",
-        image: ["img/shop/2.jpg", "img/shop/2.jpg", "img/shop/2.jpg", "img/shop/2.jpg"],
-        stock: 1000,
-    },
-    {
-        id: 3,
-        category: "shoes",
-        price: 50.99,
-        name: "black-red nike",
-        image: ["img/shop/3.jpg", "img/shop/3.jpg", "img/shop/3.jpg", "img/shop/3.jpg"],
-        stock: 5000,
-    },
-    {
-        id: 4,
-        category: "shoes",
-        price: 69.99,
-        name: "blue-pink nike",
-        image: ["img/shop/4.jpg", "img/shop/4.jpg", "img/shop/4.jpg", "img/shop/4.jpg"],
-        stock: 1200,
-    },
-    {
-        id: 5,
-        category: "shoes",
-        price: 70.00,
-        name: "black-white nike",
-        image: ["img/shop/5.jpg", "img/shop/5.jpg", "img/shop/5.jpg", "img/shop/5.jpg"],
-        stock: 1200,
-    },
-    {
-        id: 6,
-        category: "shoes",
-        price: 74.99,
-        name: "blue-black-white nike",
-        image: ["img/shop/6.jpg", "img/shop/6.jpg", "img/shop/6.jpg", "img/shop/6.jpg"],
-        stock: 1200,
-    },
-    {
-        id: 7,
-        category: "shoes",
-        price: 45.65,
-        name: "red-black nike",
-        image: ["img/shop/7.jpg", "img/shop/7.jpg", "img/shop/7.jpg", "img/shop/7.jpg"],
-        stock: 100,
-    },
-    {
-        id: 8,
-        category: "shoes",
-        price: 72.00,
-        name: "white-black nike",
-        image: ["img/shop/8.jpg", "img/shop/8.jpg", "img/shop/8.jpg", "img/shop/8.jpg"],
-        stock: 100,
-    },
-    {
-        id: 9,
-        category: "shoes",
-        price: 80.00,
-        name: "green-black nike",
-        image: ["img/shop/9.jpg", "img/shop/9.jpg", "img/shop/9.jpg", "img/shop/9.jpg"],
-        stock: 12000,
-    },
-    {
-        id: 10,
-        category: "shoes",
-        price: 70.00,
-        name: "blue-black nike",
-        image: ["img/shop/10.jpg", "img/shop/10.jpg", "img/shop/10.jpg", "img/shop/10.jpg"],
-        stock: 1800,
-    }
 ]
 
 // Random Messages used as replies for chat tab

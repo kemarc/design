@@ -4,42 +4,71 @@
         <div class="container" style="width:100%">
             <div class="text-center" style="margin-right:12px;"><img src="img/TTG-Symbol-2015-02.png" class="text-center" style="width:20%;" /></div>
         </div>
+        <form name="registerForm" novalidate ng-submit="registerForm.$valid && register(user) && createInterestList()">
+
         <div class="item no-padding" style="background-color: transparent;border-color: transparent;">
-            <div class="row">
+            <div class="row" ng-click="createInterestList();checkUserInterestExists();getListOfUsers();">
                 <div class="input-field col">
-                    <input id="first_name" type="text" class="validate">
+                    <input id="first_name" type="text" ng-model="user.firstName" class="validate">
                     <label for="first_name">First Name</label>
                 </div>
                 <div class="input-field col">
-                    <input id="last_name" type="text" class="validate">
+                    <input id="last_name" type="text" ng-model="user.lastName" class="validate">
                     <label for="last_name">Last Name</label>
                 </div>
             </div>
              <div class="row">
                 <div class="input-field col">
-                    <input id="user_name" type="text" class="validate">
+                    <input id="user_name" type="text" ng-model="user.userName" class="validate">
                     <label for="user_name">Username</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
+                    <input name="email" type="email" ng-model="user.email" class="validate" ng-minlength="5" ng-maxlength="30" required>
+                    <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
+                    <input name="password" type="password" class="validate" ng-model="user.password" ng-minlength="5" ng-maxlength="30" required>
+                    <label for="password">Password</label>
                 </div>
             </div>
+
+            <div class="list">
+        
+        <div class="item item-divider"> 
+          Clientside, Selected Value: {{ data.clientSide }}
+        </div>
+        
+        <ion-radio ng-repeat="item in clientSideList"
+                   ng-value="item.value"
+                   ng-model="data.clientSide">
+          {{ item.text }}
+        </ion-radio>
+        
+        <div class="item item-divider">
+          Serverside, Selected Value: {{ data.serverSide }}
+        </div>
+        
+        <ion-radio ng-repeat="item in serverSideList"
+                   ng-value="item.value"
+                   ng-model="data.serverSide"
+                   ng-change="serverSideChange(item)"
+                   name="server-side">
+          {{ item.text }}
+        </ion-radio>
+        
+      </div>
+      
             <div class="row">
                 <div class="input-field col" style="color: #9e9e9e;">
                     Are you a Trainer?
                 </div>
             </div>
             <div class="row">
-            <ion-checkbox ng-model="isChecked" style="border-color: transparent;color: gray;background-color: transparent">Yes</ion-checkbox>
+            <ion-radio ng-model="isChecked" style="border-color: transparent;color: gray;background-color: transparent">Yes</ion->
             </div>
 
             <div class= "row">
@@ -67,8 +96,9 @@
 
             <div class="row row-login">
                 <div class="col col-login"></div>
-                <div class="col col-login" style="margin-left: 31vh;" ui-sref="tabs.rather">NEXT</div>
+                 <input type="submit" value="NEXT" class="button button-block button-positive" ng-disabled="registerForm.$invalid" style="background-color:transparent;border-color:transparent;color: #F10707;margin-left: 33vh;" />
             </div>
+        </form>
  
     </ion-content>
 

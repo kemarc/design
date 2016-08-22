@@ -1,5 +1,5 @@
 {
-  "name": "full_starter_theme",
+  "name": "Trained-to-Glory app",
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.3.1",
@@ -15,10 +15,13 @@
     "ion-datetime-picker": "^0.2.4",
     "ion-google-place": "^0.0.1",
     "ionic-nifty-modal": "*",
-    "angular-chart.js": "^0.10.2"
+    "angular-chart.js": "^0.10.2",
+    "ionic-platform-web-client": "^0.7.1",
+    "platform.js": "platform#^1.3.1"
   },
   "dependencies": {
     "lodash": "^4.13.1",
-    "Chart.js": "^2.1.4"
+    "Chart.js": "^2.1.4",
+    "angularfire": "^2.0.1"
   }
 }

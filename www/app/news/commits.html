@@ -18,11 +18,10 @@
             <div class="item item-avatar" ng-repeat="liker in post.likes | filter: searchFilter ">
                 <img ng-src="{{liker.photo}}">
                 <h2 class="lead">{{liker.name}}</h2>
+                <i class="icon ion-android-done" style="color: green; font-size: 24px;"></i>
+                <i class="icon ion-close" style="font-size: 22px;color: red;padding-left: 2vh; top: 17px;"></i>
             </div>
         </div>
 
     </ion-content>
-
-    <a class="btn-floating btn-large waves-effect waves-light" ng-class="{'red':liked, 'stable': !liked}" style="position:fixed; bottom:5%;right:5%;" ng-click="like(post);"><i class="icons ion-ios-heart"></i></a>
-
 </ion-view>

@@ -1,5 +1,5 @@
 {
-  "name": "full_starter_theme",
+  "name": "ttgApp",
   "app_id": "22982165",
   "gulpStartupTasks": [
     "sass",

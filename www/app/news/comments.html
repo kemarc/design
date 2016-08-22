@@ -2,15 +2,14 @@
 
     <ion-header-bar class="no-bg">
         <h1 class="title"></h1>
-        <button class="button button-icon button-clear button-light icon ion-ios-search" ng-click="searchPopover.show($event)"></button>
         <button class="button button-icon button-clear button-light ion-android-close" ng-click="goBack('tabs.post-detail')"></button>
     </ion-header-bar>
 
     <ion-content class="has-header">
 
         <div class="row text-center">
-            <div class="col font-thin" ui-sref="tabs.commitList">Commits</div>
-            <div class="col font-thin" ui-sref="tabs.likeList">Likes</div>
+            <div class="col font-thin" ng-click="gotoCommit()">Commits</div>
+            <div class="col font-thin" ng-click="gotoLikes()">Likes</div>
             <div class="col font-thin text-large balanced comments">Comments</div>
 
         </div>

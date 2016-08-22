@@ -1,4 +1,4 @@
-<ion-view title="Reminders" cache-view="false">
+<ion-view title="Calendar" cache-view="false">
     <ion-nav-back-button></ion-nav-back-button>
     <ion-nav-buttons side = "left">
          <button class="button button-icon button-clear button-dark">
@@ -19,8 +19,8 @@
         </div>
 
         <div class="card no-margin no-br" ng-if="seletedDateEvents.length == 0">
-            <div class="item item-text-wrap item-icon-left teal lighten-1">
-                <i class="icon ion-ionic light"></i>
+            <div class="item item-text-wrap item-icon-left teal lighten-1" style="background-color: gray !important;">
+            <img src="img/TTG-Symbol-2015-02.png" style="position: relative;height: 23px;left: -5vh;top: 4px;">
                 <span class="light">No incomplete reminders</span>
             </div>
         </div>

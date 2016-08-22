@@ -2,24 +2,23 @@
     
     
     <ion-content scroll="false">
-        <div ng-form="login_form" class="padding text-center" novalidate>
+        <div ng-form="login_form" class="padding text-center"  name="loginForm" ng-submit="loginForm.$valid && login(user)" novalidate>
+         <form novalidate name="loginForm" ng-submit="loginForm.$valid && login(user)">
             <ion-list>
                 <label class="item item-input">
                     <i class="icon ion-android-person placeholder-icon"></i>
-                    <input type="email" placeholder="Username" ng-model="user.email" required>
+                    <input type="email" placeholder="Username" ng-model="user.email" ng-minlength="5" ng-maxlength="30" required>
                 </label>
                 <label class="item item-input">
                     <i class="icon ion-android-lock placeholder-icon"></i>
-                    <input type="password" placeholder="Password" ng-model="user.password" required>
+                    <input type="password" placeholder="Password" ng-model="user.password" ng-minlength="5" ng-maxlength="30" required>
                 </label>
             </ion-list>
-            <button class="button button-balanced button-block waves-effect waves-light" ng-click="gotoHome();">Log in</button>
-           
-            <p class="">or login in with</p>
-            
+            <input type="submit" class="button button-block button-positive" value="Login" ng-disabled="loginForm.$invalid">
+            </form>
+             <p class="">or login in with</p>
             <div class="button-bar">
-            <button class="button button-facebook icon ion-social-facebook button-block waves-effect waves-light" ng-click="facebookSignIn()"></button>
-            <button class="button button-google icon ion-social-google button-block waves-effect waves-light" ng-click="googleSignIn()"></button>
+            <button class="button button-google icon ion-social-google-outline button-block waves-effect waves-light" ng-click="loginWithGoogle()" style="background-color: #F10707">  Sign in with Google</button>
             </div>
         </div>
         

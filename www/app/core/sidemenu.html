@@ -14,7 +14,7 @@
              <div class = "bg-color">
                 <ion-content>
                     <ul class="list">
-                        <a class="item" menu-toggle ui-sref="tabs.schedule">
+                        <a class="item" menu-toggle ui-sref="tabs.reminders">
                             <i class="icon ion-ios-calendar-outline"></i>
                             Calendar
                         </a>
@@ -34,15 +34,11 @@
                             <i class="icon ion-ios-list-outline"></i>
                             Plans
                         </a>
-                        <a class="item" menu-toggle ui-sref="tabs.reminders">
-                            <i class="icon ion-clock"></i>
-                            Reminders
-                        </a>
                          <a class="item" menu-toggle ui-sref="tabs.settings">
                             <i class="icon ion-ios-gear-outline"></i>
                             Settings
                         </a>
-                        <a class="item" menu-close ng-click="signOut();">
+                        <a class="item" menu-close ng-click="logout();">
                             <i class="icon ion-log-out"></i>
                             Sign Out
                         </a>
