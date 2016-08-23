@@ -8,7 +8,7 @@ angular.module('module.view.signup', ['full_starter.factory'])
     };
   })
 
-  $scope.register = function(user) {
+   $scope.register = function(user) {
     //Check if form is filled up.
     if (angular.isDefined(user)) {
       Utils.show();
@@ -22,9 +22,9 @@ angular.module('module.view.signup', ['full_starter.factory'])
               //Add Firebase account reference to Database. Firebase v3 Implementation.
               firebase.database().ref().child('accounts').push({
                 email: user.email,
-                userName: user.userName,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                userName: user.userName,
                 userId: firebase.auth().currentUser.uid,
                 dateCreated: Date(),
                 provider: 'Firebase'
@@ -41,10 +41,6 @@ angular.module('module.view.signup', ['full_starter.factory'])
                 $localStorage.loginProvider = "Firebase";
                 $localStorage.email = user.email;
                 $localStorage.password = user.password;
-                $localStorage.userName = user.userName;
-                $localStorage.firstName = user.firstName;
-                $localStorage.lastName = user.lastName;
-
               });
             })
             .catch(function(error) {
@@ -82,25 +78,6 @@ angular.module('module.view.signup', ['full_starter.factory'])
       $localStorage.account = account;
     });
     $state.go('tabs.rather');
-  };
-  
-$scope.clientSideList = [
-    { text: "Yes", value: "trainer" },
-    { text: "No", value: "regular" }
-  ];
-
-  $scope.serverSideList = [
-    { text: "Celebrity Trainer", value: "celebrity" },
-    { text: "Freelance Trainer", value: "freelance" },
-    { text: "Professional", value: "professional" }
-  ];
-  
-  $scope.data = {
-    clientSide: 'ng'
-  };
-  
-  $scope.serverSideChange = function(item) {
-    console.log("Selected Serverside, text:", item.text, "value:", item.value);
   };
 
 

@@ -4,10 +4,10 @@
         <div class="container" style="width:100%">
             <div class="text-center" style="margin-right:12px;"><img src="img/TTG-Symbol-2015-02.png" class="text-center" style="width:20%;" /></div>
         </div>
-        <form name="registerForm" novalidate ng-submit="registerForm.$valid && register(user) && createInterestList()">
+        <form name="registerForm" novalidate ng-submit="registerForm.$valid && register(user)">
 
         <div class="item no-padding" style="background-color: transparent;border-color: transparent;">
-            <div class="row" ng-click="createInterestList();checkUserInterestExists();getListOfUsers();">
+            <div class="row">
                 <div class="input-field col">
                     <input id="first_name" type="text" ng-model="user.firstName" class="validate">
                     <label for="first_name">First Name</label>
@@ -19,7 +19,7 @@
             </div>
              <div class="row">
                 <div class="input-field col">
-                    <input id="user_name" type="text" ng-model="user.userName" class="validate">
+                    <input id="user_name" type="text" ng-model="user.userName" class="validate" required>
                     <label for="user_name">Username</label>
                 </div>
             </div>

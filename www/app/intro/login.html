@@ -7,14 +7,14 @@
             <ion-list>
                 <label class="item item-input">
                     <i class="icon ion-android-person placeholder-icon"></i>
-                    <input type="email" placeholder="Username" ng-model="user.email" ng-minlength="5" ng-maxlength="30" required>
+                    <input type="email" placeholder="Email" ng-model="user.email" ng-minlength="5" ng-maxlength="30" required>
                 </label>
                 <label class="item item-input">
                     <i class="icon ion-android-lock placeholder-icon"></i>
                     <input type="password" placeholder="Password" ng-model="user.password" ng-minlength="5" ng-maxlength="30" required>
                 </label>
+                <input type="submit" class="button button-block button-positive" value="Login" ng-disabled="loginForm.$invalid">
             </ion-list>
-            <input type="submit" class="button button-block button-positive" value="Login" ng-disabled="loginForm.$invalid">
             </form>
              <p class="">or login in with</p>
             <div class="button-bar">
