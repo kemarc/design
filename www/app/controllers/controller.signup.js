@@ -106,6 +106,8 @@ angular.module('module.view.signup', ['full_starter.factory'])
  
 
     $scope.starterScreen = function() {
+				console.log('controller.signup StartScreen()');
+			
                 $rootScope.user = {
                     id: 1,
                     name: 'Adam Ionic',

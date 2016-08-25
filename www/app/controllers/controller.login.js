@@ -76,6 +76,7 @@ angular.module('module.view.login', [])
               Utils.hide();
               firebase.database().ref('accounts/' + account.key).on('value', function(response) {
                 var account = response.val();
+								
                 $localStorage.account = account;
               });
               $state.go('tabs.news');

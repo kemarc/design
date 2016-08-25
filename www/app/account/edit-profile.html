@@ -10,26 +10,32 @@
     <ion-content class="profile has-header bt-grey">
 
         <div class="header edit">
-            <img ng-src="{{user.photo}}" ng-click="sendPhoto()">
+            <!-- <img ng-src="{{user.photo}}" ng-click="sendPhoto()"> -->
+            <div ng-if="profile.userThumbnail">
+              <img class="header__thumb" src = "{{ profile.userThumbnail }}">
+            </div>
+            <div nf-if="!profile.userThumbnail">
+              <img class="header__thumb" src="/img/placeholder.png" ng-click="sendPhoto()">
+            </div>
         </div>
 
         <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">info</p>
         <div class="edit padding-horizontal">
-            <label class="item item-input">
+            <label class="item item-input profile__input">
+                <input type="text" value="{{ profile.firstName }}">
                 <span class="input-label">First name</span>
-                <input type="text">
             </label>
-            <label class="item item-input">
+            <label class="item item-input profile__input">
+                <input type="text" value="{{ profile.lastName }}">
                 <span class="input-label">Last name</span>
-                <input type="text">
             </label>
-            <label class="item item-input">
+            <label class="item item-input profile__input">
+                <input type="text" value="{{ profile.userName }}">
                 <span class="input-label">Username</span>
-                <input type="text">
             </label>
-            <label class="item item-input">
+            <label class="item item-input profile__input">
+                <input type="email" value="{{ profile.email }}">
                 <span class="input-label">Email</span>
-                <input type="email">
             </label>
         </div>
 

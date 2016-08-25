@@ -83,13 +83,66 @@
 	width: 100%;
 }
 
+
+/* Profile */
+
+.profile .header 
+{
+	text-align: center;
+}
 .profile .header.edit:before
 {
 	color: white;
 }
+.profile .header img.header__thumb 
+{
+	margin: 0 auto;
+}
+
+/* Edit Profile */
+
+.profile .header.edit 
+{
+	height: auto;
+}
+.profile .header.edit:before
+{
+	position: relative;
+}
+.profile .header.edit img 
+{
+	position: relative;
+	height: 120px;
+	width: 120px;
+	margin: 8px auto;
+}
+
+.profile .edit .profile__input 
+{
+	display: block;
+	text-align: left;
+	width: 100%;
+	border: none;
+}
+
+.profile .edit .profile__input input 
+{
+	display: block;
+	width: 100%;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+}
+.profile .edit .profile__input .input-label 
+{
+	display: block;
+	width: 100%;
+	border: none;
+	font-style: italic;
+}
+
+
 
 .balanced, a.balanced
-
 {
 	color: green;
 }

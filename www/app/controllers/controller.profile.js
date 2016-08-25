@@ -1,5 +1,5 @@
 angular.module('module.view.profile', [])
-	.controller('profileCtrl', function($scope,$rootScope,$state,postService,partnersService) {
+	.controller('profileCtrl', function($scope,$rootScope,$state,postService,partnersService, $localStorage) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -23,7 +23,14 @@ angular.module('module.view.profile', [])
             items: postService.getNews()
         }
 
-		$scope.profile = { type: 1 };
+		// 1. Fetch the profile 
+		
+		// 2. Send it to the template
+		
+		// 3. Render
+		
+		$scope.profile = $localStorage.account;
+		console.log($scope.profile);
 
 		$scope.gotoMatch = function () {
                     $state.go('tabs.match');

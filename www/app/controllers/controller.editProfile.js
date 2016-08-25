@@ -1,5 +1,7 @@
 angular.module('module.view.editProfile', [])
-	.controller('editProfileCtrl', function($scope,$rootScope,$state,engagementsService) {
+	.controller('editProfileCtrl', function($scope,$rootScope,$state,engagementsService, $localStorage) {
+		
+		$scope.profile = $localStorage.account;
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
