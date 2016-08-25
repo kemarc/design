@@ -1,21 +1,22 @@
 angular.module('module.view.profile', [])
 	.controller('profileCtrl', function($scope,$rootScope,$state,postService,partnersService, $localStorage) {
+		
 		$scope.goBack = function (ui_sref) {
-                    var currentView = $ionicHistory.currentView();
-                    var backView = $ionicHistory.backView();
+	                    var currentView = $ionicHistory.currentView();
+	                    var backView = $ionicHistory.backView();
 
-                    if (backView) {
-                        //there is a back view, go to it
-                        if (currentView.stateName == backView.stateName) {
-                            //if not works try to go doubleBack
-                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
-                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
-                        } else {
-                            backView.go();
-                        }
-                    } else {
-                        $state.go(ui_sref);
-                    }
+	                    if (backView) {
+	                        //there is a back view, go to it
+	                        if (currentView.stateName == backView.stateName) {
+	                            //if not works try to go doubleBack
+	                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
+	                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
+	                        } else {
+	                            backView.go();
+	                        }
+	                    } else {
+	                        $state.go(ui_sref);
+	                    }
         }
 
         $scope.news = {
@@ -23,14 +24,8 @@ angular.module('module.view.profile', [])
             items: postService.getNews()
         }
 
-		// 1. Fetch the profile 
-		
-		// 2. Send it to the template
-		
-		// 3. Render
 		
 		$scope.profile = $localStorage.account;
-		console.log($scope.profile);
 
 		$scope.gotoMatch = function () {
                     $state.go('tabs.match');
@@ -48,7 +43,7 @@ angular.module('module.view.profile', [])
         };
 
         $scope.contacts = partnersService.getContacts();
-
+				
 });
 
 

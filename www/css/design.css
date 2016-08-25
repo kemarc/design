@@ -103,11 +103,16 @@
 
 .profile .header.edit 
 {
+	position: relative;
 	height: auto;
 }
 .profile .header.edit:before
 {
-	position: relative;
+	position: absolute;
+	color: #fff;
+	bottom: 24px;
+	top: auto;
+	left: auto;
 }
 .profile .header.edit img 
 {

@@ -1,5 +1,5 @@
 angular.module('module.view.editProfile', [])
-	.controller('editProfileCtrl', function($scope,$rootScope,$state,engagementsService, $localStorage) {
+	.controller('editProfileCtrl', function($scope, $rootScope, $state, engagementsService, $localStorage, $ionicHistory) {
 		
 		$scope.profile = $localStorage.account;
 		$scope.goBack = function (ui_sref) {
@@ -68,18 +68,43 @@ angular.module('module.view.editProfile', [])
         }
       };
 
-        $scope.saveReminder = function () {
-                    if ($scope.reminderForm.$valid) {
-                        if ($stateParams.reminder === null) {
-                            $rootScope.notifications.push($scope.reminder);
-                        } else {
-                            $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
-                        }
-                    } else {
-                        appService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
-                    }
+        $scope.save = function () {
+					var $inputs = $('.profile .profile__input input');
+					var data = {};
+					$inputs.map( function(elm) {
+						data[$(this).attr('name')] = $(this).val();
+					});
 
-                }
+					var ref = firebase.database().ref('accounts');
+					ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
+						firebase.database().ref('/accounts/' + snapshot.key ).update({
+							email: data.email,
+							firstName: data.firstName,
+							lastName: data.lastName,
+							userName: data.userName
+						}).then( function() {
+							$localStorage.account.email = data.email;
+							$localStorage.account.firstName = data.firstName;
+							$localStorage.account.lastName = data.lastName;
+							$localStorage.account.userName = data.userName;
+							$state.go('tabs.account');
+							return;
+						});
+					});
+					
+					
+              // if ($scope.reminderForm.$valid) {
+              //     if ($stateParams.reminder === null) {
+              //         $rootScope.notifications.push($scope.reminder);
+              //     } else {
+              //         $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
+              //     }
+              // } else {
+              //     appService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
+              // }
+					
+
+          };
 
 		$scope.sendPhoto = function () {
                     var message = {

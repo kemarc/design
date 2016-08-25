@@ -75,7 +75,9 @@ angular.module('module.view.signup', ['full_starter.factory'])
   getAccountAndLogin = function(key) {
     firebase.database().ref('accounts/' + key).on('value', function(response) {
       var account = response.val();
+			account.key = key;
       $localStorage.account = account;
+			$localStorage.key = account.key;
     });
     $state.go('tabs.rather');
   };
