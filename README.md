@@ -10,8 +10,8 @@ If you face throw err run then run bower install:
 
 In order to serve the app you must go to the cloned folder and run (you must have node in your path):
 
-npm install -g cordova ionic
-ionic serve 
+1. npm install -g cordova ionic
+2. ionic serve 
 
 This link is the updated docs for Firebase: https://firebase.google.com/docs/reference/js/.
 
