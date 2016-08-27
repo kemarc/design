@@ -2,52 +2,50 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato%3A400%2C300%2C100%2C700" rel="stylesheet" type="text/css">
-    <link href="css/materialize.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/ionic.app.css" rel="stylesheet">
-    <link href="css/design.css" rel="stylesheet">
-    <link href="lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.css" rel="stylesheet">
-    <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">
-    <link href="lib/ion-google-place/ion-google-place.css" rel="stylesheet">
-    <link href="lib/ionic-nifty-modal/nifty.modal.css" rel="stylesheet">
-    <link href="lib/angular-chart.js/dist/angular-chart.css" rel="stylesheet">
-
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/moment/moment.js"></script>
-    <script src="lib/angular-moment/angular-moment.js"></script>
-    <script src="lib/moment-range/dist/moment-range.js"></script>
-    <script src="lib/Autolinker.js/dist/Autolinker.js"></script>
-    <script src="lib/angular-elastic/elastic.js"></script>
-    <script src="lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js"></script>
-    <script src="lib/ion-affix/ion-affix.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="lib/angular-elastic/elastic.js"></script>
-    <script src="lib/Materialize/dist/js/materialize.min.js"></script>
-    <script src="lib/ng-lodash/build/ng-lodash.min.js"></script>
-    <script src="lib/lodash/dist/lodash.min.js"></script>
-    <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
-    <script src="lib/ion-google-place/ion-google-place.js"></script>
-    <script src="lib/Chart.js/Chart.js"></script>
-    <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM-W2tYWSDinJsljgjk3gsYSv6ZXy62JM&amp;"></script>
-    <script src="cordova.js"></script>
-
-    <script src="app/app.js"></script>
-    <script src="app/core/controllers.js"></script>
-    <script src="app/core/routes.js"></script>
-    <script src="app/core/services.js"></script>
-    <script src="app/core/directives.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="cordova.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/utils.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyA2QrCach2kxQpuwtjzLuP5GkWq2gc_6Xs",
+      authDomain: "fir-v3-auth-social-kit.firebaseapp.com",
+      databaseURL: "https://fir-v3-auth-social-kit.firebaseio.com",
+      storageBucket: "fir-v3-auth-social-kit.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script>
+  <!-- Login -->
+  <script src="views/login/login.js"></script>
+  <!-- Register -->
+  <script src="views/register/register.js"></script>
+  <!-- Forgot -->
+  <script src="views/forgotPassword/forgotPassword.js"></script>
+  <!-- Complete Account -->
+  <script src="views/completeAccount/completeAccount.js"></script>
+  <!-- Home -->
+  <script src="views/home/home.js"></script>
+  <!-- ngStorage -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+  <!-- ngCordovaOAuth -->
+  <script src="js/ng-cordova-oauth.min.js"></script>
+  <script src="js/sha1.js"></script>
 </head>
 
-<body ng-app="full_starter" ng-controller="appCtrl">
-    <ion-nav-view></ion-nav-view>
+<body ng-app="App">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-nav-view></ion-nav-view>
 </body>
 
 </html>
