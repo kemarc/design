@@ -14,12 +14,12 @@ angular.module('service.post', [])
             createPost: function (postTypeId, userId, activityId, description, filePath) {
                 //create a location in the table
                 var obj = {
-                    "typeId": postTypeId || null,
-                    "activityId": activityId || null,
-                    "description": description || null,
-                    "filePath": filePath || null,
+                    "typeId": postTypeId || '',
+                    "activityId": activityId || '',
+                    "description": description || '',
+                    "filePath": filePath || '',
                     "created": firebase.database.ServerValue.TIMESTAMP,
-                    "createdBy": userId || null
+                    "createdBy": userId || ''
                 };
                 var db = firebase.database().ref();
                 var posts = db.child('posts');

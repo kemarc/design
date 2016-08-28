@@ -9,9 +9,6 @@ angular.module('module.view.login', [])
 
       //Check if user is already authenticated on Firebase and authenticate using the saved credentials.
       if ($localStorage) {
-        window.profileLocalStorage = $localStorage;
-        window.postService = postService;
-        
         if ($localStorage.loginProvider) {
           Utils.message(Popup.successIcon, Popup.welcomeBack);
           //The user is previously logged in, and there is a saved login credential.
