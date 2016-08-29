@@ -1,5 +1,5 @@
 angular.module('module.view.news', [])
-	.controller('newsCtrl', function($scope,$rootScope,$state,postService,conversationService,$ionicSideMenuDelegate,$ionicPopover) {
+	.controller('newsCtrl', function($scope,$rootScope,$state,postService,$localStorage,$ionicActionSheet,conversationService,$ionicSideMenuDelegate,$ionicPopover) {
         $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -21,9 +21,9 @@ angular.module('module.view.news', [])
         $scope.sendPhoto = function () {
                     var message = {
                         sentAt: new Date(),
-                        name: $rootScope.user.name,
-                        photo: $rootScope.user.photo,
-                        senderid: $rootScope.user.id
+												name: $localStorage.userName,
+                        photo: $localStorage.userPhoto,
+                        senderid: $localStorage.account.userId
                     };
                     $ionicActionSheet.show({
                         buttons: [{
@@ -67,27 +67,27 @@ angular.module('module.view.news', [])
 
 		$scope.gotoExplore = function () {
                     $state.go('tabs.explore');
-                   
+
         };
 
         $scope.gotoMatch = function () {
                     $state.go('tabs.match');
-                   
+
         };
 
        $scope.gotoAccount = function () {
                     $state.go('tabs.account');
-                   
+
         };
 
         $scope.gotoCoaches = function () {
                     $state.go('tabs.coach');
-           
+
         };
 
         $scope.newsPopover = $ionicPopover.fromTemplate(newsTemplate, {
                     scope: $scope
-                });
+        });
 
         $ionicSideMenuDelegate.canDragContent(false);
 
@@ -102,10 +102,10 @@ var newsTemplate =
     '<ion-popover-view class="medium right">' +
     '<ion-content>' +
     '<div class="list">' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
+    '<div class="item item-icon-left item-text-wrap">' +
     '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
     '</div>' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
+    '<div class="item item-icon-left item-text-wrap">' +
     '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
     '</div>' +
     '</div>' +

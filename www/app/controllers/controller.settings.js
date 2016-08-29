@@ -17,17 +17,8 @@ angular.module('module.view.settings', [])
                         $state.go(ui_sref);
                     }
                 };
+				$scope.profile = $localStorage.account;
                 
-		// $scope.signOut = function () {
-  //                   $ionicLoading.show({
-  //                       template: 'Signing out...'
-  //                   });
-  //                   $timeout(function () {
-  //                       $ionicLoading.hide();
-  //                       $scope.goTo('authentication');
-  //                   }, 2000);
-
-  //               }
         $scope.logout = function() {
         if (firebase.auth()) {
           firebase.auth().signOut().then(function() {

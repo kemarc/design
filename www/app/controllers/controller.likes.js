@@ -1,6 +1,7 @@
 angular.module('module.view.likes', [])
-	.controller('likesCtrl', function($scope,$rootScope,$state,$stateParams,postService,$ionicHistory) {
-        $scope.goBack = function (ui_sref) {
+	.controller('likesCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory) {
+				$scope.profile = $localStorage.account;
+				$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
 
@@ -48,10 +49,10 @@ angular.module('module.view.likes', [])
                     post.likes === undefined ? post.likes = [] : null;
                     if ($scope.liked == true) {
                         $scope.liked = false;
-                        post.likes.splice(_.findIndex(post.likes, ['name', $rootScope.user.name]));
+                        post.likes.splice(_.findIndex(post.likes, ['name', $localStorage.userName]));
                     } else {
                         $scope.liked = true;
-                        post.likes.push({ name: $rootScope.user.name, photo: $rootScope.user.photo, publishedDate: new Date() });
+                        post.likes.push({ name: $localStorage.userName, photo: $localStorage.userPhoto, publishedDate: new Date() });
                     }
         };
 
