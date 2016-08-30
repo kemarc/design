@@ -154,37 +154,37 @@ angular.module('service.engagements', [])
             });
         };
 
-        this.like = function (category, categoryId, itemId, userId) {
+        this.like = function (category, categoryId,userId) {
             var type = 'engagementLikes';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
-        this.unlike = function (category, categoryId, itemId, userId) {
+        this.unlike = function (category, categoryId, userId) {
             var type = 'engagementLikes';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
 
-        this.commit = function (category, categoryId, itemId, userId) {
+        this.commit = function (category, categoryId, userId) {
             var type = 'engagementCommits';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
-        this.uncommit = function (category, categoryId, itemId, userId) {
+        this.uncommit = function (category, categoryId, userId) {
             var type = 'engagementsCommits';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
 
-        this.accept = function (category, categoryId, itemId, userId) {
+        this.accept = function (category, categoryId, userId) {
             var type = 'engagementsAccepts';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
-        this.reject = function (category, categoryId, itemId, userId) {
+        this.reject = function (category, categoryId, userId) {
             var type = 'engagementsAccepts';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
