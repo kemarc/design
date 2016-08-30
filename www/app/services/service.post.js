@@ -1,7 +1,7 @@
 angular.module('service.post', [])
     .service('postService', function ($localStorage) {
         return {
-            getPosts: function (postId) {
+            get: function (postId) {
                 var posts = (postId) ? firebase.database().ref('posts/' + postId) : firebase.database().ref('posts');
                 return posts.once('value').then(function (snapshot) {
                     var currentObj = snapshot.val();
@@ -11,7 +11,7 @@ angular.module('service.post', [])
                     return undefined;
                 });
             },
-            createPost: function (postTypeId, userId, activityId, description, filePath) {
+            create: function (postTypeId, userId, activityId, description, filePath) {
                 //create a location in the table
                 var obj = {
                     "typeId": postTypeId || '',
@@ -27,7 +27,7 @@ angular.module('service.post', [])
 
                 return postsKey;
             },
-            updatePost: function (postId, postTypeId, userId, activityId, description, filePath, created, createdBy) {
+            update: function (postId, postTypeId, userId, activityId, description, filePath, created, createdBy) {
                 var posts = firebase.database().ref('posts/' + postId);
                 return posts.once('value').then(function (snapshot) {
                     var currentObj = snapshot.val();
@@ -46,7 +46,7 @@ angular.module('service.post', [])
                     return null;
                 });
             },
-            deletePost: function (postId) {
+            delete: function (postId) {
                 var posts = firebase.database().ref('posts/' + postId);
                 return posts.once('value').then(function (snapshot) {
                     var currentObj = snapshot.val();
