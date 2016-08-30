@@ -1,5 +1,5 @@
 angular.module('module.view.chat', [])
-	.controller('chatCtrl', function($scope,$rootScope,$state,$ionicPopover,postService,$ionicLoading,conversationService,engagementsService,$ionicScrollDelegate,$stateParams,$timeout) {
+	.controller('chatCtrl', function($scope,$rootScope,$state,$localStorage, $ionicActionSheet, $ionicPopover,postService,$ionicLoading,conversationService,engagementsService,$ionicScrollDelegate,$stateParams,$timeout) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -67,10 +67,10 @@ angular.module('module.view.chat', [])
                     conversationService.KeepKeyboardOpen('#textChat');
                     var message = {
                         sentAt: new Date(),
-                        name: $rootScope.user.name,
-                        photo: $rootScope.user.photo,
-                        text: item,
-                        senderid: $rootScope.user.id
+												name: $localStorage.userName,
+                        photo: $localStorage.userThumbnail,
+												text: item,
+                        senderid: $localStorage.account.userId
                     };
 
                     $timeout(function () {
@@ -125,9 +125,9 @@ angular.module('module.view.chat', [])
                 $scope.sendPhoto = function () {
                     var message = {
                         sentAt: new Date(),
-                        name: $rootScope.user.name,
-                        photo: $rootScope.user.photo,
-                        senderid: $rootScope.user.id
+												name: $localStorage.userName,
+                        photo: $localStorage.userThumbnail,
+                        senderid: $localStorage.account.userId
                     };
                     $ionicActionSheet.show({
                         buttons: [{

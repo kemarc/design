@@ -17,7 +17,7 @@
         <div class="list">
             <div class="item item-avatar item-text-wrap" ng-repeat="comment in post.comments | filter: searchFilter ">
                 <img ng-src="{{comment.photo}}">
-                <h2 class="lead">{{comment.name}}</h2>
+                <h2 class="lead">{{profile.firstName + " " + profile.lastName}}</h2>
                 <p>{{comment.text}}</p>
                 <p class="text-smaller" am-time-ago="comment.publishedDate"></p>
             </div>

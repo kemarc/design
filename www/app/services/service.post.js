@@ -75,6 +75,10 @@ angular.module('service.post', [])
         };
     });
 
+    function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
 
 //Contacts data
 var _contacts = [
@@ -427,8 +431,6 @@ var _randMessages = [
     'Should the spoiled thief bay with the illiterate?'
 ]
 
-function randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
+
 
 

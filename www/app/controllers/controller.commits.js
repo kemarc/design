@@ -1,5 +1,6 @@
 angular.module('module.view.commits', [])
-	.controller('commitsCtrl', function($scope,$rootScope,$state,$stateParams,postService,$ionicHistory,$ionicPopover) {
+	.controller('commitsCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory,$ionicPopover) {
+		$scope.profile = $localStorage.account;
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -52,10 +53,10 @@ angular.module('module.view.commits', [])
                     post.likes === undefined ? post.likes = [] : null;
                     if ($scope.liked == true) {
                         $scope.liked = false;
-                        post.likes.splice(_.findIndex(post.likes, ['name', $rootScope.user.name]));
+                        post.likes.splice(_.findIndex(post.likes, ['name', $localStorage.userName]));
                     } else {
                         $scope.liked = true;
-                        post.likes.push({ name: $rootScope.user.name, photo: $rootScope.user.photo, publishedDate: new Date() });
+                        post.likes.push({ name: $rootScope.user.name, photo: $localStorage.userPhoto, publishedDate: new Date() });
                     }
         };
 
@@ -71,4 +72,3 @@ var searchTemplate =
     '</div>' +
     '</ion-content>' +
     '</ion-popover-view>';
-    

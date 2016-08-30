@@ -1,5 +1,5 @@
 angular.module('module.view.comments', [])
-	.controller('commentsCtrl', function($scope,$rootScope,$state,postService,conversationService,$stateParams,$timeout,$ionicHistory) {
+	.controller('commentsCtrl', function($scope,$rootScope,$state,$localStorage, postService,conversationService,$stateParams,$timeout,$ionicHistory) {
             $scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -48,10 +48,10 @@ angular.module('module.view.comments', [])
                     conversationService.KeepKeyboardOpen('#textChat');
                     var message = {
                         sentAt: new Date(),
-                        name: $rootScope.user.name,
-                        photo: $rootScope.user.photo,
-                        text: item,
-                        senderid: $rootScope.user.id
+												name: $localStorage.userName,
+                        photo: $localStorage.userThumbnail,
+												text: item,
+                        senderid: $localStorage.account.userId
                     };
 
                     $timeout(function () {
