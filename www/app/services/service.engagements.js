@@ -2,80 +2,103 @@ angular.module('service.engagements', [])
     .service('engagementService', function () {
         //check if user has already engaged with this item
         var engaged = function (type, category, categoryId, itemId) {
-            var arr = [type, category, categoryId, 'items'];
-            var refId = arr.join('/');
-            var db = firebase.database().ref(refId);
-            return db.on('value', function (snapshot) {
-                var prev = snapshot.val();
-                var hasEngaged = false;
-                //has anyone engaged
-                if (prev) {
-                    hasEngaged = true;
-                    if (!itemId in prev) {
-                        hasEngaged = false;
-                    }
+            var arr = [type, category, categoryId, itemId];
+            var db = firebase.database();
+            //check type
+            var refId = arr.slice(0, 1).join('');
+            return db.ref(refId).once('value').then(function (snapshot) {
+                var currentObj = snapshot.val();
+                if (currentObj) {
+                    //check type/category
+                    var refId = arr.slice(0, 2).join('/');
+                    return db.ref(refId).once('value').then(function (snapshot) {
+                        var currentObj = snapshot.val();
+                        if (currentObj) {
+                            //check type/category/categoryId
+                            var refId = arr.slice(0, 3).join('/');
+                            return db.ref(refId).once('value').then(function (snapshot) {
+                                var currentObj = snapshot.val();
+                                if (currentObj) {
+                                    //check type/category/categoryId/itemId
+                                    var refId = arr.slice(0, 4).join('/');
+                                    return db.ref(refId).once('value').then(function (snapshot) {
+                                        var currentObj = snapshot.val();
+                                        if (currentObj) {
+                                            return true;
+                                        }
+                                        //type/category/categoryId exists
+                                        return arr.slice(0, 3);
+                                    });
+                                }
+                                //type/category/ exists
+                                return arr.slice(0, 2);
+                            });
+                        }
+                        //type exists
+                        return arr.slice(0, 1);
+                    });
                 }
-                return hasEngaged;
+                //nothing exists
+                return false;
             });
         };
 
         //returns true when engagement successfully registers in db, returns false otherwise.
         var updateEngagement = function (type, category, categoryId, itemId, active) {
             //check if there has been this type of engagement on this post
-            var exists = engaged(type, category, categoryId, itemId);
-            var final = {};
-            if (!exists) {
-                final[type] = {};
-                final[type][category] = {};
-                final[type][category][categoryId] = {};
-                final[type][category][categoryId].items = {};
-                final[type][category][categoryId].items[itemId] = {
-                    "created": firebase.database.ServerValue.TIMESTAMP,
-                    "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                    "state": {
-                        "actionable": true,
-                        "visible": true,
-                        "active": active ? (active) : true
-                    }
-                };
-                var db = firebase.database().ref();
-                return db.set(final).then(function () {
-                    //successfully saved
-                    return true;
-                }, function () {
-                    //failed
-                    return false;
-                });
-            }
-            var arr = [type, category, categoryId, 'items'];
-            var refId = arr.join('/');
-            var db = firebase.database().ref(refId);
-            return db.on('value', function (snapshot) {
-                var prev = snapshot.val();
-                if (!prev) {
-                    final = {
-                        items: {}
+            return engaged(type, category, categoryId, itemId).then(function (exists) {
+                console.log(exists);
+                if (exists instanceof Array) {
+                    var final = {};
+                    final[type] = {};
+                    final[type][category] = {};
+                    final[type][category][categoryId] = {};
+                    final[type][category][categoryId][itemId] = {
+                        "created": firebase.database.ServerValue.TIMESTAMP,
+                        "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                        "state": {
+                            "actionable": true,
+                            "visible": true,
+                            "active": active ? (active) : true
+                        }
                     };
-                    final = final.items;
+                    var db = firebase.database().ref(type);
+                    return db.update(final).then(function () {
+                        //successfully saved
+                        return true;
+                    }, function () {
+                        //failed
+                        return false;
+                    });
                 }
-                final[itemId] = {
-                    "created": prev ? prev.created : firebase.database.ServerValue.TIMESTAMP,
-                    "lastModified": prev ? prev.lastModified : firebase.database.ServerValue.TIMESTAMP,
-                    "state": {
-                        "actionable": prev ? prev.actionable : true,
-                        "visible": prev? prev.visible : true,
-                        "active": active ? (active) : (prev)? !prev.active: true
+
+                var arr = [type, category, categoryId];
+                var refId = arr.join('/');
+                var db = firebase.database().ref(refId);
+                return db.once('value').then(function (snapshot) {
+                    var prev = snapshot.val();
+                    if(prev && itemId in prev){
+                        prev = prev[itemId];
                     }
-                };
-                return db.update(final).then(function () {
-                    //successfully saved
-                    return true;
-                }, function () {
-                    //failed
-                    return false;
+                    var final = {};
+                    final[itemId] = {
+                        "created": prev.created,
+                        "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                        "state": {
+                            "actionable": prev.state.actionable,
+                            "visible": prev.state.visible,
+                            "active": typeof (active) !== 'undefined' ? active : !prev.state.active
+                        }
+                    };
+                    return db.update(final).then(function () {
+                        //successfully saved
+                        return true;
+                    }, function () {
+                        //failed
+                        return false;
+                    });
                 });
             });
-
         };
 
         this.like = function (category, categoryId, itemId, userId) {
