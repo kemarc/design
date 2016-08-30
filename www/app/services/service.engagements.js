@@ -47,22 +47,68 @@ angular.module('service.engagements', [])
         var updateEngagement = function (type, category, categoryId, itemId, active) {
             //check if there has been this type of engagement on this post
             return engaged(type, category, categoryId, itemId).then(function (exists) {
-                console.log(exists);
                 if (exists instanceof Array) {
+                    var len = exists.length;
+                    var refId = len <= 1 ? exists.join('') : exists.join('/');
                     var final = {};
-                    final[type] = {};
-                    final[type][category] = {};
-                    final[type][category][categoryId] = {};
-                    final[type][category][categoryId][itemId] = {
-                        "created": firebase.database.ServerValue.TIMESTAMP,
-                        "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                        "state": {
-                            "actionable": true,
-                            "visible": true,
-                            "active": active ? (active) : true
+                    if (len === 0) {
+                        final[type] = {};
+                        final[type][category] = {};
+                        final[type][category][categoryId] = {};
+                        final[type][category][categoryId][itemId] = {
+                            "created": firebase.database.ServerValue.TIMESTAMP,
+                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                            "state": {
+                                "actionable": true,
+                                "visible": true,
+                                "active": active ? (active) : true
+                            }
+                        };
+                    } else if (len == 1) {
+                        final[category] = {};
+                        final[category][categoryId] = {};
+                        final[category][categoryId][itemId] = {
+                            "created": firebase.database.ServerValue.TIMESTAMP,
+                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                            "state": {
+                                "actionable": true,
+                                "visible": true,
+                                "active": active ? (active) : true
+                            }
+                        };
+                    } else if (len == 2) {
+                        final[categoryId] = {};
+                        final[categoryId][itemId] = {
+                            "created": firebase.database.ServerValue.TIMESTAMP,
+                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                            "state": {
+                                "actionable": true,
+                                "visible": true,
+                                "active": active ? (active) : true
+                            }
+                        };
+                    } else if (len == 3) {
+                        final[itemId] = {
+                            "created": firebase.database.ServerValue.TIMESTAMP,
+                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                            "state": {
+                                "actionable": true,
+                                "visible": true,
+                                "active": active ? (active) : true
+                            }
+                        };
+                    } else if (len == 4) {
+                        final = {
+                            "created": firebase.database.ServerValue.TIMESTAMP,
+                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                            "state": {
+                                "actionable": true,
+                                "visible": true,
+                                "active": active ? (active) : true
+                            }
                         }
-                    };
-                    var db = firebase.database().ref(type);
+                    }
+                    var db = firebase.database().ref(refId);
                     return db.update(final).then(function () {
                         //successfully saved
                         return true;
@@ -77,7 +123,7 @@ angular.module('service.engagements', [])
                 var db = firebase.database().ref(refId);
                 return db.once('value').then(function (snapshot) {
                     var prev = snapshot.val();
-                    if(prev && itemId in prev){
+                    if (prev && itemId in prev) {
                         prev = prev[itemId];
                     }
                     var final = {};
