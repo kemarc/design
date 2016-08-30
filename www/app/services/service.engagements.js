@@ -47,10 +47,10 @@ angular.module('service.engagements', [])
         var updateEngagement = function (type, category, categoryId, itemId, active) {
             //check if there has been this type of engagement on this post
             return engaged(type, category, categoryId, itemId).then(function (exists) {
-                if (exists instanceof Array) {
-                    var len = exists.length;
-                    var refId = len <= 1 ? exists.join('') : exists.join('/');
+                if (exists instanceof Array || exists === false) {
+                    var len = exists instanceof Array ? exists.length : 0;
                     var final = {};
+
                     if (len === 0) {
                         final[type] = {};
                         final[type][category] = {};
@@ -108,7 +108,14 @@ angular.module('service.engagements', [])
                             }
                         }
                     }
-                    var db = firebase.database().ref(refId);
+
+                    if(len > 1){
+                        var refId = exists.join('/');
+                    }else if(len === 1){
+                        var refId = exists.join('');
+                    }
+
+                    var db = (typeof (exists) === 'boolean' || len === 0) ? firebase.database().ref() : firebase.database().ref(refId);
                     return db.update(final).then(function () {
                         //successfully saved
                         return true;
@@ -148,37 +155,37 @@ angular.module('service.engagements', [])
         };
 
         this.like = function (category, categoryId, itemId, userId) {
-            var type = 'likes';
+            var type = 'engagementLikes';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
         this.unlike = function (category, categoryId, itemId, userId) {
-            var type = 'likes';
+            var type = 'engagementLikes';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
 
         this.commit = function (category, categoryId, itemId, userId) {
-            var type = 'commits';
+            var type = 'engagementCommits';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
         this.uncommit = function (category, categoryId, itemId, userId) {
-            var type = 'commits';
+            var type = 'engagementsCommits';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
 
         this.accept = function (category, categoryId, itemId, userId) {
-            var type = 'accepts';
+            var type = 'engagementsAccepts';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
         this.reject = function (category, categoryId, itemId, userId) {
-            var type = 'accepts';
+            var type = 'engagementsAccepts';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
