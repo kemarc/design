@@ -1,92 +1,94 @@
 angular.module('module.view.news', [])
-	.controller('newsCtrl', function($scope,$rootScope,$state,postService,$localStorage,$ionicActionSheet,conversationService,$ionicSideMenuDelegate,$ionicPopover) {
+    .controller('newsCtrl', function ($scope, $rootScope, $state, postService, $localStorage, $ionicActionSheet, conversationService, $ionicSideMenuDelegate, $ionicPopover, engagementService) {
+        $scope.engagementService = engagementService;
+        window.engagementService = $scope.engagementService;
         $scope.goBack = function (ui_sref) {
-                    var currentView = $ionicHistory.currentView();
-                    var backView = $ionicHistory.backView();
+            var currentView = $ionicHistory.currentView();
+            var backView = $ionicHistory.backView();
 
-                    if (backView) {
-                        //there is a back view, go to it
-                        if (currentView.stateName == backView.stateName) {
-                            //if not works try to go doubleBack
-                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
-                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
-                        } else {
-                            backView.go();
-                        }
-                    } else {
-                        $state.go(ui_sref);
-                    }
+            if (backView) {
+                //there is a back view, go to it
+                if (currentView.stateName == backView.stateName) {
+                    //if not works try to go doubleBack
+                    var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
+                    $state.go(doubleBackView.stateName, doubleBackView.stateParams);
+                } else {
+                    backView.go();
+                }
+            } else {
+                $state.go(ui_sref);
+            }
         }
 
         $scope.sendPhoto = function () {
-                    var message = {
-                        sentAt: new Date(),
-												name: $localStorage.userName,
-                        photo: $localStorage.userPhoto,
-                        senderid: $localStorage.account.userId
-                    };
-                    $ionicActionSheet.show({
-                        buttons: [{
-                            text: 'Take Picture'
-                        }, {
-                                text: 'Select From Gallery'
-                            }],
-                        buttonClicked: function (index) {
-                            switch (index) {
-                                case 0: // Take Picture
-                                    document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
-                                            $timeout(function () {
-                                                $scope.chat.messages.push(message);
-                                                viewScroll.scrollBottom(true);
-                                            }, 0);
-                                        }, function (err) {
-                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
-                                        });
-                                    }, false);
-                                    break;
-                                case 1: // Select From Gallery
-                                    document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
-                                            $timeout(function () {
-                                                $scope.chat.messages.push(message);
-                                                viewScroll.scrollBottom(true);
-                                            }, 0);
-                                        }, function (err) {
-                                            conversationService.showAlert('Error', err, 'Close', 'button-assertive', null);
-                                        });
-                                    }, false);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                };
+            var message = {
+                sentAt: new Date(),
+                name: $localStorage.userName,
+                photo: $localStorage.userPhoto,
+                senderid: $localStorage.account.userId
+            };
+            $ionicActionSheet.show({
+                buttons: [{
+                    text: 'Take Picture'
+                }, {
+                        text: 'Select From Gallery'
+                    }],
+                buttonClicked: function (index) {
+                    switch (index) {
+                        case 0: // Take Picture
+                            document.addEventListener("deviceready", function () {
+                                $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
+                                    message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
+                                    $timeout(function () {
+                                        $scope.chat.messages.push(message);
+                                        viewScroll.scrollBottom(true);
+                                    }, 0);
+                                }, function (err) {
+                                    appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                });
+                            }, false);
+                            break;
+                        case 1: // Select From Gallery
+                            document.addEventListener("deviceready", function () {
+                                $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
+                                    message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
+                                    $timeout(function () {
+                                        $scope.chat.messages.push(message);
+                                        viewScroll.scrollBottom(true);
+                                    }, 0);
+                                }, function (err) {
+                                    conversationService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                });
+                            }, false);
+                            break;
+                    }
+                    return true;
+                }
+            });
+        };
 
-		$scope.gotoExplore = function () {
-                    $state.go('tabs.explore');
+        $scope.gotoExplore = function () {
+            $state.go('tabs.explore');
 
         };
 
         $scope.gotoMatch = function () {
-                    $state.go('tabs.match');
+            $state.go('tabs.match');
 
         };
 
-       $scope.gotoAccount = function () {
-                    $state.go('tabs.account');
+        $scope.gotoAccount = function () {
+            $state.go('tabs.account');
 
         };
 
         $scope.gotoCoaches = function () {
-                    $state.go('tabs.coach');
+            $state.go('tabs.coach');
 
         };
 
         $scope.newsPopover = $ionicPopover.fromTemplate(newsTemplate, {
-                    scope: $scope
+            scope: $scope
         });
 
         $ionicSideMenuDelegate.canDragContent(false);
@@ -96,7 +98,7 @@ angular.module('module.view.news', [])
             items: postService.getNews()
         }
 
-});
+    });
 
 var newsTemplate =
     '<ion-popover-view class="medium right">' +
