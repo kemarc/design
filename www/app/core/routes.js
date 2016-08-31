@@ -27,7 +27,7 @@ angular.module('full_starter.routes', [])
   .constant('Social', {
     googleWebClientId: "778952668094-pu4uhti4hi5m0g51ih0uiapvdu4mjj5i.apps.googleusercontent.com"
   })
-  
+
   .config(function ($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
     $ionicConfigProvider.backButton.previousTitleText(false);
     $ionicConfigProvider.backButton.text("");
@@ -60,8 +60,7 @@ angular.module('full_starter.routes', [])
           }
         }
       })
-
-
+      
       .state('tabs.account', {
         url: '/account',
         views: {
@@ -362,7 +361,7 @@ angular.module('full_starter.routes', [])
           }
         }
       })
-      
+
       .state('tabs.sentPlans', {
         url: '/sentPlans',
         views: {
@@ -382,7 +381,7 @@ angular.module('full_starter.routes', [])
           }
         }
       })
- 
+
       .state('tabs.signup', {
         url: '/signup',
         views: {

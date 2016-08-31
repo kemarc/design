@@ -1,5 +1,5 @@
 angular.module('module.view.chat', [])
-	.controller('chatCtrl', function($scope,$rootScope,$state,$localStorage, $ionicActionSheet, $ionicPopover,postService,$ionicLoading,conversationService,engagementsService,$ionicScrollDelegate,$stateParams,$timeout) {
+	.controller('chatCtrl', function($scope,$rootScope,$state,$localStorage,appService, $ionicActionSheet,$cordovaCamera,$ionicPopover,postService,$ionicLoading,conversationService,engagementsService,$ionicScrollDelegate,$stateParams,$timeout) {
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -20,9 +20,9 @@ angular.module('module.view.chat', [])
 
 		$scope.contactPopover = $ionicPopover.fromTemplate(contactTemplate, {
                     scope: $scope
-                });
+        });
 
-                var randomMessages = conversationService.getRandomMessages()
+                var randomMessages = conversationService.getRandomMessages();
                 $scope.conversations = conversationService.getMessages();
                 var viewScroll = $ionicScrollDelegate.$getByHandle('chatScroll');
                 var footerBar, scroller, txtInput;
@@ -93,7 +93,7 @@ angular.module('module.view.chat', [])
                         conversationService.KeepKeyboardOpen('#textChat');
                         viewScroll.scrollBottom(true);
                     }, 2000);
-                }
+                };
 
                 $scope.onMessageHold = function (e, itemIndex, chat) {
 
@@ -122,52 +122,54 @@ angular.module('module.view.chat', [])
                     });
                 };
 
-                $scope.sendPhoto = function () {
-                    var message = {
-                        sentAt: new Date(),
-												name: $localStorage.userName,
-                        photo: $localStorage.userThumbnail,
-                        senderid: $localStorage.account.userId
-                    };
-                    $ionicActionSheet.show({
-                        buttons: [{
-                            text: 'Take Picture'
-                        }, {
-                                text: 'Select From Gallery'
-                            }],
-                        buttonClicked: function (index) {
-                            switch (index) {
-                                case 0: // Take Picture
-                                    document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
-                                            $timeout(function () {
-                                                $scope.chat.messages.push(message);
-                                                viewScroll.scrollBottom(true);
-                                            }, 0);
-                                        }, function (err) {
-                                            engagementsService.showAlert('Error', err, 'Close', 'button-assertive', null);
-                                        });
-                                    }, false);
-                                    break;
-                                case 1: // Select From Gallery
-                                    document.addEventListener("deviceready", function () {
-                                        $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
-                                            $timeout(function () {
-                                                $scope.chat.messages.push(message);
-                                                viewScroll.scrollBottom(true);
-                                            }, 0);
-                                        }, function (err) {
-                                            engagementsService.showAlert('Error', err, 'Close', 'button-assertive', null);
-                                        });
-                                    }, false);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                };
+							$scope.sendPhoto = function () {
+				                    var message = {
+				                        sentAt: new Date(),
+				                        name: $localStorage.userName,
+				                        photo: $localStorage.userPhoto,
+				                        senderid: $localStorage.account.userId
+				                    };
+				                    $ionicActionSheet.show({
+				                        buttons: [{
+				                            text: 'Take Picture'
+				                        }, {
+				                                text: 'Select From Gallery'
+				                            }],
+				                        buttonClicked: function (index) {
+				                            switch (index) {
+				                                case 0: // Take Picture
+				                                    document.addEventListener("deviceready", function () {
+				                                        $cordovaCamera.getPicture(appService.getCameraOptions()).then(function (imageData) {
+				                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
+				                                            $timeout(function () {
+				                                                $scope.chat.messages.push(message);
+				                                                viewScroll.scrollBottom(true);
+				                                            }, 0);
+				                                        }, function (err) {
+				                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+				                                        });
+				                                    }, false);
+				                                    break;
+				                                case 1: // Select From Gallery
+				                                    document.addEventListener("deviceready", function () {
+				                                        $cordovaCamera.getPicture(appService.getLibraryOptions()).then(function (imageData) {
+				                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
+				                                            $timeout(function () {
+				                                                $scope.chat.messages.push(message);
+				                                                viewScroll.scrollBottom(true);
+				                                            }, 0);
+				                                        }, function (err) {
+				                                            appService.showAlert('Error', err, 'Close', 'button-assertive', null);
+				                                        });
+				                                    }, false);
+				                                    break;
+				                            }
+				                            return true;
+				                        }
+				                    });
+				                };
+
+
 
             $scope.$on('taResize', function (e, ta) {
                     console.log('taResize');

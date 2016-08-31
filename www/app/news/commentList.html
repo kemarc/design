@@ -1,10 +1,10 @@
-<ion-view title= "Comments">
+<ion-view hide-nav-bar="true" class="bg-lightgrey" cache-view="false">
 
-    <ion-nav-buttons side = "left">
-         <button class="button button-icon button-clear button-dark">
-            <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
-         </button>
-    </ion-nav-buttons>
+    <ion-header-bar class="no-bg">
+        <h1 class="title"></h1>
+         <button class="button button-icon button-clear button-light icon ion-ios-search" ng-click="searchPopover.show($event)"></button>
+        <button class="button button-icon button-clear button-light ion-android-close" ui-sref="tabs.account"></button>
+    </ion-header-bar>
 
     <ion-content class="has-header">
 

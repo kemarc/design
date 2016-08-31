@@ -5,7 +5,7 @@
     angular.module('full_starter.services', ['firebase','service.activities','service.appointments','service.conversation','service.engagements',
         'service.interest','service.partners','service.post','service.reportPost','service.userInterest','service.users'])
 
-        .service('appService', ['$state', '$ionicPopup', '$ionicActionSheet', '$ionicHistory', '$ionicLoading', '$timeout',
+      .service('appService', ['$state', '$ionicPopup', '$ionicActionSheet', '$ionicHistory', '$ionicLoading', '$timeout',
             function ($state, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicLoading, $timeout) {
 
                 return {
@@ -17,6 +17,9 @@
                     },
                     getContacts: function () {
                         return _contacts;
+                    },
+                    getProducts: function () {
+                        return _products;
                     },
                     getNotifications: function () {
                         return _notifications;
@@ -81,8 +84,9 @@
                             destinationType: Camera.DestinationType.DATA_URL,
                             sourceType: Camera.PictureSourceType.CAMERA,
                             encodingType: Camera.EncodingType.JPEG,
+                            allowEdit: true,
                             saveToPhotoAlbum: true,
-                            correctOrientation: true,
+                            correctOrientation: true
                         };
                     },
                     getLibraryOptions: function () {
@@ -91,8 +95,9 @@
                             destinationType: Camera.DestinationType.DATA_URL,
                             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                             encodingType: Camera.EncodingType.JPEG,
+                            allowEdit: true,
                             saveToPhotoAlbum: false,
-                            correctOrientation: true,
+                            correctOrientation: true
                         };
                     },
                 }

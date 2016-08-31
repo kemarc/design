@@ -11,11 +11,11 @@
 
         <div class="header edit">
             <!-- <img ng-src="{{user.photo}}" ng-click="sendPhoto()"> -->
-            <div ng-if="profile.userThumbnail">
-              <img class="header__thumb" src = "{{ profile.userThumbnail }}">
+            <div ng-if="profile.userThumbnail" name="userPhoto">
+              <img class="header__thumb" src="https://unsplash.it/200/300?image=770">
             </div>
-            <div nf-if="!profile.userThumbnail">
-              <img class="header__thumb" src="/img/placeholder.png" ng-click="sendPhoto()">
+            <div nf-if="!profile.userThumbnail" name="userPhoto">
+              <img class="header__thumb"  src="https://unsplash.it/200/300?image=770" ng-click="uploadUserPhoto()">
             </div>
         </div>
 
@@ -42,27 +42,26 @@
 
             <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">password</p>
             <div class="edit padding-horizontal">
-                <label class="item item-input">
-                    <span class="input-label" ng-model="changePasswordData.oldPassword">old password</span>
+                <label class="item item-input profile__input">
                     <input type="password" >
+                    <span class="input-label" ng-model="changePasswordData.oldPassword">old password</span>
                 </label>
-                <label class="item item-input">
+                <label class="item item-input profile__input">
+                    <input type="password">
                     <span class="input-label" ng-model="changePasswordData.newPassword">new password</span>
-                    <input type="password">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label" ng-click="doChangePassword()">confirm password</span>
+                <label class="item item-input profile__input">
                     <input type="password">
+                    <span class="input-label" ng-click="doChangePassword()">confirm password</span>
                 </label>
             </div>
 
         <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">Description</p>
         <div class="edit padding-horizontal">
-          <label class="item item-input">
+          <label class="item item-input profile__input" ng-click = "userDescription()">
+                <input type="text" value="{{ profile.userDescription }}" name="description">
                 <span class="input-label">Description</span>
-                <input type="text">
-            </label>
-
+          </label>
         </div>
 
     </ion-content>
