@@ -1,5 +1,5 @@
 angular.module('module.view.news', [])
-    .controller('newsCtrl', function ($scope, $rootScope, $state, postService, $localStorage, $ionicActionSheet, conversationService, $ionicSideMenuDelegate, $ionicPopover, engagementService) {
+    .controller('newsCtrl', function ($scope, $rootScope, $state, postService, appService, $cordovaCamera, $localStorage, $ionicActionSheet, conversationService, $ionicSideMenuDelegate, $ionicPopover, engagementService) {
         $scope.engagementService = engagementService;
         window.engagementService = $scope.engagementService;
         $scope.goBack = function (ui_sref) {
@@ -37,7 +37,7 @@ angular.module('module.view.news', [])
                     switch (index) {
                         case 0: // Take Picture
                             document.addEventListener("deviceready", function () {
-                                $cordovaCamera.getPicture(conversationService.getCameraOptions()).then(function (imageData) {
+                                $cordovaCamera.getPicture(appService.getCameraOptions()).then(function (imageData) {
                                     message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
                                     $timeout(function () {
                                         $scope.chat.messages.push(message);
@@ -50,14 +50,14 @@ angular.module('module.view.news', [])
                             break;
                         case 1: // Select From Gallery
                             document.addEventListener("deviceready", function () {
-                                $cordovaCamera.getPicture(conversationService.getLibraryOptions()).then(function (imageData) {
+                                $cordovaCamera.getPicture(appService.getLibraryOptions()).then(function (imageData) {
                                     message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
                                     $timeout(function () {
                                         $scope.chat.messages.push(message);
                                         viewScroll.scrollBottom(true);
                                     }, 0);
                                 }, function (err) {
-                                    conversationService.showAlert('Error', err, 'Close', 'button-assertive', null);
+                                    appService.showAlert('Error', err, 'Close', 'button-assertive', null);
                                 });
                             }, false);
                             break;
