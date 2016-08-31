@@ -60,7 +60,7 @@ angular.module('full_starter.routes', [])
           }
         }
       })
-      
+
       .state('tabs.account', {
         url: '/account',
         views: {
@@ -337,6 +337,16 @@ angular.module('full_starter.routes', [])
           'menuContent': {
             templateUrl: 'app/account/edit-profile.html',
             controller: 'editProfileCtrl'
+          }
+        }
+      })
+
+      .state('tabs.camera', {
+        url: '/camera',
+        views: {
+          'menuContent': {
+            templateUrl: 'app/news/camera.html',
+            controller: 'cameraCtrl'
           }
         }
       })

@@ -21,6 +21,7 @@
         'module.view.comments',
         'module.view.match',
         'module.view.cost',
+        'module.view.camera',
         'module.view.contacts',
         'module.view.friend',
         'module.view.coach',
