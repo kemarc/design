@@ -1,5 +1,5 @@
 angular.module('module.view.editProfile', [])
-	.controller('editProfileCtrl', function($scope, $rootScope, $state,$ionicActionSheet,appService,$cordovaCamera,conversationService,$localStorage, $ionicHistory) {
+	.controller('editProfileCtrl', function($scope, $rootScope, $state,$ionicActionSheet,appService,$cordovaCamera,conversationService,$localStorage, $ionicHistory, $ionicPopup) {
 
 		$scope.profile = $localStorage.account;
 		$scope.goBack = function (ui_sref) {
@@ -130,7 +130,43 @@ angular.module('module.view.editProfile', [])
 						data[$(this).attr('name')] = $(this).val();
 					});
 					
+					// Password validation 
+					if (data.oldPassword && data.newPassword) {
+						if (!validatePassword(data)) { 
+							$inputs.filter('[type="password"]').val('');
+							return; 
+						}
+					}
+					// Update Password
+					var user = firebase.auth().currentUser,
+							credential = firebase.auth.EmailAuthProvider.credential($localStorage.account.email, data.oldPassword);
+					
+					user.reauthenticate(credential).then(function() {
+						user.updatePassword(data.newPassword).then(
+	              function(){
+										$localStorage.password = data.newPassword;
+	              }, function(error){
+									$ionicPopup.show({
+										title: 'Error',
+										subTitle: error.message,
+										buttons: [
+											{ text: 'OK' }
+										]
+									});
+	                Codes.handleError(error)
+	              }
+	          );
+					}, function(error) {
+						$ionicPopup.show({
+							title: 'Error',
+							subTitle: error.message,
+							buttons: [
+								{ text: 'OK' }
+							]
+						});
+					});
 
+					// Update DB
 					var ref = firebase.database().ref('accounts');
 					ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
 						firebase.database().ref('/accounts/' + snapshot.key ).update({
@@ -165,4 +201,49 @@ angular.module('module.view.editProfile', [])
         $scope.gotoFriend = function(){
         	$state.go('tabs.account');
         };
+				
+				function validatePassword(data) {
+					if (data.oldPassword !== $localStorage.password) {
+						$ionicPopup.show({
+							title: 'Error',
+							subTitle: 'Invalid Password',
+							buttons: [
+								{ text: 'OK' }
+							]
+						});
+						return false;
+					}
+					if (data.newPassword !== data.confirmNewPassword) {
+						$ionicPopup.show({
+							title: 'Error',
+							subTitle: 'Passwords do not match',
+							buttons: [
+								{ text: 'OK' }
+							]
+						});
+						return false;
+					}
+					if (data.oldPassword === data.confirmNewPassword) {
+						$ionicPopup.show({
+							title: 'Error',
+							subTitle: 'New password must be different from old password.',
+							buttons: [
+								{ text: 'OK' }
+							]
+						});
+						return false;
+					}
+					if (data.newPassword.length < 6 || data.newPassword.length > 30) {
+						$ionicPopup.show({
+							title: 'Error',
+							subTitle: 'New password must be between 5 and 30 characters.',
+							buttons: [
+								{ text: 'OK' }
+							]
+						});
+						return false;
+					}
+					return true;
+				}
+				
 });

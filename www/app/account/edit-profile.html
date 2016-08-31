@@ -43,16 +43,16 @@
             <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">password</p>
             <div class="edit padding-horizontal">
                 <label class="item item-input profile__input">
-                    <input type="password" >
+                    <input type="password" name="oldPassword">
                     <span class="input-label" ng-model="changePasswordData.oldPassword">old password</span>
                 </label>
                 <label class="item item-input profile__input">
-                    <input type="password">
+                    <input type="password" name="newPassword">
                     <span class="input-label" ng-model="changePasswordData.newPassword">new password</span>
                 </label>
                 <label class="item item-input profile__input">
-                    <input type="password">
-                    <span class="input-label" ng-click="doChangePassword()">confirm password</span>
+                    <input type="password" name="confirmNewPassword">
+                    <span class="input-label" ng-click="doChangePassword()">confirm new password</span>
                 </label>
             </div>
 
