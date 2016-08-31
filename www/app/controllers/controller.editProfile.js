@@ -1,5 +1,5 @@
 angular.module('module.view.editProfile', [])
-	.controller('editProfileCtrl', function($scope, $rootScope, $state,$ionicActionSheet,engagementsService,appService,$cordovaCamera,conversationService,$localStorage, $ionicHistory) {
+	.controller('editProfileCtrl', function($scope, $rootScope, $state,$ionicActionSheet,appService,$cordovaCamera,conversationService,$localStorage, $ionicHistory) {
 
 		$scope.profile = $localStorage.account;
 		$scope.goBack = function (ui_sref) {
