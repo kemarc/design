@@ -124,7 +124,7 @@
 	left: auto;
 	display: none;
 }
-
+.profile .header img,
 .profile .header.edit img
 {
 	position: relative;

@@ -17,8 +17,12 @@
     <div style="height:100%; overflow:scroll" class="bg-lightgrey">
 
         <div class="header profile">
-          <div>
+          <div ng-if="profile.photo" >
             <img class="header__thumb" src = "{{ profile.photo }}">
+          </div>
+          <div ng-if="!profile.photo">
+            {{ profile.photo }}
+            <img src="https://unsplash.it/200/300?image=770" alt="">
           </div>
             <h2 class="lead text-medium">{{ profile.firstName + ' ' + profile.lastName }}</h2>
             <p style="text-align: center;margin-left: 5px;margin-right: 5px;">{{profile.userDescription}}</p>

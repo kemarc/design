@@ -129,6 +129,7 @@ angular.module('module.view.editProfile', [])
 					$inputs.map( function(elm) {
 						data[$(this).attr('name')] = $(this).val();
 					});
+					
 
 					var ref = firebase.database().ref('accounts');
 					ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
@@ -136,36 +137,20 @@ angular.module('module.view.editProfile', [])
 							email: data.email,
 							firstName: data.firstName,
 							lastName: data.lastName,
-							userName: data.userName
+							userName: data.userName,
+							userDescription: data.userDescription
 						}).then( function() {
 							$localStorage.account.email = data.email;
 							$localStorage.account.firstName = data.firstName;
 							$localStorage.account.lastName = data.lastName;
 							$localStorage.account.userName = data.userName;
+							$localStorage.account.userDescription = data.userDescription;
 							$state.go('tabs.account');
 							return;
 						});
 					});
 	      };
 
-			$scope.userDescription = function (){
-				var $inputs = $('.item .item-input profile__input');
-				var data = {};
-				$inputs.map( function(elm) {
-					data[$(this).attr('name')] = $(this).val();
-				});
-			$localStorage.account.userDescription = data.userDescription;
-			var ref = firebase.database().ref('accounts');
-			ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
-				firebase.database().ref('/accounts/' + snapshot.key ).update({
-					userDescription: data.userDescription
-				}).then( function() {
-					$localStorage.account.userDescription = data.userDescription;
-					return;
-				});
-			})
-			console.log($localStorage.account.userDescription);
-		};
 			// $localStorage.account.userDescription = "Jaylen's Description";
 			// var ref = firebase.database().ref('accounts');
 			// ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {

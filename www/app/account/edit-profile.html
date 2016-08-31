@@ -11,10 +11,10 @@
 
         <div class="header edit">
             <!-- <img ng-src="{{user.photo}}" ng-click="sendPhoto()"> -->
-            <div ng-if="profile.userThumbnail" name="userPhoto">
-              <img class="header__thumb" src="https://unsplash.it/200/300?image=770">
+            <div ng-if="profile.photo" name="userPhoto">
+              <img class="header__thumb" src="{{ profile.photo }}">
             </div>
-            <div nf-if="!profile.userThumbnail" name="userPhoto">
+            <div nf-if="!profile.photo" name="userPhoto">
               <img class="header__thumb"  src="https://unsplash.it/200/300?image=770" ng-click="uploadUserPhoto()">
             </div>
         </div>
@@ -58,8 +58,8 @@
 
         <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">Description</p>
         <div class="edit padding-horizontal">
-          <label class="item item-input profile__input" ng-click = "userDescription()">
-                <input type="text" value="{{ profile.userDescription }}" name="description">
+          <label class="item item-input profile__input">
+                <input type="text" value="{{ profile.userDescription }}" name="userDescription">
                 <span class="input-label">Description</span>
           </label>
         </div>
