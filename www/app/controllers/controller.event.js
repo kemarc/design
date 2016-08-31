@@ -11,7 +11,7 @@ angular.module('module.view.event', [])
 			});
 			data.postType = 'event';
 			var key = postService.create(data);
-			$scope.go('tabs.news');
+			$state.go('tabs.news');
 		};
 		
 		
