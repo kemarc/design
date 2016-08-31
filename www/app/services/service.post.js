@@ -12,15 +12,19 @@ angular.module('service.post', [])
             });
         };
 
-        this.create = function (postTypeId, userId, activityId, description, filePath) {
+        this.create = function (data) {
             //create a location in the table
             var obj = {
-                "typeId": postTypeId || '',
-                "activityId": activityId || '',
-                "description": description || '',
-                "filePath": filePath || '',
+                // "typeId": data.postTypeId || '',
+                // "activityId": data.activityId || '',
+                // "imageFilePath": data.filePath || '',
+                "description": data.description,
                 "created": firebase.database.ServerValue.TIMESTAMP,
-                "createdBy": userId || ''
+                "createdBy": $localStorage.account.userId,
+                "owner": $localStorage.account.username,
+                "location": data.location,
+                "time": data.time,
+                "date": data.date
             };
             var db = firebase.database().ref();
             var posts = db.child('posts');

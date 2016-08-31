@@ -1,0 +1,62 @@
+<ion-view hide-nav-bar="true" class="bg-lightgrey">
+
+    <ion-header-bar>
+        <div class="row text-center">
+            <div class="col font-thin text-large dark" ui-sref="tabs.account" style="color:gray;">Cancel</div>
+            <div class="col font-thin text-large balanced bl-grey profile" style="color:green;" ng-click="createEvent()">Send</div>
+        </div>
+    </ion-header-bar>
+
+  <ion-content>
+    <div class="event-form">
+        <div class="list edit padding-horizontal padding-vertical">
+          <!-- <label class="item item-input item-select">
+            <div class="input-label">
+              Post Type
+            </div>
+            <select>
+                <option>Regular Post</option>
+                <option>Event</option>
+            </select>
+          </label> -->
+
+          <label class="item item-input event__input">
+            <input type="text" name="description" placeholder="">
+            <span class="input-label">Description</span>
+          </label>
+
+          <label class="item item-input event__input">
+            <input type="text" name="location">
+            <span class="input-label">Location</span>
+          </label>
+
+          <label class="item item-input event__input">
+            <input type="date" name="date">
+            <span class="input-label">Date</span>
+          </label>
+
+          <!-- <label class="item item-input">
+              <span class="input-label">Cost</span>
+              <input type="text" name="cost">
+          </label> -->
+
+          <label class="item item-input event__input">
+              <input type="text" name="time">
+              <span class="input-label">Time</span>
+          </label>
+
+        </div>
+    </div>
+  </ion-content>
+
+  <!-- <div class="bar bar-footer">
+      <button class="button button-clear write" style="color: red; padding-left: 10px;">
+      <i class="icon ion-paperclip"></i>
+      </button>
+
+      <button class="button button-clear" style="color: red; padding-right: 6px;" ng-click="goToSend()">
+      <i class="icon ion-android-send"></i>
+      </button>
+  </div> -->
+
+</ion-modal-view>

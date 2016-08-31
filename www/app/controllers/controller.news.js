@@ -66,6 +66,10 @@ angular.module('module.view.news', [])
                 }
             });
         };
+        
+        $scope.createPost = function() {
+          $state.go('tabs.event');
+        };
 
         $scope.gotoExplore = function () {
             $state.go('tabs.explore');
@@ -96,7 +100,7 @@ angular.module('module.view.news', [])
         $scope.news = {
             type: 'image',
             items: postService.getNews()
-        }
+        };
 
     });
 
@@ -104,11 +108,8 @@ var newsTemplate =
     '<ion-popover-view class="medium right">' +
     '<ion-content>' +
     '<div class="list">' +
-    '<div class="item item-icon-left item-text-wrap">' +
-    '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
-    '</div>' +
-    '<div class="item item-icon-left item-text-wrap">' +
-    '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
+    '<div class="item item-icon-left item-text-wrap" ng-click="createPost()">' +
+    '<i class="icon ion-ios-bell-outline"></i>Create Event' +
     '</div>' +
     '</div>' +
     '</ion-content>' +

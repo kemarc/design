@@ -341,12 +341,12 @@ angular.module('full_starter.routes', [])
         }
       })
 
-      .state('tabs.camera', {
-        url: '/camera',
+      .state('tabs.event', {
+        url: '/event',
         views: {
           'menuContent': {
-            templateUrl: 'app/news/camera.html',
-            controller: 'cameraCtrl'
+            templateUrl: 'app/news/event.html',
+            controller: 'eventCtrl'
           }
         }
       })

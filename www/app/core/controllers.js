@@ -21,7 +21,7 @@
         'module.view.comments',
         'module.view.match',
         'module.view.cost',
-        'module.view.camera',
+        'module.view.event',
         'module.view.contacts',
         'module.view.friend',
         'module.view.coach',
@@ -575,11 +575,8 @@ var newsTemplate =
     '<ion-popover-view class="medium right">' +
     '<ion-content>' +
     '<div class="list">' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
-    '</div>' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
+    '<div class="item item-icon-left item-text-wrap">' +
+    '<i class="icon ion-ios-camera-outline" ng-click="createPost()"></i>Create Post' +
     '</div>' +
     '</div>' +
     '</ion-content>' +

@@ -156,6 +156,29 @@
 	font-style: italic;
 }
 
+/*Edit Event*/
+.event-form .edit .event__input
+{
+	display: block;
+	text-align: left;
+	width: 100%;
+	border: none;
+}
+
+.event-form .edit .event__input input
+{
+	display: block;
+	width: 100%;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+}
+.event-form .edit .event__input .input-label
+{
+	display: block;
+	width: 100%;
+	border: none;
+	font-style: italic;
+}
 
 
 .balanced, a.balanced
