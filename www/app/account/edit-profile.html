@@ -26,15 +26,15 @@
                 <span class="input-label">First name</span>
             </label>
             <label class="item item-input profile__input">
-                <input type="text" value="{{ profile.lastName }}" name="lastName">
+                <input type="text" value="{{ profile.lastName }}"  name="lastName">
                 <span class="input-label">Last name</span>
             </label>
             <label class="item item-input profile__input">
-                <input type="text" value="{{ profile.userName }}" name="userName">
+                <input type="text" value="{{ profile.userName }}" name="userName" label="Username" required>
                 <span class="input-label">Username</span>
             </label>
             <label class="item item-input profile__input">
-                <input type="email" value="{{ profile.email }}" name="email">
+                <input type="email" value="{{ profile.email }}" name="email" label="Email" required>
                 <span class="input-label">Email</span>
             </label>
         </div>

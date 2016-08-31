@@ -131,41 +131,45 @@ angular.module('module.view.editProfile', [])
 					});
 					
 					// Password validation 
-					if (data.oldPassword && data.newPassword) {
+					if (data.oldPassword && data.oldPassword.length && data.newPassword && data.newPassword.length) {
 						if (!validatePassword(data)) { 
 							$inputs.filter('[type="password"]').val('');
 							return; 
 						}
-					}
-					// Update Password
-					var user = firebase.auth().currentUser,
-							credential = firebase.auth.EmailAuthProvider.credential($localStorage.account.email, data.oldPassword);
-					
-					user.reauthenticate(credential).then(function() {
-						user.updatePassword(data.newPassword).then(
-	              function(){
-										$localStorage.password = data.newPassword;
-	              }, function(error){
-									$ionicPopup.show({
-										title: 'Error',
-										subTitle: error.message,
-										buttons: [
-											{ text: 'OK' }
-										]
-									});
-	                Codes.handleError(error)
-	              }
-	          );
-					}, function(error) {
-						$ionicPopup.show({
-							title: 'Error',
-							subTitle: error.message,
-							buttons: [
-								{ text: 'OK' }
-							]
+						// Update Password
+						var user = firebase.auth().currentUser,
+								credential = firebase.auth.EmailAuthProvider.credential($localStorage.account.email, data.oldPassword);
+						
+						user.reauthenticate(credential).then(function() {
+							user.updatePassword(data.newPassword).then(
+		              function(){
+											$localStorage.password = data.newPassword;
+		              }, function(error){
+										$ionicPopup.show({
+											title: 'Error',
+											subTitle: error.message,
+											buttons: [
+												{ text: 'OK' }
+											]
+										});
+		                Codes.handleError(error)
+		              }
+		          );
+						}, function(error) {
+							$ionicPopup.show({
+								title: 'Error',
+								subTitle: error.message,
+								buttons: [
+									{ text: 'OK' }
+								]
+							});
 						});
-					});
-
+					}
+					
+					if (!validateData(data, $inputs)) {
+						return;
+					}
+					
 					// Update DB
 					var ref = firebase.database().ref('accounts');
 					ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
@@ -186,21 +190,29 @@ angular.module('module.view.editProfile', [])
 						});
 					});
 	      };
-
-			// $localStorage.account.userDescription = "Jaylen's Description";
-			// var ref = firebase.database().ref('accounts');
-			// ref.orderByChild('userId').equalTo($localStorage.account.userId).on("child_added", function(snapshot) {
-			// 	firebase.database().ref('/accounts/' + snapshot.key ).update({
-			// 		userDescription: $localStorage.account.userDescription
-			// 	}).then( function() {
-			// 		$localStorage.account.userDescription = userDescription;
-			// 		return;
-			// 	});
-			// });
-
+				
+				
         $scope.gotoFriend = function(){
         	$state.go('tabs.account');
         };
+				
+				function validateData(data, $inputs) {
+					// TODO: check if new username is available
+					var required = $inputs.filter('[required]');
+					required.each(function(i) {
+						if ($(this).val().length <= 0) {
+							$ionicPopup.show({
+								title: 'Error',
+								subTitle: $(this).attr('label') + ' is required.',
+								buttons: [
+									{ text: 'OK' }
+								]
+							});
+							return false;
+						}
+					});
+					return true;
+				}
 				
 				function validatePassword(data) {
 					if (data.oldPassword !== $localStorage.password) {
