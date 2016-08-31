@@ -96,12 +96,14 @@ angular.module('module.view.news', [])
         });
 
         $ionicSideMenuDelegate.canDragContent(false);
-
-        $scope.news = {
-            type: 'image',
-            items: postService.getNews()
-        };
-
+        
+        postService.getNews().then(function(results) {
+          $scope.news = {
+              type: 'image',
+              items: results
+          };
+        });
+      
     });
 
 var newsTemplate =

@@ -181,6 +181,23 @@
 }
 
 
+/* Post Items */
+.card.image .item.item-image {
+    background: #919191;
+}
+.card.image .item.item-avatar 
+{
+	position: relative;
+	background: #919191;
+}
+.card.image .item.item-image .interact {
+	z-index: 3;	
+}
+
+.view-browse .btn-floating.btn-large i{
+	background: rgb(53, 54, 53);
+}
+
 .balanced, a.balanced
 {
 	color: green;

@@ -1,4 +1,4 @@
-<ion-view title="Browse">
+<ion-view title="Browse" class="view-browse">
     <ion-nav-buttons side = "left">
          <button class="button button-icon button-clear button-dark">
             <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
@@ -17,22 +17,24 @@
         </div>
 
         <div style="height:95%; overflow:scroll" class="bg-lightgrey">
-
+            <script>
+            </script>
             <div ng-if="news.type === 'image'">
                 <div class="card image" ng-repeat="post in news.items | filter: searchFilter  | orderBy: 'publishedDate':true">
                     <div class="item item-image">
                         <img ng-src="{{post.image}}">
                         <span class="interact">
-                        <i class="icon ion-checkmark-round" ng-class="{'calm light-bg': commit, 'light': !commit }" ng-click="commit = !commit"></i>
-                        <i class="icon ion-ios-heart" ng-class="{'calm light-bg': liked, 'light': !liked }" ng-click="liked = !liked"> {{post.likes.length}}</i>
-                        <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
-                    </span>
+                            <i class="icon ion-checkmark-round" ng-class="{'calm light-bg': commit, 'light': !commit }" ng-click="commit = !commit"></i>
+                            <i class="icon ion-ios-heart" ng-class="{'calm light-bg': liked, 'light': !liked }" ng-click="liked = !liked"> {{post.likes.length}}</i>
+                            <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
+                        </span>
                         <div class="item item-avatar" ui-sref="tabs.post-detail({post:post})">
                             <img ng-src="{{post.sourceLogo}}">
-                            <h2>{{post.author}}</h2>
-                            <p>Event Post</p>
-                            <p>{{post.title}}</p>
-                            <p class="text-smaller" am-time-ago="{{post.publishedDate}}"></p>
+                            <h2>{{post.owner}}</h2>
+                            <p>{{ post.postType | uppercase }}</p>
+                            <p>{{post.description}}</p>
+                            <p>{{ post.location }}</p>
+                            <p class="text-smaller" am-time-ago="{{}}">{{ post.date | date}} : {{ post.time }}</p>
                         </div>
                     </div>
                 </div>

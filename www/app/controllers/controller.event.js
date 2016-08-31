@@ -9,9 +9,12 @@ angular.module('module.view.event', [])
 			$inputs.map( function(elm) {
 				data[$(this).attr('name')] = $(this).val();
 			});
-			
+			data.postType = 'event';
 			var key = postService.create(data);
+			$scope.go('tabs.news');
 		};
+		
+		
 		
 		
 });
