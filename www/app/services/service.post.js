@@ -1,81 +1,86 @@
 angular.module('service.post', [])
-    .service('postService', function ($localStorage) {
-        return {
-            getPosts: function (postId) {
-                var posts = (postId) ? firebase.database().ref('posts/' + postId) : firebase.database().ref('posts');
-                return posts.once('value').then(function (snapshot) {
-                    var currentObj = snapshot.val();
-                    if (currentObj) {
-                        return currentObj;
-                    }
-                    return undefined;
-                });
-            },
-            createPost: function (postTypeId, userId, activityId, description, filePath) {
-                //create a location in the table
-                var obj = {
-                    "typeId": postTypeId || '',
-                    "activityId": activityId || '',
-                    "description": description || '',
-                    "filePath": filePath || '',
-                    "created": firebase.database.ServerValue.TIMESTAMP,
-                    "createdBy": userId || ''
-                };
-                var db = firebase.database().ref();
-                var posts = db.child('posts');
-                var postsKey = posts.push(obj).key;
+    .service('postService', function ($localStorage, $timeout) {
 
-                return postsKey;
-            },
-            updatePost: function (postId, postTypeId, userId, activityId, description, filePath, created, createdBy) {
-                var posts = firebase.database().ref('posts/' + postId);
-                return posts.once('value').then(function (snapshot) {
-                    var currentObj = snapshot.val();
-                    if (currentObj) {
-                        var obj = {
-                            "typeId": postTypeId ? postTypeId : currentObj.typeId,
-                            "activityId": activityId ? activityId : currentObj.activityId,
-                            "description": description ? description : currentObj.description,
-                            "filePath": filePath ? filePath : currentObj.filePath,
-                            "created": created ? created : currentObj.created,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "createdBy": createdBy ? createdBy : currentObj.createdBy
-                        };
-                        return posts.update(obj);
-                    }
-                    return null;
-                });
-            },
-            deletePost: function (postId) {
-                var posts = firebase.database().ref('posts/' + postId);
-                return posts.once('value').then(function (snapshot) {
-                    var currentObj = snapshot.val();
-                    if (currentObj) {
-                        return posts.remove();
-                    }
-                    return null;
-                });
-            },
-            getNews: function () {
-                return _news;
-            },
-            getRandomObject: function (arr) {
-                return arr[Math.floor(Math.random() * arr.length)];
-            },
-            showAlert: function (title, text, buttonText, buttonType, page) {
-                var alertPopup = $ionicPopup.alert({
-                    title: title,
-                    template: text,
-                    buttons: [{ text: buttonText, type: buttonType }]
-                });
-                $timeout(function () {
-                    alertPopup.close();
-                })
-            }
+        this.get = function (postId) {
+            var posts = (postId) ? firebase.database().ref('posts/' + postId) : firebase.database().ref('posts');
+            return posts.once('value').then(function (snapshot) {
+                var currentObj = snapshot.val();
+                if (currentObj) {
+                    return currentObj;
+                }
+                return undefined;
+            });
+        };
+
+        this.create = function (postTypeId, userId, activityId, description, filePath) {
+            //create a location in the table
+            var obj = {
+                "typeId": postTypeId || '',
+                "activityId": activityId || '',
+                "description": description || '',
+                "filePath": filePath || '',
+                "created": firebase.database.ServerValue.TIMESTAMP,
+                "createdBy": userId || ''
+            };
+            var db = firebase.database().ref();
+            var posts = db.child('posts');
+            var postsKey = posts.push(obj).key;
+
+            return postsKey;
+        };
+
+        this.update = function (postId, postTypeId, userId, activityId, description, filePath, created, createdBy) {
+            var posts = firebase.database().ref('posts/' + postId);
+            return posts.once('value').then(function (snapshot) {
+                var currentObj = snapshot.val();
+                if (currentObj) {
+                    var obj = {
+                        "typeId": postTypeId ? postTypeId : currentObj.typeId,
+                        "activityId": activityId ? activityId : currentObj.activityId,
+                        "description": description ? description : currentObj.description,
+                        "filePath": filePath ? filePath : currentObj.filePath,
+                        "created": created ? created : currentObj.created,
+                        "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                        "createdBy": createdBy ? createdBy : currentObj.createdBy
+                    };
+                    return posts.update(obj);
+                }
+                return null;
+            });
+        };
+
+        this.delete = function (postId) {
+            var posts = firebase.database().ref('posts/' + postId);
+            return posts.once('value').then(function (snapshot) {
+                var currentObj = snapshot.val();
+                if (currentObj) {
+                    return posts.remove();
+                }
+                return null;
+            });
+        };
+
+        this.getNews = function () {
+            return _news;
+        };
+
+        this.getRandomObject = function (arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        };
+
+        this.showAlert = function (title, text, buttonText, buttonType, page) {
+            var alertPopup = $ionicPopup.alert({
+                title: title,
+                template: text,
+                buttons: [{ text: buttonText, type: buttonType }]
+            });
+            $timeout(function () {
+                alertPopup.close();
+            })
         };
     });
 
-    function randomDate(start, end) {
+function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
