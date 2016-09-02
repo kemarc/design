@@ -14,20 +14,22 @@
 
     <ion-content class="has-header" scroll-event-interval="5" padding="false">
 
-        <div class="card post-detail">
+        <div class="card post-detail" ng-repeat="(key, post) in news.items" ng-if="key === selectedPostId">
             <div class="item item-body">
                 <img class="full-image" ng-src="{{post.image}}">
-                <div class="item item-avatar">
+                <div class="item item-avatar" ui-sref="tabs.post-detail({post:postId})">
                     <img ng-src="{{post.sourceLogo}}">
-                    <h2 class="lead" ui-sref="tabs.friend">{{post.author}}</h2>
+                    <h2>{{post.owner}}</h2>
+                    <p>{{ post.postType | uppercase }}</p>
+                    <p>{{post.description}}</p>
+                    <p>{{ post.location }}</p>
+                    <p class="text-smaller" am-time-ago="{{}}">{{ post.date | date}} : {{ post.time }}</p>
                 </div>
-                <p class="text-smaller date" am-time-ago="{{post.publishedDate}}"></p>
-                <p>{{post.summary}}</p>
                 <div class="item comments">
                     <p>
                         <span ng-click="like(post);"><img ng-src="{{liker.photo}}" class="likers" ng-repeat="liker in post.likes | limitTo:-3"><span class="pull-left interact"> +{{post.likes.length}} Like</span>
                         <span ng-click="commit(post);"><img ng-src="{{commiter.photo}}" class="commits" ng-repeat="commits in post.commits | limitTo:-3"><span class="pull-left interact"> +{{post.commits.length}} Commit</span>
-
+                        <span ng-click="event();">Edit</a>
                         <span ui-sref="tabs.comments({post: post, type:'comments'})" class="pull-right">{{post.comments.length}} Comments</a>
                 </p>
                 </div>
@@ -36,7 +38,7 @@
                         <img ng-src="{{comment.photo}}"/>
                         <h2 class="text-small">{{comment.name}}</h2>
                     <p class="text-smaller">{{comment.text}}</p>
-                    
+
                     </div>
                     <p ng-if="!post.comments">No comments. be the first to leave a comment</p>
                 </div>

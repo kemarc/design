@@ -11,12 +11,18 @@
 
         <div class="header edit">
             <!-- <img ng-src="{{user.photo}}" ng-click="sendPhoto()"> -->
-            <div ng-if="profile.photo" name="userPhoto">
+            <div ng-if="profile.photo" >
+              <img class="header__thumb" src = "{{ profile.photo }}">
+            </div>
+            <div ng-if="!profile.photo">
+              <img src="https://unsplash.it/200/300?image=770" alt="" ng-click="uploadUserPhoto()">
+            </div>
+            <!-- <div ng-if="profile.photo" name="userPhoto">
               <img class="header__thumb" src="{{ profile.photo }}">
             </div>
             <div nf-if="!profile.photo" name="userPhoto">
               <img class="header__thumb"  src="https://unsplash.it/200/300?image=770" ng-click="uploadUserPhoto()">
-            </div>
+            </div> -->
         </div>
 
         <p class="bb text-smaller padding-horizontal uppercase" style="border-bottom: 2px solid">info</p>

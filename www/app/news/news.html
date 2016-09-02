@@ -1,4 +1,4 @@
-<ion-view title="Browse" class="view-browse">
+<ion-view title="Browse" class="view-browse" cache-view="false">
     <ion-nav-buttons side = "left">
          <button class="button button-icon button-clear button-dark">
             <img src="img/TTG-Symbol-2015-02.png" style="position: relative;top: 2px;height: 29px;left: 5px;">
@@ -20,7 +20,7 @@
             <script>
             </script>
             <div ng-if="news.type === 'image'">
-                <div class="card image" ng-repeat="post in news.items | filter: searchFilter  | orderBy: 'publishedDate':true">
+                <div class="card image" ng-repeat="(key, value) in news.items" ng-if="value.state.visible === true">
                     <div class="item item-image">
                         <img ng-src="{{post.image}}">
                         <span class="interact">
@@ -28,14 +28,17 @@
                             <i class="icon ion-ios-heart" ng-class="{'calm light-bg': liked, 'light': !liked }" ng-click="liked = !liked"> {{post.likes.length}}</i>
                             <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
                         </span>
-                        <div class="item item-avatar" ui-sref="tabs.post-detail({post:post})">
+                        <div class="item item-avatar" ui-sref="tabs.post-detail({post:key})">
                             <img ng-src="{{post.sourceLogo}}">
-                            <h2>{{post.owner}}</h2>
-                            <p>{{ post.postType | uppercase }}</p>
-                            <p>{{post.description}}</p>
-                            <p>{{ post.location }}</p>
-                            <p class="text-smaller" am-time-ago="{{}}">{{ post.date | date}} : {{ post.time }}</p>
+                            <h2>{{value.owner}}</h2>
+                            <p>{{ value.postType | uppercase }}</p>
+                            <p>{{value.description}}</p>
+                            <p>{{ value.location }}</p>
+                            <p class="text-smaller" am-time-ago="{{}}">{{ value.date | date}} : {{ value.time }}</p>
                         </div>
+                        <i class="icon ion-minus-circled" ng-click="delete(key)"></i>
+                        <i class="icon ion-edit" ng-click="event()"></i>
+
                     </div>
                 </div>
             </div>

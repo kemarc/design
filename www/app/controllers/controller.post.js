@@ -1,6 +1,8 @@
 angular.module('module.view.post', [])
-	.controller('postCtrl', function($scope,$rootScope,$state,postService,$localStorage,$ionicHistory,$ionicPopup,$cordovaSocialSharing,postService,engagementsService,$stateParams) {
+	.controller('postCtrl', function($scope,$rootScope,$state,postService,$localStorage, $cordovaSocialSharing, $ionicHistory,$ionicPopup,$cordovaSocialSharing,postService,engagementService,$stateParams) {
+		console.log($stateParams);
 
+		$scope.selectedPostId = $stateParams.post;
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -19,19 +21,24 @@ angular.module('module.view.post', [])
                     }
         };
 
-		$scope.news = {
-                    type: 'image',
-                    items: postService.getNews()
-        }
+			$scope.event = function () {
+				$state.go('tabs.event');
+			}
+
+			postService.getPost().then(function(results) {
+					$scope.news = {
+							type: 'image',
+							items: results
+					};
+				});
 
 		if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-                    $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
-
+                    $stateParams.post === null ? $scope.post = postService.getPost() : $scope.post = $stateParams.post;
         }
 
         $scope.share = function (post) {
             document.addEventListener("deviceready", function () {
-                $cordovaSocialSharing.share(post.summary, post.title, post.image)
+                $cordovaSocialSharing.share(post.description, post.owner, post.location)
                     .then(function (result) {
                         postService.showAlert('Post Shared', result, 'Ok', 'button-balanced', null);
                     }, function (err) {

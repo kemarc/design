@@ -1,7 +1,8 @@
 angular.module('module.view.news', [])
     .controller('newsCtrl', function ($scope, $rootScope, $state, postService, appService, $cordovaCamera, $localStorage, $ionicActionSheet, conversationService, $ionicSideMenuDelegate, $ionicPopover, engagementService) {
-        $scope.engagementService = engagementService;
-        window.engagementService = $scope.engagementService;
+
+        $scope.postService = postService;
+        window.postService = $scope.postService;
         $scope.goBack = function (ui_sref) {
             var currentView = $ionicHistory.currentView();
             var backView = $ionicHistory.backView();
@@ -66,7 +67,7 @@ angular.module('module.view.news', [])
                 }
             });
         };
-        
+
         $scope.createPost = function() {
           $state.go('tabs.event');
         };
@@ -96,14 +97,26 @@ angular.module('module.view.news', [])
         });
 
         $ionicSideMenuDelegate.canDragContent(false);
-        
+
+        $scope.delete = function(id){
+          return postService.delete(id);
+        };
+
+        $scope.update = function (data){
+          return postService.update(data);
+        };
+
+        $scope.event = function (){
+
+            $state.go('tabs.event');
+        };
+
         postService.getNews().then(function(results) {
           $scope.news = {
               type: 'image',
               items: results
           };
         });
-      
     });
 
 var newsTemplate =
