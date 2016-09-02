@@ -3,17 +3,13 @@ angular.module('service.post', [])
 
         this.get = function (postId) {
             var posts = (postId) ? firebase.database().ref('posts/' + postId) : firebase.database().ref('posts');
-            return posts.once('value').then(function(snapshot) {
-              var value = snapshot.val();
-              if (value) {
-                var a = [];
-                for (var i = 0; i < Object.keys(value).length; i++) {
-                  a.push(value[Object.keys(value)[i]])
-                }
-                return a;
-              }
-              return undefined;
-            });
+            return posts.once('value').then(function (snapshot) {
+                  var currentObj = snapshot.val();
+                  if (currentObj) {
+                      return currentObj;
+                  }
+                  return undefined;
+              });
         };
 
         this.create = function (data) {
@@ -29,7 +25,12 @@ angular.module('service.post', [])
                 "location": data.location,
                 "time": data.time,
                 "date": data.date,
-                "postType": data.postType
+                "postType": data.postType,
+                "state": {
+                    "actionable": true,
+                    "visible": true,
+                    "active": true
+                }
             };
             var db = firebase.database().ref();
             var posts = db.child('posts');
@@ -38,19 +39,28 @@ angular.module('service.post', [])
             return postsKey;
         };
 
-        this.update = function (postId, postTypeId, userId, activityId, description, filePath, created, createdBy) {
+        this.update = function (data) {
             var posts = firebase.database().ref('posts/' + postId);
             return posts.once('value').then(function (snapshot) {
                 var currentObj = snapshot.val();
                 if (currentObj) {
                     var obj = {
-                        "typeId": postTypeId ? postTypeId : currentObj.typeId,
-                        "activityId": activityId ? activityId : currentObj.activityId,
-                        "description": description ? description : currentObj.description,
-                        "filePath": filePath ? filePath : currentObj.filePath,
-                        "created": created ? created : currentObj.created,
+                        "typeId": data.postTypeId ? data.postTypeId : currentObj.postTypeId,
+                        "activityId": data.activityId ? data.activityId : currentObj.activityId,
+                        "description": data.description ? data.description : currentObj.description,
+                        "location": data.location ? data.location : currentObj.location,
+                        "filePath": data.filePath ? data.filePath : currentObj.filePath,
+                        "time": data.time ? data.time : currentObj.time,
+                        "date": data.date ? data.date : currentObj.date,
+                        "postType": data.postType ? data.postType : currentObj.postType,
+                        "created": data.created ? data.created : currentObj.created,
                         "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                        "createdBy": createdBy ? createdBy : currentObj.createdBy
+                        "createdBy": data.createdBy ? data.createdBy : currentObj.createdBy,
+                        "state": {
+                            "actionable": actionable ? actionable : currentObj.actionable,
+                            "visible": visible ? visible : currentObj.visible,
+                            "active": active ? active : currentObj.active
+                        }
                     };
                     return posts.update(obj);
                 }
@@ -59,11 +69,16 @@ angular.module('service.post', [])
         };
 
         this.delete = function (postId) {
-            var posts = firebase.database().ref('posts/' + postId);
+            var posts = firebase.database().ref('posts/' + postId + '/state');
             return posts.once('value').then(function (snapshot) {
                 var currentObj = snapshot.val();
                 if (currentObj) {
-                    return posts.remove();
+                    var obj = {
+                            "actionable": false,
+                            "visible": false,
+                            "active": false
+                    };
+                    return posts.update(obj);
                 }
                 return null;
             });
@@ -71,6 +86,10 @@ angular.module('service.post', [])
 
         this.getNews = function () {
             return this.get();
+        };
+
+        this.getPost = function (postId) {
+            return this.get(postId);
         };
 
         this.getRandomObject = function (arr) {
@@ -444,7 +463,3 @@ var _randMessages = [
     'This rotating chord deserves the guard.',
     'Should the spoiled thief bay with the illiterate?'
 ]
-
-
-
-

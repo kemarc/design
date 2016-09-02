@@ -75,7 +75,6 @@
   <allow-intent href="*.firebaseio.com"/>
   <allow-intent href="auth.firebase.com"/>
   <icon src="resources/ios/icon/icon-small@3x.png" />
-  <plugin name="cordova-plugin-battery-status" />
     <plugin name="cordova-plugin-camera" />
     <plugin name="cordova-plugin-media-capture" />
     <plugin name="cordova-plugin-console" />
@@ -92,6 +91,7 @@
     <plugin name="cordova-plugin-media" />
     <plugin name="cordova-plugin-network-information" />
     <plugin name="cordova-plugin-splashscreen" />
+    <plugin name="cordova-plugin-social-sharing" />
     <plugin name="cordova-plugin-vibration" />
     <plugin name="cordova-plugin-device" spec="~1.1.2" />
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
