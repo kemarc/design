@@ -56,20 +56,6 @@ angular.module('module.view.explore', [])
 
 });
 
-var newsTemplate =
-    '<ion-popover-view class="medium right">' +
-    '<ion-content>' +
-    '<div class="list">' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
-    '</div>' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
-    '</div>' +
-    '</div>' +
-    '</ion-content>' +
-    '</ion-popover-view>';
-
 var searchTemplate =
     '<ion-popover-view class="search">' +
     '<ion-content scroll="false">' +

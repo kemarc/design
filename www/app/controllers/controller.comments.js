@@ -1,6 +1,7 @@
 angular.module('module.view.comments', [])
 	.controller('commentsCtrl', function($scope,$rootScope,$state,$localStorage, postService,conversationService,$stateParams,$timeout,$ionicHistory) {
-            $scope.goBack = function (ui_sref) {
+				$scope.profile = $localStorage.account;
+				$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
 

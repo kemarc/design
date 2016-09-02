@@ -30,7 +30,7 @@
     border-radius: 20px;
 }
 
-.list .photos .row 
+.list .photos .row
 {
 	padding: 0;
 	margin: 0;
@@ -86,7 +86,7 @@
 
 /* Profile */
 
-.profile .header 
+.profile .header
 {
 	text-align: center;
 }
@@ -94,14 +94,14 @@
 {
 	color: white;
 }
-.profile .header img.header__thumb 
+.profile .header img.header__thumb
 {
 	margin: 0 auto;
 }
 
 /* Edit Profile */
 
-.profile .header.edit 
+.profile .header.edit
 {
 	position: relative;
 	height: auto;
@@ -114,7 +114,18 @@
 	top: auto;
 	left: auto;
 }
-.profile .header.edit img 
+
+.profile .header.profile:before
+{
+	position: absolute;
+	color: #fff;
+	bottom: 24px;
+	top: auto;
+	left: auto;
+	display: none;
+}
+.profile .header img,
+.profile .header.edit img
 {
 	position: relative;
 	height: 120px;
@@ -122,7 +133,7 @@
 	margin: 8px auto;
 }
 
-.profile .edit .profile__input 
+.profile .edit .profile__input
 {
 	display: block;
 	text-align: left;
@@ -130,14 +141,38 @@
 	border: none;
 }
 
-.profile .edit .profile__input input 
+.profile .edit .profile__input input
 {
 	display: block;
 	width: 100%;
 	text-align: left;
 	border-bottom: 1px solid #ccc;
 }
-.profile .edit .profile__input .input-label 
+.profile .edit .profile__input .input-label
+{
+	display: block;
+	width: 100%;
+	border: none;
+	font-style: italic;
+}
+
+/*Edit Event*/
+.event-form .edit .event__input
+{
+	display: block;
+	text-align: left;
+	width: 100%;
+	border: none;
+}
+
+.event-form .edit .event__input input
+{
+	display: block;
+	width: 100%;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+}
+.event-form .edit .event__input .input-label
 {
 	display: block;
 	width: 100%;
@@ -146,6 +181,22 @@
 }
 
 
+/* Post Items */
+.card.image .item.item-image {
+    background: #919191;
+}
+.card.image .item.item-avatar 
+{
+	position: relative;
+	background: #919191;
+}
+.card.image .item.item-image .interact {
+	z-index: 3;	
+}
+
+.view-browse .btn-floating.btn-large i{
+	background: rgb(53, 54, 53);
+}
 
 .balanced, a.balanced
 {
@@ -343,7 +394,7 @@
 }
 .teal.lighten-4
 {
-	background-color: transparent !important; 
+	background-color: transparent !important;
 }
 
 .cal-event-list .event.pull-left
@@ -565,9 +616,9 @@ h2.lead
 }
 
 .text-medium.balanced
-{ 
+{
 
-	color: #F10707; 
+	color: #F10707;
 
 }
 

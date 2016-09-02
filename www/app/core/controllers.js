@@ -21,6 +21,7 @@
         'module.view.comments',
         'module.view.match',
         'module.view.cost',
+        'module.view.event',
         'module.view.contacts',
         'module.view.friend',
         'module.view.coach',
@@ -51,7 +52,7 @@
         'module.view.forgot'
     ])
 
-        .controller('appCtrl', function ($rootScope, $state, $scope, $stateParams, appService, authService, $ionicHistory, $ionicPopover, $ionicPopup, $ionicModal,
+        .controller('appCtrl', function ($rootScope, $state, $scope, $stateParams, appService, $ionicHistory, $ionicPopover, $ionicPopup, $ionicModal,
             $ionicScrollDelegate, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaSocialSharing, $cordovaGeolocation, $timeout,$ionicSideMenuDelegate) {
 
             initIntro();
@@ -247,12 +248,12 @@
 
                 $scope.gotoFriend = function () {
                     $state.go('tabs.friend');
-                   
+
                 }
 
                 $scope.gotoLeader = function () {
                     $state.go('tabs.leader');
-                   
+
                 }
 
 
@@ -283,7 +284,7 @@
 
                  $scope.gotoExplore = function () {
                     $state.go('tabs.explore');
-                   
+
                 }
 
             }
@@ -293,13 +294,13 @@
 
                 $scope.gotoContacts = function () {
                     $state.go('tabs.contacts');
-                   
-                }   
+
+                }
 
                 $scope.gotoTrainers = function () {
                     $state.go('tabs.trainers');
-                   
-                }             
+
+                }
 
                 $scope.makePayment = function () {
                     appService.Loading('show');
@@ -473,12 +474,6 @@
                 };
 
                 $scope.sendPhoto = function () {
-                    var message = {
-                        sentAt: new Date(),
-                        name: $rootScope.user.name,
-                        photo: $rootScope.user.photo,
-                        senderid: $rootScope.user.id
-                    };
                     $ionicActionSheet.show({
                         buttons: [{
                             text: 'Take Picture'
@@ -490,9 +485,8 @@
                                 case 0: // Take Picture
                                     document.addEventListener("deviceready", function () {
                                         $cordovaCamera.getPicture(appService.getCameraOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
+                                            var userImage = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="max-width: 300px">';
                                             $timeout(function () {
-                                                $scope.chat.messages.push(message);
                                                 viewScroll.scrollBottom(true);
                                             }, 0);
                                         }, function (err) {
@@ -503,9 +497,8 @@
                                 case 1: // Select From Gallery
                                     document.addEventListener("deviceready", function () {
                                         $cordovaCamera.getPicture(appService.getLibraryOptions()).then(function (imageData) {
-                                            message.text = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
+                                            var userImage = '<img src="' + "data:image/jpeg;base64," + imageData + '" style="width: 500px;height:500px">';
                                             $timeout(function () {
-                                                $scope.chat.messages.push(message);
                                                 viewScroll.scrollBottom(true);
                                             }, 0);
                                         }, function (err) {
@@ -521,7 +514,7 @@
 
                 // I emit this event from the monospaced.elastic directive, read line 480
                 //add the following after line 168 of lib/angular-elastic/elastic.js
-                //scope.$emit('taResize', $ta); 
+                //scope.$emit('taResize', $ta);
                 $scope.$on('taResize', function (e, ta) {
                     console.log('taResize');
                     if (!ta) return;
@@ -582,11 +575,8 @@ var newsTemplate =
     '<ion-popover-view class="medium right">' +
     '<ion-content>' +
     '<div class="list">' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-camera-outline" ng-click="sendPhoto()"></i>Share Photo' +
-    '</div>' +
-    '<div class="item item-icon-left item-text-wrap" ng-click="newsPopover.hide($event);">' +
-    '<i class="icon ion-ios-bell-outline" ng-click="sendPhoto()"></i>Share Event' +
+    '<div class="item item-icon-left item-text-wrap">' +
+    '<i class="icon ion-ios-camera-outline" ng-click="createPost()"></i>Create Post' +
     '</div>' +
     '</div>' +
     '</ion-content>' +
@@ -603,5 +593,3 @@ var reminderTemplate =
     '</div>' +
     '</ion-content>' +
     '</ion-popover-view>';
-
-

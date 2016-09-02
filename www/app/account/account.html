@@ -16,15 +16,16 @@
         </div>
     <div style="height:100%; overflow:scroll" class="bg-lightgrey">
 
-        <div class="header">
-          <div ng-if="profile.userThumbnail">
-            <img class="header__thumb" src = "{{ profile.userThumbnail }}">
+        <div class="header profile">
+          <div ng-if="profile.photo" >
+            <img class="header__thumb" src = "{{ profile.photo }}">
           </div>
-          <div nf-if="!profile.userThumbnail">
-            <img class="header__thumb" src="/img/placeholder.png">
+          <div ng-if="!profile.photo">
+            {{ profile.photo }}
+            <img src="https://unsplash.it/200/300?image=770" alt="">
           </div>
             <h2 class="lead text-medium">{{ profile.firstName + ' ' + profile.lastName }}</h2>
-            <p style="text-align: center;margin-left: 5px;margin-right: 5px;">This is some words to see what it would look like if a description was in this section.</p>
+            <p style="text-align: center;margin-left: 5px;margin-right: 5px;">{{profile.userDescription}}</p>
         </div>
 
         <div class="row no-padding bb-grey text-center" style="text-transform: capitalize;">
@@ -51,7 +52,7 @@
                             </div>
                             <div class="photo-actions">
                                 <i class="icon ion-checkmark-round"></i>6
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -60,11 +61,11 @@
                         <div class="item item-image profile">
                             <div class="cont-photo">
                                 <div class = "img" style="background-image:url(img/images/5.jpg)"></div>
-                                
+
                                    <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -78,7 +79,7 @@
                                 <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -87,11 +88,11 @@
                         <div class="item item-image profile">
                             <div class="cont-photo">
                                 <div class = "img" style="background-image:url(img/images/7.jpg)"></div>
-                            
+
                                <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -109,7 +110,7 @@
                     </div>
                 </div>
             </div>
-    
+
     <div ng-if="profile.type === 2" style="height:100%;">
 
            <div class="item item-divider">
@@ -128,7 +129,7 @@
                             </div>
                             <div class="photo-actions">
                                 <i class="icon ion-checkmark-round"></i>6
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -137,11 +138,11 @@
                         <div class="item item-image profile">
                             <div class="cont-photo">
                                 <div class = "img" style="background-image:url(img/images/5.jpg)"></div>
-                                
+
                                    <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -155,7 +156,7 @@
                                 <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -164,11 +165,11 @@
                         <div class="item item-image profile">
                             <div class="cont-photo">
                                 <div class = "img" style="background-image:url(img/images/7.jpg)"></div>
-                            
+
                                <div class="bg-color profile"></div>
                             </div>
                             <div class="photo-actions">
-                                <i class="icon ion-ios-heart"></i> 40 
+                                <i class="icon ion-ios-heart"></i> 40
                                 <i class="icon ion-ios-chatbubble"></i> 10
                             </div>
                         </div>
@@ -203,7 +204,7 @@
                 <button class="button button-small button-balanced icon ion-ios-checkmark-empty" ng-if="$index % 3 == 1"> Partnered</button>
                 <button class="button button-small button-balanced button-outline icon ion-ios-personadd-outline" ng-if="$index % 3 !== 1"> Partner</button>
             </div>
-  
+
             </div>
         </div>
 

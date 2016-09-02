@@ -3,24 +3,33 @@ angular.module('service.post', [])
 
         this.get = function (postId) {
             var posts = (postId) ? firebase.database().ref('posts/' + postId) : firebase.database().ref('posts');
-            return posts.once('value').then(function (snapshot) {
-                var currentObj = snapshot.val();
-                if (currentObj) {
-                    return currentObj;
+            return posts.once('value').then(function(snapshot) {
+              var value = snapshot.val();
+              if (value) {
+                var a = [];
+                for (var i = 0; i < Object.keys(value).length; i++) {
+                  a.push(value[Object.keys(value)[i]])
                 }
-                return undefined;
+                return a;
+              }
+              return undefined;
             });
         };
 
-        this.create = function (postTypeId, userId, activityId, description, filePath) {
+        this.create = function (data) {
             //create a location in the table
             var obj = {
-                "typeId": postTypeId || '',
-                "activityId": activityId || '',
-                "description": description || '',
-                "filePath": filePath || '',
+                // "typeId": data.postTypeId || '',
+                // "activityId": data.activityId || '',
+                // "imageFilePath": data.filePath || '',
+                "description": data.description,
                 "created": firebase.database.ServerValue.TIMESTAMP,
-                "createdBy": userId || ''
+                "createdBy": $localStorage.account.userId,
+                "owner": $localStorage.account.userName,
+                "location": data.location,
+                "time": data.time,
+                "date": data.date,
+                "postType": data.postType
             };
             var db = firebase.database().ref();
             var posts = db.child('posts');
@@ -61,7 +70,7 @@ angular.module('service.post', [])
         };
 
         this.getNews = function () {
-            return _news;
+            return this.get();
         };
 
         this.getRandomObject = function (arr) {
