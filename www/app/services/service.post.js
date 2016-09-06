@@ -88,10 +88,6 @@ angular.module('service.post', [])
             return this.get();
         };
 
-        this.getPost = function (postId) {
-            return this.get(postId);
-        };
-
         this.getRandomObject = function (arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         };

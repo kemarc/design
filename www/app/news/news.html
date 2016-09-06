@@ -24,8 +24,8 @@
                     <div class="item item-image">
                         <img ng-src="{{post.image}}">
                         <span class="interact">
-                            <i class="icon ion-checkmark-round" ng-class="{'calm light-bg': commit, 'light': !commit }" ng-click="commit = !commit"></i>
-                            <i class="icon ion-ios-heart" ng-class="{'calm light-bg': liked, 'light': !liked }" ng-click="liked = !liked"> {{post.likes.length}}</i>
+                            <i class="icon ion-checkmark-round" ng-class="{'calm': value.commited, 'light': !value.commited }" ng-click="toggleCommit(key,userId)"> {{value.totalCommits}}</i>
+                            <i class="icon ion-heart" ng-class="{'calm': value.liked, 'light': !value.liked }" ng-click="toggleLike(key, userId)"> {{value.totalLikes}}</i>
                             <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
                         </span>
                         <div class="item item-avatar" ui-sref="tabs.post-detail({post:key})">
@@ -37,8 +37,7 @@
                             <p class="text-smaller" am-time-ago="{{}}">{{ value.date | date}} : {{ value.time }}</p>
                         </div>
                         <i class="icon ion-minus-circled" ng-click="delete(key)"></i>
-                        <i class="icon ion-edit" ng-click="event()"></i>
-
+                        <i class="icon ion-edit" ui-sref="tabs.event({post:key, mode:'edit'})"></i>
                     </div>
                 </div>
             </div>

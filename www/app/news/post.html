@@ -14,7 +14,7 @@
 
     <ion-content class="has-header" scroll-event-interval="5" padding="false">
 
-        <div class="card post-detail" ng-repeat="(key, post) in news.items" ng-if="key === selectedPostId">
+        <div class="card post-detail">
             <div class="item item-body">
                 <img class="full-image" ng-src="{{post.image}}">
                 <div class="item item-avatar" ui-sref="tabs.post-detail({post:postId})">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="item comments">
                     <p>
-                        <span ng-click="like(post);"><img ng-src="{{liker.photo}}" class="likers" ng-repeat="liker in post.likes | limitTo:-3"><span class="pull-left interact"> +{{post.likes.length}} Like</span>
+                        <span ng-click="like(post);"><img ng-src="{{liker.photo}}" class="likers" ng-repeat="liker in post.likes | limitTo:-3"><span class="pull-left interact"> +{{post.totalLikes}} Like</span>
                         <span ng-click="commit(post);"><img ng-src="{{commiter.photo}}" class="commits" ng-repeat="commits in post.commits | limitTo:-3"><span class="pull-left interact"> +{{post.commits.length}} Commit</span>
                         <span ng-click="event();">Edit</a>
                         <span ui-sref="tabs.comments({post: post, type:'comments'})" class="pull-right">{{post.comments.length}} Comments</a>
@@ -49,9 +49,9 @@
 
     <ion-footer-bar class="no-bg bt-grey">
                 <div class="row">
-                        <div class="col text-left no-padding" ui-sref="tabs.likes({post: post })"><i class="icon text-small" ng-class="liked == true ? 'ion-ios-heart': 'ion-ios-heart-outline'"> Like</i></div>
-                        <div class="col text-left no-padding" ui-sref="tabs.commits({post: post })"><i class="icon text-small" ng-class="commited == true ? 'ion-android-done-all': 'ion-android-done'"> Commits</i></div>
-                        <div class="col text-center no-padding" ui-sref="tabs.comments({post: post })"><i class="icon ion-ios-chatboxes-outline text-small"> {{post.comments.length}} Comment</i></div>
+                        <div class="col text-left no-padding" ui-sref="tabs.likes({post: postId })"><i class="icon text-small" ng-class="liked == true ? 'ion-ios-heart': 'ion-ios-heart-outline'"> Like</i></div>
+                        <div class="col text-left no-padding" ui-sref="tabs.commits({post: postId })"><i class="icon text-small" ng-class="commited == true ? 'ion-android-done-all': 'ion-android-done'"> Commits</i></div>
+                        <div class="col text-center no-padding" ui-sref="tabs.comments({post: postId })"><i class="icon ion-ios-chatboxes-outline text-small"> {{post.comments.length}} Comment</i></div>
                         <div class="col text-right no-padding" ng-click="share(post);"><i class="icon ion-android-share-alt text-small"> Share</i></div>
                 </div>
     </ion-footer-bar>

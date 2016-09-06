@@ -1,6 +1,21 @@
 angular.module('service.engagements', [])
     .service('engagementService', function () {
         //check if user has already engaged with this item
+        var get = function(type, category, categoryId, itemId){
+          var arr = [type, category, categoryId, itemId];
+          var db = firebase.database();
+          //check type
+          var refId = arr.join('/');
+          return db.ref(refId).once('value').then(function (snapshot) {
+              var currentObj = snapshot.val();
+              //console.log({currentObj: currentObj, refId: refId});
+              if (currentObj){
+                return currentObj;
+              }
+              return null;
+        });
+      };
+
         var engaged = function (type, category, categoryId, itemId) {
             var arr = [type, category, categoryId, itemId];
             var db = firebase.database();
@@ -154,7 +169,38 @@ angular.module('service.engagements', [])
             });
         };
 
-        this.like = function (category, categoryId,userId) {
+        this.liked = function (category, categoryId, userId) {
+            var type = 'engagementLikes';
+            var data = get(type, category, categoryId, userId);
+            //check if engagement item is already in hash
+            return data.then(function(result){
+                return (result)?result.state.active: false;
+            });
+        };
+
+
+        this.likes = function(category, categoryId){
+          var type = 'engagementLikes';
+          var data = get(type, category, categoryId);
+          //check if engagement item is already in hash
+          return data.then(function(result){
+              return result;
+          });
+        };
+
+        this.totalLikes = function(category, categoryId){
+          return this.likes(category, categoryId).then(function(result){
+            var count = 0;
+            if(result){
+              for(var key in result){
+                ++count;
+              }
+            }
+            return count;
+          });
+        };
+
+        this.like = function (category, categoryId, userId) {
             var type = 'engagementLikes';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
@@ -162,6 +208,7 @@ angular.module('service.engagements', [])
 
         this.unlike = function (category, categoryId, userId) {
             var type = 'engagementLikes';
+            console.log('unlike called');
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };
@@ -170,6 +217,36 @@ angular.module('service.engagements', [])
             var type = 'engagementCommits';
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
+        };
+
+        this.commited = function (category, categoryId, userId) {
+            var type = 'engagementLikes';
+            var data = get(type, category, categoryId, userId);
+            //check if engagement item is already in hash
+            return data.then(function(result){
+                return (result)?result.state.active: false;
+            });
+        };
+
+        this.commits = function(category, categoryId){
+          var type = 'engagementLikes';
+          var data = get(type, category, categoryId);
+          //check if engagement item is already in hash
+          return data.then(function(result){
+              return result;
+          });
+        };
+
+        this.totalCommits = function(category, categoryId){
+          return this.commits(category, categoryId).then(function(result){
+            var count = 0;
+            if(result){
+              for(var key in result){
+                ++count;
+              }
+            }
+            return count;
+          });
         };
 
         this.uncommit = function (category, categoryId, userId) {

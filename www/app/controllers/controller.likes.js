@@ -1,5 +1,5 @@
 angular.module('module.view.likes', [])
-	.controller('likesCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory) {
+	.controller('likesCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory,usersService) {
 				$scope.profile = $localStorage.account;
 				$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
@@ -18,16 +18,26 @@ angular.module('module.view.likes', [])
                         $state.go(ui_sref);
                     }
                 };
+								console.log($stateParams);
 
-        $scope.news = {
-                    type: 'image',
-                    items: postService.getNews()
-                }
+								if($stateParams.post){
+									console.log($stateParams);
+								engagementService.likes('post', $stateParams.post).then(function(results) {
+									  var likers = results;
+										for(var id in likers){
+											usersService.get(id).then(function(user){
+												likers[id].profile = user;
+												console.log({user: user, profile: likers[id].profile, id: id});
+											});
+										}
+											$scope.likers = likers;
+									});
+								}
 
-        if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-            $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
-
-        }
+        // if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
+        //     $stateParams.post === null ? $scope.post = postService.getRandomObject($scope.news.items) : $scope.post = $stateParams.post;
+				//
+        // }
 
 		$scope.gotoCommits = function () {
                     $state.go('tabs.commits');

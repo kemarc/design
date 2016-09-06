@@ -3,6 +3,10 @@ angular.module('module.view.news', [])
 
         $scope.postService = postService;
         window.postService = $scope.postService;
+
+        $scope.engagementService = engagementService;
+        window.engagementService = $scope.engagementService;
+
         $scope.goBack = function (ui_sref) {
             var currentView = $ionicHistory.currentView();
             var backView = $ionicHistory.backView();
@@ -89,7 +93,34 @@ angular.module('module.view.news', [])
 
         $scope.gotoCoaches = function () {
             $state.go('tabs.coach');
+        };
 
+        $scope.toggleLike = function(postId, userId){
+          var posts = $scope.news.items;
+          if(postId in posts){
+            var post = $scope.news.items[postId];
+            var actionable = post.state.actionable;
+            if(actionable){
+              post.liked = !post.liked;
+              var state = (post.liked)?'like':'unlike';
+              return engagementService[state]('post', postId, $localStorage.account.userId);
+            }
+          }
+            return false;
+        };
+
+        $scope.toggleCommit = function(postId, userId){
+          var posts = $scope.news.items;
+          if(postId in posts){
+            var post = $scope.news.items[postId];
+            var actionable = post.state.actionable;
+            if(actionable){
+              post.commited = !post.commited;
+              var state = (post.commited)?'commit':'uncommit';
+              return engagementService[state]('post', postId, $localStorage.account.userId);
+            }
+          }
+            return false;
         };
 
         $scope.newsPopover = $ionicPopover.fromTemplate(newsTemplate, {
@@ -112,10 +143,45 @@ angular.module('module.view.news', [])
         };
 
         postService.getNews().then(function(results) {
-          $scope.news = {
+          //create a local object so we can create the datastructure we want
+          //so we can use it to show/hide, toggle ui items
+          var news = {
               type: 'image',
               items: results
           };
+          for(var id in news.items){
+            //check to see if there is a like on this post
+            console.log({postId: engagementService.liked('post', id, $localStorage.account.userId)});
+            engagementService.liked('post', id, $localStorage.account.userId).then(function(liked){
+              news.items[id].liked = liked;
+            });
+            engagementService.totalLikes('post', id).then(function(totalLikes){
+              news.items[id].totalLikes = totalLikes;
+            });
+          }
+          //make it available to the directive to officially show/hide, toggle
+          $scope.news = news;
+        });
+
+        postService.getNews().then(function(results) {
+          //create a local object so we can create the datastructure we want
+          //so we can use it to show/hide, toggle ui items
+          var news = {
+              type: 'image',
+              items: results
+          };
+          for(var id in news.items){
+            //check to see if there is a like on this post
+            console.log({postId: engagementService.liked('post', id, $localStorage.account.userId)});
+            engagementService.commited('post', id, $localStorage.account.userId).then(function(commited){
+              news.items[id].commited = commited;
+            });
+            engagementService.totalCommits('post', id).then(function(totalCommits){
+              news.items[id].totalCommits = totalCommits;
+            });
+          }
+          //make it available to the directive to officially show/hide, toggle
+          $scope.news = news;
         });
     });
 

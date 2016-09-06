@@ -2,7 +2,7 @@ angular.module('module.view.post', [])
 	.controller('postCtrl', function($scope,$rootScope,$state,postService,$localStorage, $cordovaSocialSharing, $ionicHistory,$ionicPopup,$cordovaSocialSharing,postService,engagementService,$stateParams) {
 		console.log($stateParams);
 
-		$scope.selectedPostId = $stateParams.post;
+		$scope.postId = $stateParams.post;
 		$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
@@ -25,12 +25,15 @@ angular.module('module.view.post', [])
 				$state.go('tabs.event');
 			}
 
-			postService.getPost().then(function(results) {
-					$scope.news = {
-							type: 'image',
-							items: results
-					};
+			if($stateParams.post){
+				postService.get($stateParams.post).then(function(results) {
+					engagementService.totalLikes('post', $stateParams.post).then(function(totalLikes){
+						console.log({totalLikes: totalLikes});
+						results.totalLikes = totalLikes;
+					});
+						$scope.post = results;
 				});
+			}
 
 		if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
                     $stateParams.post === null ? $scope.post = postService.getPost() : $scope.post = $stateParams.post;

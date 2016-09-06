@@ -14,7 +14,7 @@
         </div>
 
         <div class="list">
-            <div class="item item-avatar" ng-repeat="liker in post.likes | filter: searchFilter ">
+            <div class="item item-avatar" ng-repeat="(key, liker) in likers ">
                 <img ng-src="{{liker.photo}}">
                 <h2 class="lead">{{liker.name}}</h2>
             </div>
