@@ -40,7 +40,15 @@
                     <p class="text-smaller">{{comment.text}}</p>
 
                     </div>
-                    <p ng-if="!post.comments">No comments. be the first to leave a comment</p>
+                    <p ng-if="!post.comments && !commentMode">No comments. be the first to <a ng-click="activateCommentMode()">leave a comment</a></p>
+                    <ul>
+                      <li>
+                      </li>
+                    </ul>
+                    <textarea ng-model="commentText" ng-if="commentMode">
+                    </textarea>
+                    <button ng-click="createComment('post', postId, 'commentText')" ng-if="commentMode">submit</button>
+                    <button ng-click="deactivateCommentMode()" ng-if="commentMode">cancel</button>
                 </div>
             </div>
         </div>

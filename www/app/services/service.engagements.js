@@ -59,76 +59,91 @@ angular.module('service.engagements', [])
         };
 
         //returns true when engagement successfully registers in db, returns false otherwise.
-        var updateEngagement = function (type, category, categoryId, itemId, active) {
-            //check if there has been this type of engagement on this post
+        var updateEngagement = function (type, category, categoryId, itemId, userId, comment, active, visible, actionable) {
+            //check if there has been this type of engagement on this item
+            //if not create this item for the first time
             return engaged(type, category, categoryId, itemId).then(function (exists) {
-                if (exists instanceof Array || exists === false) {
+                if (exists instanceof Array || exists === false || (userId && typeof (comment) === 'string')) {
                     var len = exists instanceof Array ? exists.length : 0;
                     var final = {};
+                    var obj = {
+                        "created": firebase.database.ServerValue.TIMESTAMP,
+                        "lastModified": firebase.database.ServerValue.TIMESTAMP,
+                        "state": {
+                            "actionable": typeof(actionable) !== 'undefined'? (actionable) : true,
+                            "visible": typeof(visible) !== 'undefined'? (visible) : true,
+                            "active": typeof (active) !== 'undefined' ? (active) : true
+                        }
+                    };
+                    var ref;
 
-                    if (len === 0) {
-                        final[type] = {};
-                        final[type][category] = {};
-                        final[type][category][categoryId] = {};
-                        final[type][category][categoryId][itemId] = {
-                            "created": firebase.database.ServerValue.TIMESTAMP,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "state": {
-                                "actionable": true,
-                                "visible": true,
-                                "active": active ? (active) : true
+                    //comment type
+                    if (typeof (comment) === 'string' && len < 4) {
+                        obj.comment = comment;
+                        if (userId) {
+                            obj.userId = userId;
+                        }
+                        refId = (len > 1) ? exists.join('/') : null;
+                        refId = (len === 1) ? exists.join('') : refId;
+
+                        if (exists === true || len === 3) {
+                            refId = [type, category, categoryId].join('/');
+                            return firebase.database().ref(refId).push(obj).key;
+                        } else if (len === 0) {
+                            //push
+                            final[type] = {};
+                            final[type][category] = {};
+                            final[type][category][categoryId] = { 'fakedata': 1 };
+                        } else if (len == 1) {
+                            //update
+                            final[category] = {};
+                            final[category][categoryId] = { 'fakedata': 1 };
+                        } else if (len == 2) {
+                            //update
+                            final[categoryId] = {
+                                'fakedata': 1
+                            };
+                        }
+
+
+                        var db = (typeof (exists) === 'boolean' || len === 0) ? firebase.database().ref() : firebase.database().ref(refId);
+                        return db.update(final).then(function () {
+                            //successfully saved
+                            if (len < 3) {
+                                var refId = [type, category, categoryId].join('/');
+                                return firebase.database().ref(refId).push(obj).key;
                             }
-                        };
-                    } else if (len == 1) {
-                        final[category] = {};
-                        final[category][categoryId] = {};
-                        final[category][categoryId][itemId] = {
-                            "created": firebase.database.ServerValue.TIMESTAMP,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "state": {
-                                "actionable": true,
-                                "visible": true,
-                                "active": active ? (active) : true
-                            }
-                        };
-                    } else if (len == 2) {
-                        final[categoryId] = {};
-                        final[categoryId][itemId] = {
-                            "created": firebase.database.ServerValue.TIMESTAMP,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "state": {
-                                "actionable": true,
-                                "visible": true,
-                                "active": active ? (active) : true
-                            }
-                        };
-                    } else if (len == 3) {
-                        final[itemId] = {
-                            "created": firebase.database.ServerValue.TIMESTAMP,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "state": {
-                                "actionable": true,
-                                "visible": true,
-                                "active": active ? (active) : true
-                            }
-                        };
-                    } else if (len == 4) {
-                        final = {
-                            "created": firebase.database.ServerValue.TIMESTAMP,
-                            "lastModified": firebase.database.ServerValue.TIMESTAMP,
-                            "state": {
-                                "actionable": true,
-                                "visible": true,
-                                "active": active ? (active) : true
-                            }
+
+                            return true;
+
+                        }, function () {
+                            //failed
+                            return false;
+                        });
+
+                    } else {
+                        if (len === 0) {
+                            final[type] = {};
+                            final[type][category] = {};
+                            final[type][category][categoryId] = {};
+                            final[type][category][categoryId][itemId] = obj;
+                        } else if (len == 1) {
+                            final[category] = {};
+                            final[category][categoryId] = {};
+                            final[category][categoryId][itemId] = obj;
+                        } else if (len == 2) {
+                            final[categoryId] = {};
+                            final[categoryId][itemId] = obj;
+                        } else if (len == 3) {
+                            final[itemId] = obj;
+                        } else if (len == 4) {
+                            final = obj;
                         }
                     }
 
-                    if(len > 1){
-                        var refId = exists.join('/');
-                    }else if(len === 1){
-                        var refId = exists.join('');
-                    }
+                    //set location to firebase record
+                    refId = (len > 1) ? exists.join('/') : null;
+                    refId = (len === 1) ? exists.join('') : refId;
 
                     var db = (typeof (exists) === 'boolean' || len === 0) ? firebase.database().ref() : firebase.database().ref(refId);
                     return db.update(final).then(function () {
@@ -140,8 +155,12 @@ angular.module('service.engagements', [])
                     });
                 }
 
-                var arr = [type, category, categoryId];
-                var refId = arr.join('/');
+                //if there is engagement just do an update
+                refId = type;
+                refId += category ? '/' + category : '';
+                refId += categoryId ? '/' + categoryId : '';
+
+
                 var db = firebase.database().ref(refId);
                 return db.once('value').then(function (snapshot) {
                     var prev = snapshot.val();
@@ -153,11 +172,21 @@ angular.module('service.engagements', [])
                         "created": prev.created,
                         "lastModified": firebase.database.ServerValue.TIMESTAMP,
                         "state": {
-                            "actionable": prev.state.actionable,
-                            "visible": prev.state.visible,
+                            "actionable": typeof(actionable)!== 'undefined' ? actionable : prev.state.actionable,
+                            "visible": typeof(visible) !== 'undefined'? visible : prev.state.visible,
                             "active": typeof (active) !== 'undefined' ? active : !prev.state.active
                         }
                     };
+
+                    //comment type
+                    if (prev.comment && typeof (comment) === 'string') {
+                        final[itemId].comment = typeof (comment) === 'string' ? comment : prev.comment;
+                    }
+
+                    if (userId && prev.userId) {
+                        final[itemId].userId = userId ? userId : prev.userId;
+                    }
+
                     return db.update(final).then(function () {
                         //successfully saved
                         return true;
@@ -167,6 +196,70 @@ angular.module('service.engagements', [])
                     });
                 });
             });
+        };
+
+
+        this.createComment = function (category, categoryId, userId, comment) {
+            var type = 'engagementComments';
+            //check if engagement item is already in hash
+            return updateEngagement(type, category, categoryId, undefined, userId, comment);
+        };
+
+        this.updateComment = function (category, categoryId, itemId, comment) {
+            var type = 'engagementComments';
+            //check if engagement item is already in hash
+            return updateEngagement(type, category, categoryId, itemId, undefined, comment);
+        };
+
+        this.deleteComment = function (category, categoryId, itemId) {
+            var type = 'engagementComments';
+            //check if engagement item is already in hash
+            return updateEngagement(type, category, categoryId, itemId, undefined, undefined, false, false, false);
+        };
+
+        this.getComments = function (category, categoryId, itemId) {
+            var type = 'engagementComments';
+            var refId = type;
+            //get all comments in category
+            refId += (category) ? '/' + category : '';
+            //get all comments for category Id
+            refId += (categoryId) ? '/' + categoryId : '';
+            //get all comments for itemId
+            refId += (itemId) ? '/' + itemId : '';
+
+            var comments = firebase.database().ref(refId);
+            return comments.once('value').then(function (snapshot) {
+                var currentObj = snapshot.val();
+                if (currentObj) {
+                    return currentObj;
+                }
+                return undefined;
+            });
+        };
+
+        this.getCommentsDynamic = function (category, categoryId, func) {
+            var type = 'engagementComments';
+            var refId = type;
+            //get all comments in category
+            refId += (category) ? '/' + category : '';
+            //get all comments for category Id
+            refId += (categoryId) ? '/' + categoryId : '';
+
+
+            var comments = firebase.database().ref(refId);
+            return comments.on('child_changed', func);
+        };
+
+        this.totalComments = function(category, categoryId){
+          return this.getComments(category, categoryId).then(function(result){
+            var count = 0;
+            if(result){
+              for(var key in result){
+                ++count;
+              }
+            }
+            return count;
+          });
         };
 
         this.liked = function (category, categoryId, userId) {
@@ -215,12 +308,13 @@ angular.module('service.engagements', [])
 
         this.commit = function (category, categoryId, userId) {
             var type = 'engagementCommits';
+            console.log('commit called');
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, true);
         };
 
-        this.commited = function (category, categoryId, userId) {
-            var type = 'engagementLikes';
+        this.committed = function (category, categoryId, userId) {
+            var type = 'engagementCommits';
             var data = get(type, category, categoryId, userId);
             //check if engagement item is already in hash
             return data.then(function(result){
@@ -249,20 +343,9 @@ angular.module('service.engagements', [])
           });
         };
 
-        this.uncommit = function (category, categoryId, userId) {
-            var type = 'engagementsCommits';
-            //check if engagement item is already in hash
-            return updateEngagement(type, category, categoryId, userId, false);
-        };
-
-        this.accept = function (category, categoryId, userId) {
-            var type = 'engagementsAccepts';
-            //check if engagement item is already in hash
-            return updateEngagement(type, category, categoryId, userId, true);
-        };
-
-        this.reject = function (category, categoryId, userId) {
-            var type = 'engagementsAccepts';
+        this.decommit = function (category, categoryId, userId) {
+            var type = 'engagementCommits';
+            console.log('uncommit called');
             //check if engagement item is already in hash
             return updateEngagement(type, category, categoryId, userId, false);
         };

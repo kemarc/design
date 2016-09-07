@@ -31,7 +31,18 @@ angular.module('module.view.post', [])
 						console.log({totalLikes: totalLikes});
 						results.totalLikes = totalLikes;
 					});
-						$scope.post = results;
+
+					engagementService.totalComments('post', $stateParams.post).then(function(totalComments){
+						console.log({totalComments: totalComments});
+						results.totalComments = totalComments;
+						$scope.commentMode = !!totalComments;
+					});
+
+					engagementService.getCommentsDynamic('post', $stateParams.post, function(data){
+						console.log({added: data});
+					});
+
+					$scope.post = results;
 				});
 			}
 
@@ -87,5 +98,19 @@ angular.module('module.view.post', [])
                 post.commits.push({ name: $localStorage.userName, photo: $localStorage.userPhoto, publishedDate: new Date() });
             }
         };
+
+				$scope.createComment = function(category, categoryId,  commentText){
+					console.log({func:'createComment', category:category, categoryId: categoryId, comment: commentText});
+					return engagementService.createComment('event',categoryId, $localStorage.account.userId,commentText);
+				};
+
+
+				$scope.activateCommentMode = function(){
+					$scope.commentMode = true;
+				};
+
+				$scope.deactivateCommentMode = function(){
+					$scope.commentMode = false;
+				};
 
 });

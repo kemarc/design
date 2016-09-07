@@ -24,7 +24,7 @@
                     <div class="item item-image">
                         <img ng-src="{{post.image}}">
                         <span class="interact">
-                            <i class="icon ion-checkmark-round" ng-class="{'calm': value.commited, 'light': !value.commited }" ng-click="toggleCommit(key,userId)"> {{value.totalCommits}}</i>
+                            <i class="icon ion-checkmark-round" ng-class="{'calm': value.committed, 'light': !value.committed }" ng-click="toggleCommit(key,userId)"> {{value.totalCommits}}</i>
                             <i class="icon ion-heart" ng-class="{'calm': value.liked, 'light': !value.liked }" ng-click="toggleLike(key, userId)"> {{value.totalLikes}}</i>
                             <i class="icon ion-ios-chatbubble light"> {{post.comments.length}}</i>
                         </span>

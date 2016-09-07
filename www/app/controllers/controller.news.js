@@ -1,11 +1,19 @@
 angular.module('module.view.news', [])
-    .controller('newsCtrl', function ($scope, $rootScope, $state, postService, appService, $cordovaCamera, $localStorage, $ionicActionSheet, conversationService, $ionicSideMenuDelegate, $ionicPopover, engagementService) {
+    .controller('newsCtrl', function ($scope, $rootScope, $state, $cordovaCamera, $localStorage, $ionicActionSheet, $ionicSideMenuDelegate, $ionicPopover, engagementService, postService, appService, conversationService, appointmentsService) {
 
-        $scope.postService = postService;
-        window.postService = $scope.postService;
+        var publicServices = {
+            'post': true,
+            'engagement': true,
+            'appointments': true
+        }
 
-        $scope.engagementService = engagementService;
-        window.engagementService = $scope.engagementService;
+        //for dev purposes only. remove when done
+        for (var key in publicServices) {
+            if (publicServices[key]) {
+                $scope[key + 'Service'] = eval(key + 'Service');
+                window[key + 'Service'] = $scope[key + 'Service'];
+            }
+        }
 
         $scope.goBack = function (ui_sref) {
             var currentView = $ionicHistory.currentView();
@@ -72,8 +80,8 @@ angular.module('module.view.news', [])
             });
         };
 
-        $scope.createPost = function() {
-          $state.go('tabs.event');
+        $scope.createPost = function () {
+            $state.go('tabs.event');
         };
 
         $scope.gotoExplore = function () {
@@ -115,8 +123,8 @@ angular.module('module.view.news', [])
             var post = $scope.news.items[postId];
             var actionable = post.state.actionable;
             if(actionable){
-              post.commited = !post.commited;
-              var state = (post.commited)?'commit':'uncommit';
+              post.committed = !post.committed;
+              var state = (post.committed)?'commit':'decommit';
               return engagementService[state]('post', postId, $localStorage.account.userId);
             }
           }
@@ -129,15 +137,15 @@ angular.module('module.view.news', [])
 
         $ionicSideMenuDelegate.canDragContent(false);
 
-        $scope.delete = function(id){
-          return postService.delete(id);
+        $scope.delete = function (id) {
+            return postService.delete(id);
         };
 
-        $scope.update = function (data){
-          return postService.update(data);
+        $scope.update = function (data) {
+            return postService.update(data);
         };
 
-        $scope.event = function (){
+        $scope.event = function () {
 
             $state.go('tabs.event');
         };
@@ -155,26 +163,8 @@ angular.module('module.view.news', [])
             engagementService.liked('post', id, $localStorage.account.userId).then(function(liked){
               news.items[id].liked = liked;
             });
-            engagementService.totalLikes('post', id).then(function(totalLikes){
-              news.items[id].totalLikes = totalLikes;
-            });
-          }
-          //make it available to the directive to officially show/hide, toggle
-          $scope.news = news;
-        });
-
-        postService.getNews().then(function(results) {
-          //create a local object so we can create the datastructure we want
-          //so we can use it to show/hide, toggle ui items
-          var news = {
-              type: 'image',
-              items: results
-          };
-          for(var id in news.items){
-            //check to see if there is a like on this post
-            console.log({postId: engagementService.liked('post', id, $localStorage.account.userId)});
-            engagementService.commited('post', id, $localStorage.account.userId).then(function(commited){
-              news.items[id].commited = commited;
+            engagementService.committed('post', id, $localStorage.account.userId).then(function(committed){
+              news.items[id].committed = committed;
             });
             engagementService.totalCommits('post', id).then(function(totalCommits){
               news.items[id].totalCommits = totalCommits;
@@ -183,6 +173,7 @@ angular.module('module.view.news', [])
           //make it available to the directive to officially show/hide, toggle
           $scope.news = news;
         });
+
     });
 
 var newsTemplate =
