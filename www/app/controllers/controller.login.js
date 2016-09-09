@@ -1,5 +1,5 @@
 angular.module('module.view.login', [])
-  .controller('loginCtrl', function ($scope, $rootScope, $state, $ionicModal, postService, $ionicLoading, $timeout, $localStorage, Utils, $cordovaOauth, Popup, Social) {
+  .controller('loginCtrl', function ($scope, $rootScope, $state, $ionicModal, postService, $ionicLoading,$firebaseAuth, $timeout, $localStorage, Utils, $cordovaOauth, Popup, Social) {
     $scope.$on('$ionicView.enter', function () {
       //Clear the Login Form.
       $scope.user = {
@@ -45,22 +45,6 @@ angular.module('module.view.login', [])
         Utils.show();
         loginWithFirebase(user.email, user.password);
       }
-    };
-
-
-    $scope.loginWithGoogle = function () {
-      Utils.show();
-      //Login with Google token using the googleWebClientId from app.js
-      $cordovaOauth.google(Social.googleWebClientId, ["https://www.googleapis.com/auth/userinfo.email"]).then(function (response) {
-        var credential = firebase.auth.GoogleAuthProvider.credential(response.id_token,
-          response.access_token);
-        $localStorage.id_token = response.id_token;
-        $localStorage.access_token = response.access_token;
-        loginWithCredential(credential, 'Google');
-      }, function (error) {
-        //User cancelled login. Hide the loading modal.
-        Utils.hide();
-      });
     };
 
     //Function to login to Firebase using email and password.
@@ -110,20 +94,6 @@ angular.module('module.view.login', [])
         });
     };
 
-    //Function to login guests to Firebase. Note that each attempt inserts a new user in your Firebase Auth User with their own userId.
-    loginFirebaseGuest = function () {
-      firebase.auth().signInAnonymously()
-        .then(function (response) {
-          Utils.hide();
-          $localStorage.isGuest = true;
-          $state.go('tabs.news');
-        })
-        .catch(function (error) {
-          var errorCode = error.code;
-          showFirebaseLoginError(errorCode);
-        });
-    };
-
     //Check if the Social Login used already has an account on the Firebase Database. If not, the user is asked to complete a form.
     checkAndLoginAccount = function (response, provider, credential) {
       var userId = firebase.auth().currentUser.uid;
@@ -167,6 +137,30 @@ angular.module('module.view.login', [])
           break;
       }
     };
+
+    // var provider = new firebase.auth.GoogleAuthProvider();
+    // firebase.auth().signInWithRedirect(provider);
+    //
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //
+    //   if (result.credential) {
+    //     // This gives you a Google Access Token. You can use it to access the Google API.
+    //     var token = result.credential.accessToken;
+    //     // ...
+    //   }
+    //   // The signed-in user info.
+    //   var user = result.user;
+    //   $state.go('tabs.news');
+    // }).catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
 
     //Shows the error popup message when using the Social Login with Firebase.
     showSocialLoginError = function (errorCode) {
@@ -239,15 +233,6 @@ angular.module('module.view.login', [])
     };
     $scope.closeLogin = function () {
       $scope.modalLogin.hide();
-    };
-
-    $scope.googleSignIn = function () {
-
-      authService.googleSignIn();
-    };
-
-    $scope.googleSignOut = function () {
-      authService.googleSignOut;
     };
 
     // Forgot Password modal

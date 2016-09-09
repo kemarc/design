@@ -1,6 +1,6 @@
 <ion-modal-view hide-nav-bar="true"  class="auth">
-    
-    
+
+
     <ion-content scroll="false">
         <div ng-form="login_form" class="padding text-center"  name="loginForm" ng-submit="loginForm.$valid && login(user)" novalidate>
          <form novalidate name="loginForm" ng-submit="loginForm.$valid && login(user)">
@@ -18,10 +18,10 @@
             </form>
              <p class="">or login in with</p>
             <div class="button-bar">
-            <button class="button button-google icon ion-social-google-outline button-block waves-effect waves-light" ng-click="loginWithGoogle()" style="background-color: #F10707">  Sign in with Google</button>
+            <button class="button button-google icon ion-social-google-outline button-block waves-effect waves-light" ng-click="googleSignIn()" style="background-color: #F10707">  Sign in with Google</button>
             </div>
         </div>
-        
+
         <p class="padding-horizontal">
             <span class="balanced pull-left" ng-click="closeLogin();openForgot();">Forgot password</span>
             <span class="dark pull-right" ng-click="closeLogin()">Close</span>
