@@ -1,6 +1,7 @@
 angular.module('module.view.profile', [])
-	.controller('profileCtrl', function($scope,$rootScope,$state,postService,partnersService, $localStorage) {
-		
+	.controller('profileCtrl', function($scope,$rootScope,$state,postService,partnersService,userInterestService, $localStorage) {
+ 	userInterestService.createInterestList();
+
 		$scope.goBack = function (ui_sref) {
 	                    var currentView = $ionicHistory.currentView();
 	                    var backView = $ionicHistory.backView();
@@ -24,26 +25,26 @@ angular.module('module.view.profile', [])
             items: postService.getNews()
         }
 
-		
+
 		$scope.profile = $localStorage.account;
 
 		$scope.gotoMatch = function () {
                     $state.go('tabs.match');
-                   
+
         };
 
        $scope.gotoBrowse = function () {
                     $state.go('tabs.news');
-                   
+
         };
 
         $scope.gotoCoaches = function () {
                     $state.go('tabs.coach');
-           
+
         };
 
         $scope.contacts = partnersService.getContacts();
-				
+
 });
 
 

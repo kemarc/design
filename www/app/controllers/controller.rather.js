@@ -1,6 +1,8 @@
 angular.module('module.view.rather', [])
 	.controller('ratherCtrl', function($scope,$rootScope,$state,interestService,userInterestService) {
-    	$scope.goBack = function (ui_sref) {
+			interestService.createInterestList();
+
+			$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
                     var backView = $ionicHistory.backView();
                     if (backView) {
@@ -16,6 +18,7 @@ angular.module('module.view.rather', [])
                         $state.go(ui_sref);
                     }
                 }
+
 
         //   $scope.getInterest = function(id){
         //     return interestService.getInterest(id);

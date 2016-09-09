@@ -19,6 +19,9 @@ angular.module('service.interest', ['firebase'])
 	    for(var i = 0; i < interests.length; i++){
 	      data = {
 	           "displayName": interests[i],
+             "users": [
+               '-KPok87HRXv-p6_xbnEU'
+             ],
 	           "states": {
 	             "actionable": true,
 	             "read": true,
