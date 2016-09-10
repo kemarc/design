@@ -3,11 +3,6 @@ angular.module('service.interest', ['firebase'])
  	 this.createInterestList = function(userId){
 	    var data = {
 	           "displayName": "Baseball",
-	           "states": {
-	             "actionable": true,
-	             "read": true,
-	             "write": true
-	           }
 	    };
 
 	    var ref = firebase.database().ref('interest');
@@ -22,11 +17,6 @@ angular.module('service.interest', ['firebase'])
              "users": [
                '-KPok87HRXv-p6_xbnEU'
              ],
-	           "states": {
-	             "actionable": true,
-	             "read": true,
-	             "write": true
-	           }
 	      };
 	      key = ref.push().key;
 	      ref.child(key).update(data);
