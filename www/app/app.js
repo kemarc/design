@@ -1,23 +1,23 @@
 
 angular.module('full_starter', ['ionic','ngStorage', 'ionic.cloud', 'ngCordovaOauth', 'ngCordova', 'full_starter.controllers', 'full_starter.routes', 'full_starter.services', 'full_starter.directives','full_starter.factory'])
 
-  $ionicCloudProvider.init({
-    "core": {
-      "app_id": "e77285d3"
-    }
-    "push": {
-      "sender_id": "SENDER_ID",
-      "pluginConfig": {
-        "ios": {
-          "badge": true,
-          "sound": true
-        },
-        "android": {
-          "iconColor": "#343434"
-        }
-      }
-    }
-  });
+  // $ionicCloudProvider.init({
+  //   "core": {
+  //     "app_id": "e77285d3"
+  //   },
+  //   "push": {
+  //     "sender_id": "SENDER_ID",
+  //     "pluginConfig": {
+  //       "ios": {
+  //         "badge": true,
+  //         "sound": true
+  //       },
+  //       "android": {
+  //         "iconColor": "#343434"
+  //       }
+  //     }
+  //   }
+  // });
   //Constants for the Popup messages
   //For the icons, refer to http://ionicons.com for all icons.
   //Here you can edit the success and error messages on the popups.
@@ -78,8 +78,8 @@ angular.module('full_starter', ['ionic','ngStorage', 'ionic.cloud', 'ngCordovaOa
       }
 
       $scope.$on('cloud:push:notification', function(event, data) {
-  var msg = data.message;
-  alert(msg.title + ': ' + msg.text);
-});
+        var msg = data.message;
+        alert(msg.title + ': ' + msg.text);
+      });
     });
   })

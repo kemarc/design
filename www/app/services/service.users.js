@@ -12,4 +12,31 @@ angular.module('service.users', [])
          });
    };
 
+   this.createNotifications = function(userId){
+	    var data = {
+	           "displayName": "Baseball",
+             "deviceToken": {
+
+             }
+	    };
+
+	    var ref = firebase.database().ref('account');
+
+	    var key;
+
+	    var interests = ['Baseball', 'Boxing','Basketball','Climbing','Cycling','Dance','Football','Golf','Jumping',
+	              'Paintball','Pool','Skate','Soccer','Tennis','Weight Lifting', 'Yoga'];
+	    for(var i = 0; i < interests.length; i++){
+	      data = {
+	           "displayName": interests[i],
+             "users": [
+               '-KPok87HRXv-p6_xbnEU'
+             ],
+	      };
+	      key = ref.push().key;
+	      ref.child(key).update(data);
+    }
+	    return;
+	  };
+
 });
