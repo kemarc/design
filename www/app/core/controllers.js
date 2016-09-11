@@ -49,8 +49,7 @@
         'module.view.editReminder',
         'module.view.remind',
         'module.view.editEvent',
-        'module.view.forgot',
-        'ionic.cloud'
+        'module.view.forgot'
     ])
 
         .controller('appCtrl', function ($rootScope, $state, $scope, $stateParams, appService, $ionicHistory, $ionicPopover, $ionicPopup, $ionicModal,
