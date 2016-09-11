@@ -1,5 +1,5 @@
 angular.module('module.view.news', [])
-    .controller('newsCtrl', function ($scope, $rootScope, $state, $cordovaCamera, $localStorage, $ionicActionSheet, $ionicSideMenuDelegate, $ionicPopover, engagementService, postService, appService, conversationService, appointmentsService) {
+    .controller('newsCtrl', function ($scope, $rootScope, $state, $cordovaCamera, $localStorage, $ionicActionSheet, $ionicSideMenuDelegate, $ionicPopover, engagementsService, postService, appService, conversationService, appointmentsService) {
 
         var publicServices = {
             'post': true,
@@ -111,7 +111,7 @@ angular.module('module.view.news', [])
             if(actionable){
               post.liked = !post.liked;
               var state = (post.liked)?'like':'unlike';
-              return engagementService[state]('post', postId, $localStorage.account.userId);
+              return engagementsService[state]('post', postId, $localStorage.account.userId);
             }
           }
             return false;
@@ -125,7 +125,7 @@ angular.module('module.view.news', [])
             if(actionable){
               post.committed = !post.committed;
               var state = (post.committed)?'commit':'decommit';
-              return engagementService[state]('post', postId, $localStorage.account.userId);
+              return engagementsService[state]('post', postId, $localStorage.account.userId);
             }
           }
             return false;
@@ -159,14 +159,14 @@ angular.module('module.view.news', [])
           };
           for(var id in news.items){
             //check to see if there is a like on this post
-            console.log({postId: engagementService.liked('post', id, $localStorage.account.userId)});
-            engagementService.liked('post', id, $localStorage.account.userId).then(function(liked){
+            console.log({postId: engagementsService.liked('post', id, $localStorage.account.userId)});
+            engagementsService.liked('post', id, $localStorage.account.userId).then(function(liked){
               news.items[id].liked = liked;
             });
-            engagementService.committed('post', id, $localStorage.account.userId).then(function(committed){
+            engagementsService.committed('post', id, $localStorage.account.userId).then(function(committed){
               news.items[id].committed = committed;
             });
-            engagementService.totalCommits('post', id).then(function(totalCommits){
+            engagementsService.totalCommits('post', id).then(function(totalCommits){
               news.items[id].totalCommits = totalCommits;
             });
           }

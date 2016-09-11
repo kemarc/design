@@ -1,5 +1,5 @@
 angular.module('service.engagements', [])
-    .service('engagementService', function () {
+    .service('engagementsService', function () {
         //check if user has already engaged with this item
         var get = function(type, category, categoryId, itemId){
           var arr = [type, category, categoryId, itemId];
