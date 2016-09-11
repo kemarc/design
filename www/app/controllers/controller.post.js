@@ -1,53 +1,53 @@
 angular.module('module.view.post', [])
-	.controller('postCtrl', function($scope,$rootScope,$state,postService,$localStorage, $cordovaSocialSharing, $ionicHistory,$ionicPopup,$cordovaSocialSharing,postService,engagementService,$stateParams) {
-		console.log($stateParams);
+    .controller('postCtrl', function ($scope, $rootScope, $state, $localStorage, $ionicHistory, $ionicPopup, $cordovaSocialSharing, $stateParams, postService, engagementsService) {
+        console.log($stateParams);
 
-		$scope.postId = $stateParams.post;
-		$scope.goBack = function (ui_sref) {
-                    var currentView = $ionicHistory.currentView();
-                    var backView = $ionicHistory.backView();
+        $scope.postId = $stateParams.post;
+        $scope.goBack = function (ui_sref) {
+            var currentView = $ionicHistory.currentView();
+            var backView = $ionicHistory.backView();
 
-                    if (backView) {
-                        //there is a back view, go to it
-                        if (currentView.stateName == backView.stateName) {
-                            //if not works try to go doubleBack
-                            var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
-                            $state.go(doubleBackView.stateName, doubleBackView.stateParams);
-                        } else {
-                            backView.go();
-                        }
-                    } else {
-                        $state.go(ui_sref);
-                    }
+            if (backView) {
+                //there is a back view, go to it
+                if (currentView.stateName == backView.stateName) {
+                    //if not works try to go doubleBack
+                    var doubleBackView = $ionicHistory.getViewById(backView.backViewId);
+                    $state.go(doubleBackView.stateName, doubleBackView.stateParams);
+                } else {
+                    backView.go();
+                }
+            } else {
+                $state.go(ui_sref);
+            }
         };
 
-			$scope.event = function () {
-				$state.go('tabs.event');
-			}
+        $scope.event = function () {
+            $state.go('tabs.event');
+        }
 
-			if($stateParams.post){
-				postService.get($stateParams.post).then(function(results) {
-					engagementService.totalLikes('post', $stateParams.post).then(function(totalLikes){
-						console.log({totalLikes: totalLikes});
-						results.totalLikes = totalLikes;
-					});
+        if ($stateParams.post) {
+            postService.get($stateParams.post).then(function (results) {
+                engagementsService.totalLikes('post', $stateParams.post).then(function (totalLikes) {
+                    console.log({ totalLikes: totalLikes });
+                    results.totalLikes = totalLikes;
+                });
 
-					engagementService.totalComments('post', $stateParams.post).then(function(totalComments){
-						console.log({totalComments: totalComments});
-						results.totalComments = totalComments;
-						$scope.commentMode = !!totalComments;
-					});
+                engagementsService.totalComments('post', $stateParams.post).then(function (totalComments) {
+                    console.log({ totalComments: totalComments });
+                    results.totalComments = totalComments;
+                    $scope.commentMode = !!totalComments;
+                });
 
-					engagementService.getCommentsDynamic('post', $stateParams.post, function(data){
-						console.log({added: data});
-					});
+                engagementsService.getCommentsDynamic('post', $stateParams.post, function (data) {
+                    console.log({ added: data });
+                });
 
-					$scope.post = results;
-				});
-			}
+                $scope.post = results;
+            });
+        }
 
-		if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
-                    $stateParams.post === null ? $scope.post = postService.getPost() : $scope.post = $stateParams.post;
+        if ($state.is('tabs.post-detail') || $state.is('tabs.commits') || $state.is('tabs.comments') || $state.is('tabs.likes')) {
+            $stateParams.post === null ? $scope.post = postService.getPost() : $scope.post = $stateParams.post;
         }
 
         $scope.share = function (post) {
@@ -61,23 +61,23 @@ angular.module('module.view.post', [])
             }, false);
         }
 
-		$scope.showConfirm = function() {
+        $scope.showConfirm = function () {
             var confirmPopup = $ionicPopup.confirm({
-               title: 'Report Post',
-               template: ' Are you sure you want to report this post?'
-             });
-             confirmPopup.then(function(res) {
-               if(res) {
-               } else {
-               }
-             });
+                title: 'Report Post',
+                template: ' Are you sure you want to report this post?'
+            });
+            confirmPopup.then(function (res) {
+                if (res) {
+                } else {
+                }
+            });
         };
 
-        $scope.gotoFriend = function(){
-        	$state.go('tabs.friend');
+        $scope.gotoFriend = function () {
+            $state.go('tabs.friend');
         }
 
-       $scope.like = function (post) {
+        $scope.like = function (post) {
             post.likes === undefined ? post.likes = [] : null;
             if ($scope.liked == true) {
                 $scope.liked = false;
@@ -99,18 +99,18 @@ angular.module('module.view.post', [])
             }
         };
 
-				$scope.createComment = function(category, categoryId,  commentText){
-					console.log({func:'createComment', category:category, categoryId: categoryId, comment: commentText});
-					return engagementService.createComment('event',categoryId, $localStorage.account.userId,commentText);
-				};
+        $scope.createComment = function (category, categoryId, commentText) {
+            console.log({ func: 'createComment', category: category, categoryId: categoryId, comment: commentText });
+            return engagementsService.createComment('event', categoryId, $localStorage.account.userId, commentText);
+        };
 
 
-				$scope.activateCommentMode = function(){
-					$scope.commentMode = true;
-				};
+        $scope.activateCommentMode = function () {
+            $scope.commentMode = true;
+        };
 
-				$scope.deactivateCommentMode = function(){
-					$scope.commentMode = false;
-				};
+        $scope.deactivateCommentMode = function () {
+            $scope.commentMode = false;
+        };
 
-});
+    });

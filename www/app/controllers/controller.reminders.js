@@ -1,5 +1,5 @@
 angular.module('module.view.reminders', [])
-    .controller('remindersCtrl', function ($scope, $rootScope, $state,  $ionicPopover, $ionicModal, engagementService, appService) {
+    .controller('remindersCtrl', function ($scope, $rootScope, $state,  $ionicPopover, $ionicModal, engagementsService, appService) {
         $scope.goBack = function (ui_sref) {
             var currentView = $ionicHistory.currentView();
             var backView = $ionicHistory.backView();
@@ -83,7 +83,7 @@ angular.module('module.view.reminders', [])
                     $rootScope.notifications.splice($rootScope.notifications.indexOf(_.find($rootScope.notifications, function (obj) { return obj == $stateParams.reminder })), 1, $scope.reminder);
                 }
             } else {
-                engagementService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
+                engagementsService.showAlert('Form Invalid', '<p class="text-center">A title and start date is required</p>', 'Ok', 'button-assertive', null);
             }
 
         }

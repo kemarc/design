@@ -1,5 +1,5 @@
 angular.module('module.view.likes', [])
-	.controller('likesCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory,usersService) {
+	.controller('likesCtrl', function($scope,$rootScope,$state,$localStorage,$stateParams,postService,$ionicHistory,usersService, engagementsService) {
 				$scope.profile = $localStorage.account;
 				$scope.goBack = function (ui_sref) {
                     var currentView = $ionicHistory.currentView();
@@ -22,7 +22,7 @@ angular.module('module.view.likes', [])
 
 								if($stateParams.post){
 									console.log($stateParams);
-								engagementService.likes('post', $stateParams.post).then(function(results) {
+								engagementsService.likes('post', $stateParams.post).then(function(results) {
 									  var likers = results;
 										for(var id in likers){
 											usersService.get(id).then(function(user){
