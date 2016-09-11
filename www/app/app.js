@@ -1,5 +1,5 @@
 
-angular.module('full_starter', ['ionic','ngStorage', 'ionic.cloud', 'ngCordovaOauth', 'ngCordova', 'full_starter.controllers', 'full_starter.routes', 'full_starter.services', 'full_starter.directives','full_starter.factory'])
+angular.module('full_starter', ['ionic','ngStorage', 'ngCordovaOauth', 'ngCordova', 'full_starter.controllers', 'full_starter.routes', 'full_starter.services', 'full_starter.directives','full_starter.factory'])
 
   // $ionicCloudProvider.init({
   //   "core": {
@@ -77,9 +77,9 @@ angular.module('full_starter', ['ionic','ngStorage', 'ionic.cloud', 'ngCordovaOa
         StatusBar.styleDefault();
       }
 
-      $scope.$on('cloud:push:notification', function(event, data) {
+      /*$scope.$on('cloud:push:notification', function(event, data) {
         var msg = data.message;
         alert(msg.title + ': ' + msg.text);
-      });
+      });*/
     });
   })
