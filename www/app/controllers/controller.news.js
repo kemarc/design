@@ -3,7 +3,7 @@ angular.module('module.view.news', [])
 
         var publicServices = {
             'post': true,
-            'engagement': true,
+            'engagements': true,
             'appointments': true
         }
 
